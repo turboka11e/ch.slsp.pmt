@@ -30,10 +30,14 @@ class SubmissionController extends AbstractController
 
         $submission->setUserId($this->getUser());
       
-        $submission->setCreated(new DateTime('now'));
-        $submission->setUpdated(new DateTime('now'));
+        $submission->setFormType('WorkingHours');
+
         $today = new DateTime('now');
-        $submission->setSubmissionMonth($today->modify('next month'));
+        $nextMonth = new DateTime('first day of next month');
+        
+        $submission->setCreated($today);
+        $submission->setUpdated($today);
+        $submission->setSubmissionMonth($nextMonth);
 
         $form = $this->createForm(SubmissionFormType::class, $submission);
 
