@@ -31,15 +31,15 @@
 						</div>
 					</div>
 					
-					<div class="row row-cols-2 d-flex">
-						<div class="col d-flex justify-content-start">
-							<button class="mt-3 btn btn-success shadow-sm" type="submit">Sign in</button>
+					<div class="row row-cols-auto d-flex justify-content-between">
+						<div class="mt-3 col-auto">
+							<button class="btn btn-success shadow-sm" type="submit">Sign in</button>
+							<a class="ms-2 align-self-center text-secondary " href="{{ path('app_forgot_password_request') }}">Forgot password?</a>
 						</div>
-						<div class="col d-flex justify-content-end">
+						<div class="col-auto">
 							<a class="mt-3 btn btn-outline-secondary" href="register">Register</a>
 						</div>
 					</div>
-					
 					<input
 					type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 					
