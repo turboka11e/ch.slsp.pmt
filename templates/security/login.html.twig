@@ -8,32 +8,44 @@
 				<img src="{{ asset('images/SLSP_Logo.svg') }}" class="img-fluid" style="width: 100px; height: 100px; pointer-events: none" alt="SLSP Logo">
 			</div>
 			<div class="mb-3 col-sm-6 border rounded-3 bg-white shadow-lg">
-				{% if error %}
-					<div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-				{% endif %}
 
-				<form class="p-3" action="{{ path('login') }}" method="post">
+				<form class="p-3 needs-validation" action="{{ path('login') }}" method="post">
 					<div class="row row-cols-1 g-1">
 						<div class="col d-flex justify-content-center">
 							<h4>Planning Management Tool</h3>
 						</div>
 						<div class="col">
 							<label for="username" class="col-form-label text-secondary">Email</label>
-							<input type="email" class="form-control shadow-sm" id="username" name="_username" value="{{ last_username }}"/>
+							<input type="email" class="form-control shadow-sm" id="username" name="_username" value="{{ last_username }}" required/>
 						</div>
 						<div class="col">
 							<label for="password" class="col-form-label text-secondary">Password</label>
-							<input type="password" class="form-control shadow-sm" id="password" name="_password"/>
+							<input type="password" class="form-control shadow-sm" id="password" name="_password"/ required>
+
+							{% if error %}
+							<label for="password" class="col-form-label text-danger">
+								{{ error.messageKey|trans(error.messageData, 'security') }}
+							</label>
+							{% endif %}
+							
 						</div>
 					</div>
-					<button class="mt-3 btn btn-outline-success" type="submit">Sign in</button>
-
+					
+					<div class="row row-cols-2 d-flex">
+						<div class="col d-flex justify-content-start">
+							<button class="mt-3 btn btn-success shadow-sm" type="submit">Sign in</button>
+						</div>
+						<div class="col d-flex justify-content-end">
+							<a class="mt-3 btn btn-outline-secondary" href="register">Register</a>
+						</div>
+					</div>
+					
 					<input
 					type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-				{# If you want to control the URL the user is redirected to on success
+					
+					{# If you want to control the URL the user is redirected to on success
 						<input type="hidden" name="_target_path" value="/account"/> #}
-				</form>
+					</form>
 			</div>
 		</div>
 	</div>

@@ -10,3 +10,26 @@ import './styles/app.css';
 
 // start the Stimulus application
 import './bootstrap';
+
+
+// Use this jquery to sum two operands
+$(".op").on("keyup change", function(){
+    var value1 = document.getElementById('fname').value;
+    var value2 = document.getElementById('lname').value;
+    var sum = filterInt(value1) + filterInt(value2);
+    if(isNaN(sum)) {
+        document.getElementById('rname').value = "Error";
+    } else {
+        document.getElementById('rname').value = sum;
+    }
+});
+
+// qualify integer
+function filterInt(value) {
+    if(value.length == 0) {
+        return 0;
+    }
+    if(/^(\-|\+)?([0-9]+|Infinity)$/.test(value))
+      return Number(value);
+    return NaN;
+}
