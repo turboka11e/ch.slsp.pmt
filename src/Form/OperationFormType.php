@@ -10,10 +10,13 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\ChoiceList\ChoiceList;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Choice;
 
 class OperationFormType extends AbstractType
 {
@@ -26,10 +29,14 @@ class OperationFormType extends AbstractType
                 'choice_value' => 'Category',
             ])
             ->add('Description')
-            ->add('Hours')
-            ->add('Priority')
+            ->add('Hours', IntegerType::class)
+            ->add('Priority', ChoiceType::class, [
+                'choices' => ['Low' => 'Low', 'Medium' => 'Medium', 'High' => 'High']
+            ])
             // ->add('WorkResults')
-            ->add('Status')
+            ->add('Status', ChoiceType::class, [
+                'choices' => ['Cont.' => 'Continuing', 'Hold' => 'Hold', 'Done' => 'Done']
+            ])
             // ->add('SubmissionId')
         ;
 

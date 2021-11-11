@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'nav.base.html.twig' %}
 {% form_theme form 'bootstrap_5_horizontal_layout.html.twig' %}
 {% import _self as formMacros %}
 
@@ -6,8 +6,8 @@
 
 <tr>
 	<td>{{ form_widget(operations.Category) }}</td>
-	<td>{{ form_widget(operations.Hours) }}</td>
 	<td>{{ form_widget(operations.Description) }}</td>
+	<td>{{ form_widget(operations.Hours) }}</td>
 	<td>{{ form_widget(operations.Priority) }}</td>
 	<td>{{ form_widget(operations.Status) }}</td>
 </tr>
@@ -40,7 +40,7 @@
 {% block title %}New Submission
 {% endblock %}
 
-{% block body %}
+{% block content %}
 
 	{{ form_start(form) }}
 	{{ form_errors(form) }}
@@ -52,8 +52,8 @@
 			<thead>
 				<tr>
 					<th class="col" scope="col">Category</th>
-					<th class="col" scope="col">Hours</th>
 					<th class="col" scope="col">Description</th>
+					<th class="col" scope="col">Hours</th>
 					<th class="col" scope="col">Priority</th>
 					<th class="col" scope="col">Status</th>
 				</tr>

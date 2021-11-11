@@ -7,6 +7,8 @@ use App\Entity\ProjectChoice;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -20,11 +22,15 @@ class ProjectFormType extends AbstractType
                 'choice_label' => 'Project',
             ])
             ->add('Description')
-            ->add('TargetHours')
+            ->add('TargetHours', IntegerType::class)
             // ->add('ActualHours')
-            ->add('Priority')
+            ->add('Priority', ChoiceType::class, [
+                'choices' => ['Low' => 'Low', 'Medium' => 'Medium', 'High' => 'High']
+            ])
             // ->add('WorkResults')
-            ->add('Status')
+            ->add('Status', ChoiceType::class, [
+                'choices' => ['Cont.' => 'Continuing', 'Hold' => 'Hold', 'Done' => 'Done']
+            ])
             // ->add('SubmissionId')
         ;
 

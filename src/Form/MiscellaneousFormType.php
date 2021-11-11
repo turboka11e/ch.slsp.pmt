@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Miscellaneous;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,7 +15,7 @@ class MiscellaneousFormType extends AbstractType
         $builder
             ->add('Task')
             ->add('Description')
-            ->add('TargetHours')
+            ->add('TargetHours', IntegerType::class)
             ->add('Comment')
             // ->add('SubmissionId')
         ;

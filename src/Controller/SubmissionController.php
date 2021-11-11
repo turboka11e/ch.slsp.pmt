@@ -27,6 +27,7 @@ class SubmissionController extends AbstractController
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
 
+
         $submission = new Submission();
         $submission->setUserId($this->getUser());
         $submission->setFormType('WorkingHours');
@@ -46,9 +47,6 @@ class SubmissionController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->addFlash('success', 
-                'Form was successfully saved!'
-            );
             $submission = $task->getSubmission();
             $entityManager->persist($submission);
 
@@ -67,6 +65,10 @@ class SubmissionController extends AbstractController
 
             $entityManager->flush();
 
+            $this->addFlash('success', 
+                'Form was successfully saved!'
+            );
+            return $this->redirect('home');
         }
 
         return $this->render('submission/index.html.twig', [
