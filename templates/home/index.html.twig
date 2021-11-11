@@ -4,17 +4,51 @@
 
 {% block content %}
 
-<h1>Hello, {{ app.user.name }}</h1>
+	<div class="mt-3 p-3 container-xl bg-white shadow-sm">
+			<h1>Hello,
+				{{ app.user.name }}</h1>
 
-<form>
-    <label for="fname">Operand 1:</label><br>
-    <input type="text" id="fname" class="op" name="fname" value=""><br>
-    <label for="lname">Operand 2:</label><br>
-    <input type="text" id="lname" class="op" name="lname" value=""><br><br>
-    <label for="rname">Result</label><br>
-    <input type="text" id="rname"name="rname" value=""><br><br>
-</form> 
-
-<a type="button" class="btn btn-primary" href="submission">Submission</a>
+			<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quae, nesciunt laudantium ratione fugiat dignissimos provident exercitationem ipsum quisquam dolor necessitatibus distinctio quod. Earum dolorem ut veritatis perspiciatis nihil pariatur repellat, delectus a commodi asperiores dolorum accusantium dolore modi in vero! In natus earum, amet mollitia maxime voluptates voluptas rem eveniet obcaecati, repellendus ratione cupiditate esse harum quae neque. Mollitia sed deleniti sapiente voluptatum ipsam, eveniet labore exercitationem dignissimos velit esse molestiae accusamus et deserunt. Accusamus eligendi quod, distinctio sit debitis ullam voluptate qui quo tempora omnis est animi hic. Eius possimus atque magni perspiciatis, mollitia error vero? Repudiandae, iure magnam.</p>
+	</div>
+	<div class="my-5">
+		<div class="row row-cols-2 g-3 justify-content-center">
+			<div class="col-md-3">
+				<div class="card text-center shadow-sm">
+					<div class="card-body flex-column">
+						<h5 class="card-title">New submission</h5>
+						<p class="card-text">Create a new submission for next month.</p>
+						<a href="submission" class="btn btn-success">New</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="card text-center shadow-sm">
+					<div class="card-body flex-column">
+						<h5 class="card-title">Edit entry</h5>
+						<p class="card-text">Edit entry from this month.</p>
+						<a href="#" class="btn btn-secondary">Edit</a>
+					</div>
+				</div>
+			</div>
+			{# <div class="col-md-3">
+			                <div class="card text-center">
+			                  <div class="card-body d-flex flex-column">
+			                    <h5 class="card-title">Auswertung</h5>
+			                    <p class="card-text">Hier klicken für die Auswertung der einzelnen Monate</p>
+			                    <a href="#" class="btn btn-info mt-auto ">Auswertung</a>
+			                  </div>
+			                </div>
+			              </div>
+			            <div class="col-md-3">
+			              <div class="card text-center">
+			                <div class="card-body d-flex flex-column">
+			                  <h5 class="card-title">Einstellungen</h5>
+			                  <p class="card-text">Hier klicken für Formular-Einstellungen</p>
+			                  <a href="categories" class="btn btn-info mt-auto ">Einstellen</a>
+			                </div>
+			              </div>
+			            </div> #}
+		</div>
+	</div>
 
 {% endblock %}

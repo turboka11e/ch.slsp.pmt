@@ -13,16 +13,48 @@ import './bootstrap';
 
 
 // Use this jquery to sum two operands
-$(".op").on("keyup change", function () {
-    var value1 = document.getElementById('fname').value;
-    var value2 = document.getElementById('lname').value;
-    var sum = filterInt(value1) + filterInt(value2);
+$('body').on("keyup change", '.opHour', function () {
+    var sum = 0;
+    $(".opHour").each(function(index) {
+        var text = $( this ).val();
+        sum += Number(text);
+    });
+
     if (isNaN(sum)) {
-        document.getElementById('rname').value = "Error";
+        document.getElementById('opHourSum').value = "Error";
     } else {
-        document.getElementById('rname').value = sum;
+        document.getElementById('opHourSum').value = sum
     }
 });
+
+$('body').on("keyup change", '.projectHour', function () {
+    var sum = 0;
+    $(".projectHour").each(function(index) {
+        var text = $( this ).val();
+        sum += Number(text);
+    });
+
+    if (isNaN(sum)) {
+        document.getElementById('projectHourSum').value = "Error";
+    } else {
+        document.getElementById('projectHourSum').value = sum
+    }
+});
+
+$('body').on("keyup change", '.miscHour', function () {
+    var sum = 0;
+    $(".miscHour").each(function(index) {
+        var text = $( this ).val();
+        sum += Number(text);
+    });
+
+    if (isNaN(sum)) {
+        document.getElementById('miscHourSum').value = "Error";
+    } else {
+        document.getElementById('miscHourSum').value = sum
+    }
+});
+
 
 // qualify integer
 function filterInt(value) {
@@ -44,6 +76,7 @@ const addFormToCollection = (e) => {
     collectionHolder.appendChild(item);
 
     collectionHolder.dataset.index++;
+    
 };
 
 document.querySelectorAll('.add_item_link').forEach(btn => btn.addEventListener("click", addFormToCollection));
