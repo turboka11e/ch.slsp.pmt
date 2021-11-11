@@ -75,7 +75,6 @@ function filterInt(value) {
 
 const addOperationFormDeleteLink = (operationFormLi) => {
     const removeFormTd = document.createElement('td')
-    removeFormTd.classList = 'd-flex align-items-center'
 
     const removeFormButton = document.createElement('button')
 
