@@ -13,11 +13,11 @@ import './bootstrap';
 
 
 // Use this jquery to sum two operands
-$(".op").on("keyup change", function(){
+$(".op").on("keyup change", function () {
     var value1 = document.getElementById('fname').value;
     var value2 = document.getElementById('lname').value;
     var sum = filterInt(value1) + filterInt(value2);
-    if(isNaN(sum)) {
+    if (isNaN(sum)) {
         document.getElementById('rname').value = "Error";
     } else {
         document.getElementById('rname').value = sum;
@@ -26,10 +26,24 @@ $(".op").on("keyup change", function(){
 
 // qualify integer
 function filterInt(value) {
-    if(value.length == 0) {
+    if (value.length == 0) {
         return 0;
     }
-    if(/^(\-|\+)?([0-9]+|Infinity)$/.test(value))
-      return Number(value);
+    if (/^(\-|\+)?([0-9]+|Infinity)$/.test(value))
+        return Number(value);
     return NaN;
 }
+
+const addFormToCollection = (e) => {
+    const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+
+    const item = document.createElement('tr');
+
+    item.innerHTML = collectionHolder.dataset.prototype.replace(/__name__/g, collectionHolder.dataset.index);
+
+    collectionHolder.appendChild(item);
+
+    collectionHolder.dataset.index++;
+};
+
+document.querySelectorAll('.add_item_link').forEach(btn => btn.addEventListener("click", addFormToCollection));

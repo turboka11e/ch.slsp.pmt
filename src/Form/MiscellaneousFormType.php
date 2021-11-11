@@ -2,26 +2,28 @@
 
 namespace App\Form;
 
-use App\Entity\Submission;
+use App\Entity\Miscellaneous;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SubmissionFormType extends AbstractType
+class MiscellaneousFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            // ->add('FormType')
-            ->add('Workdays')
-            // ->add('UserId')
+            ->add('Task')
+            ->add('Description')
+            ->add('TargetHours')
+            ->add('Comment')
+            // ->add('SubmissionId')
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Submission::class,
+            'data_class' => Miscellaneous::class,
         ]);
     }
 }

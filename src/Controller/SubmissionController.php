@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\CategoryChoice;
+use App\Entity\ProjectChoice;
 use App\Entity\Submission;
-use App\Form\SubmissionFormType;
+use App\Entity\SubmissionTask;
+use App\Form\SubmissionTaskFormType;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,27 +27,44 @@ class SubmissionController extends AbstractController
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
 
-        $categoryChoices = $this->getDoctrine()->getRepository(CategoryChoice::class)->findAll();
         $submission = new Submission();
-
         $submission->setUserId($this->getUser());
-      
         $submission->setFormType('WorkingHours');
 
         $today = new DateTime('now');
         $nextMonth = new DateTime('first day of next month');
-        
+
         $submission->setCreated($today);
         $submission->setUpdated($today);
         $submission->setSubmissionMonth($nextMonth);
 
-        $form = $this->createForm(SubmissionFormType::class, $submission);
+
+        $task = new SubmissionTask($submission);
+
+        $form = $this->createForm(SubmissionTaskFormType::class, $task);
 
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
-
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->addFlash('success', 
+                'Form was successfully saved!'
+            );
+            $submission = $task->getSubmission();
             $entityManager->persist($submission);
+
+            foreach ($task->getOperations() as $op) {
+                $op->setSubmissionId($submission);
+                $entityManager->persist($op);
+            }
+            foreach ($task->getProjects() as $project) {
+                $project->setSubmissionId($submission);
+                $entityManager->persist($project);
+            }
+            foreach ($task->getMiscellaneous() as $misc) {
+                $misc->setSubmissionId($submission);
+                $entityManager->persist($misc);
+            }
+
             $entityManager->flush();
 
         }
