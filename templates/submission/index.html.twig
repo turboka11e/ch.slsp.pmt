@@ -83,7 +83,7 @@
 					</tfoot>
 				</table>
 			</div>
-	
+
 			{# Projects Table #}
 			<div class="p-3 border rounded-3" style="background-color: #fcfcfc;">
 				<h3>Projects</h3>
@@ -95,6 +95,7 @@
 							<th class="col-1" scope="col">Target Hours</th>
 							<th class="col-1" scope="col">Priority</th>
 							<th class="col-1" scope="col">Status</th>
+							<th class="col-1" scope="col"></th>
 						</tr>
 					</thead>
 					<tbody class="projects" data-index="{{ form.projects|length > 0 ? form.projects|last.vars.name + 1 : 0 }}" data-prototype="{{ formMacros.printProject(form.projects.vars.prototype)|e('html_attr') }}">
@@ -107,22 +108,25 @@
 							<td><input class="form-control" id="projectHourSum" type="text" value="0" disabled readonly></td>
 							<td></td>
 							<td></td>
+							<td>
+								<button type="button" class="btn btn-success bg-success; add_item_link" data-collection-holder-class="projects">+</button>
+							</td>
 						</tr>
 					</tfoot>
 				</table>
-				<button type="button" class="btn btn-success btn-sm bg-light; add_item_link" data-collection-holder-class="projects">Add Project</button>
 			</div>
-	
+
 			{# Miscellaneous Table #}
 			<div class="p-3 border rounded-3" style="background-color: #fcfcfc;">
 				<h3>Others</h3>
 				<table class="table">
 					<thead>
 						<tr>
-							<th class="col" scope="col">Task</th>
-							<th class="col" scope="col">Description</th>
+							<th class="col-3" scope="col">Task</th>
+							<th class="col-4" scope="col">Description</th>
 							<th class="col-1" scope="col">Target Hours</th>
-							<th class="col" scope="col">Comment</th>
+							<th class="col-4" scope="col">Comment</th>
+							<th class="col-1" scope="col"></th>
 						</tr>
 					</thead>
 					<tbody class="miscellaneous" data-index="{{ form.miscellaneous|length > 0 ? form.miscellaneous|last.vars.name + 1 : 0 }}" data-prototype="{{ formMacros.printMisc(form.miscellaneous.vars.prototype)|e('html_attr') }}">
@@ -134,10 +138,12 @@
 							<td></td>
 							<td><input class="form-control" id="miscHourSum" type="text" value="0" disabled readonly></td>
 							<td></td>
+							<td>
+								<button type="button" class="btn btn-success bg-success; add_item_link" data-collection-holder-class="miscellaneous">+</button>
+							</td>
 						</tr>
 					</tfoot>
 				</table>
-				<button type="button" class="btn btn-success btn-sm bg-light; add_item_link" data-collection-holder-class="miscellaneous">Add Other</button>
 			</div>
 		</div>
 
