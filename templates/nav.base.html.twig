@@ -46,6 +46,14 @@
 			</div>
 		{% endfor %}
 
+		{% for message in app.flashes('error') %}
+			<div class="mt-3 container-xl">
+				<div class="alert alert-warning text-center">
+					{{ message }}
+				</div>
+			</div>
+		{% endfor %}
+
 
 		{% block content %}{% endblock %}
 

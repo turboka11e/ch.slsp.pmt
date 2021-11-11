@@ -27,6 +27,10 @@ class SubmissionController extends AbstractController
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
 
+        // $this->addFlash('error', 
+        // 'Form has already been submitted for next month.'
+        // );
+        // return $this->redirect('home');
 
         $submission = new Submission();
         $submission->setUserId($this->getUser());
@@ -72,6 +76,8 @@ class SubmissionController extends AbstractController
         }
 
         return $this->render('submission/index.html.twig', [
+            'today' => $today,
+            'nextMonth' => $nextMonth,
             'form' => $form->createView(),
             'csrf_protection' => true,
             'csrf_field_name' => '_token',
