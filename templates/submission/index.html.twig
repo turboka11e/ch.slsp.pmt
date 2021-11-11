@@ -61,6 +61,7 @@
 							<th class="col-1" scope="col">Hours</th>
 							<th class="col-1" scope="col">Priority</th>
 							<th class="col-1" scope="col">Status</th>
+							<th class="col-1" scope="col"></th>
 						</tr>
 					</thead>
 					<tbody class="operations" data-index="{{ form.operations|length > 0 ? form.operations|last.vars.name + 1 : 0 }}" data-prototype="{{ formMacros.printOperation(form.operations.vars.prototype)|e('html_attr') }}">
@@ -75,10 +76,12 @@
 							</td>
 							<td></td>
 							<td></td>
+							<td>
+								<button type="button" class="btn btn-success bg-success; add_item_link" data-collection-holder-class="operations">+</button>
+							</td>
 						</tr>
 					</tfoot>
 				</table>
-				<button type="button" class="btn btn-success btn-sm bg-light; add_item_link" data-collection-holder-class="operations">Add Operation</button>
 			</div>
 	
 			{# Projects Table #}

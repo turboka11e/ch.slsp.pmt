@@ -20,18 +20,21 @@ class SubmissionTaskFormType extends AbstractType
                 'entry_type' => OperationFormType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
+                'allow_delete' => true,
             ])
             ->add('projects', CollectionType::class, [
                 'label' => false,
                 'entry_type' => ProjectFormType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
+                'allow_delete' => true,
             ])
             ->add('miscellaneous', CollectionType::class, [
                 'label' => false,
                 'entry_type' => MiscellaneousFormType::class,
                 'entry_options' => ['label' => false,],
                 'allow_add' => true,
+                'allow_delete' => true,
             ])
             ->add('Submit', SubmitType::class)
         ;

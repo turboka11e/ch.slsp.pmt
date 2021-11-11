@@ -22,6 +22,18 @@ class SubmissionTask
         $this->miscellaneous = new ArrayCollection();
     }
 
+    public function removeOperation(Operation $operation) {
+        $this->operations->removeElement($operation);
+    }
+
+    public function removeProject(Project $project) {
+        $this->projects->removeElement($project);
+    }
+
+    public function removeMiscellaneous(Miscellaneous $misc) {
+        $this->miscellaneous->removeElement($misc);
+    }
+
     public function getSubmission(): ?Submission {
         return $this->submission;
     }

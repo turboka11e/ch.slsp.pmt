@@ -66,6 +66,32 @@ function filterInt(value) {
     return NaN;
 }
 
+/* Brauch man erst wenn bereits Rows vorhanden sind */
+// const operations = document.querySelectorAll('ul.tags')
+
+// operations.forEach((operation) => {
+//     addOperationFormDeleteLink(operation)
+// })
+
+const addOperationFormDeleteLink = (operationFormLi) => {
+    const removeFormTd = document.createElement('td')
+    removeFormTd.classList = 'd-flex align-items-center'
+
+    const removeFormButton = document.createElement('button')
+
+    removeFormButton.classList = 'btn btn-danger bg-danger'
+    removeFormButton.innerText = '-'
+
+    removeFormTd.append(removeFormButton);
+    operationFormLi.append(removeFormTd);
+
+    removeFormButton.addEventListener('click', (e) => {
+        e.preventDefault()
+
+        operationFormLi.remove();
+    })
+}
+
 const addFormToCollection = (e) => {
     const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
 
@@ -74,6 +100,8 @@ const addFormToCollection = (e) => {
     item.innerHTML = collectionHolder.dataset.prototype.replace(/__name__/g, collectionHolder.dataset.index);
 
     collectionHolder.appendChild(item);
+
+    addOperationFormDeleteLink(item);
 
     collectionHolder.dataset.index++;
     
