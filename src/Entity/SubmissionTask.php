@@ -62,4 +62,16 @@ class SubmissionTask
         return $this->miscellaneouses;
     }
 
+    public function setOperations(Collection $operations): void {
+        $this->operations = $operations;
+    }
+
+    public function setProjects(Collection $projects): void {
+        $this->projects = $projects;
+    }
+
+    public function setMiscellaneouses(Collection $misc): void {
+        $this->miscellaneouses = $misc;
+    }
+
 }

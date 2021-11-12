@@ -16,21 +16,19 @@ class SubmissionFormType extends AbstractType
             // ->add('FormType')
             ->add('Workdays', IntegerType::class, [
                 'attr' => [
-                    'value' => "0",
                     'style' => 'width:5em',
                     'min' => "0",
+                    'placeholder' => "0"
                 ]
             ])
             ->add('PlannedAbsences', IntegerType::class, [
                 'attr' => [
-                    'value' => "0",
                     'style' => 'width:5em',
                     'min' => "0",
                 ]
             ])
             ->add('FurtherAbsences', IntegerType::class, [
                 'attr' => [
-                    'value' => "0",
                     'style' => 'width:5em',
                     'min' => "0",
                 ]

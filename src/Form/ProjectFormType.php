@@ -20,6 +20,7 @@ class ProjectFormType extends AbstractType
             ->add('Name', EntityType::class, [
                 'class' => ProjectChoice::class,
                 'choice_label' => 'Project',
+                'choice_value' => 'Project',
             ])
             ->add('Description')
             ->add('TargetHours', IntegerType::class)
@@ -35,8 +36,13 @@ class ProjectFormType extends AbstractType
         ;
 
         $builder->get('Name')->addModelTransformer(new CallbackTransformer(
-            function ($category) {
-                return $category;
+            function ($project) {
+                if(!is_null($project)) {
+                    $cat = new ProjectChoice();
+                    $cat = $cat->setProject($project);
+                    return $cat;
+                }
+                return $project;
             },
             function (ProjectChoice $category) {
                 return $category->getProject();

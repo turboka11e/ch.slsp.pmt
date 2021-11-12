@@ -15,11 +15,13 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\Test\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Choice;
 
 class OperationFormType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -42,13 +44,17 @@ class OperationFormType extends AbstractType
 
         $builder->get('Category')->addModelTransformer(new CallbackTransformer(
             function ($category) {
+                if(!is_null($category)) {
+                    $cat = new CategoryChoice();
+                    $cat = $cat->setCategory($category);
+                    return $cat;
+                }
                 return $category;
             },
             function (CategoryChoice $category) {
                 return $category->getCategory();
             }
-        ))
-        ;
+        ));
     }
 
     public function configureOptions(OptionsResolver $resolver): void

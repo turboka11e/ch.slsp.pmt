@@ -77,6 +77,8 @@ class Submission
 
     public function __construct()
     {
+        $this->FurtherAbsences = 0;
+        $this->PlannedAbsences = 0;
         $this->operations = new ArrayCollection();
         $this->projects = new ArrayCollection();
         $this->miscellaneouses = new ArrayCollection();
