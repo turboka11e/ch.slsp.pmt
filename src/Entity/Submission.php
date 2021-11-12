@@ -65,6 +65,16 @@ class Submission
      */
     private $miscellaneouses;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $PlannedAbsences;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $FurtherAbsences;
+
     public function __construct()
     {
         $this->operations = new ArrayCollection();
@@ -235,6 +245,30 @@ class Submission
                 $miscellaneouse->setSubmissionId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPlannedAbsences(): ?float
+    {
+        return $this->PlannedAbsences;
+    }
+
+    public function setPlannedAbsences(float $PlannedAbsences): self
+    {
+        $this->PlannedAbsences = $PlannedAbsences;
+
+        return $this;
+    }
+
+    public function getFurtherAbsences(): ?float
+    {
+        return $this->FurtherAbsences;
+    }
+
+    public function setFurtherAbsences(float $FurtherAbsences): self
+    {
+        $this->FurtherAbsences = $FurtherAbsences;
 
         return $this;
     }

@@ -14,7 +14,27 @@ class SubmissionFormType extends AbstractType
     {
         $builder
             // ->add('FormType')
-            ->add('Workdays', IntegerType::class)
+            ->add('Workdays', IntegerType::class, [
+                'attr' => [
+                    'value' => "0",
+                    'style' => 'width:5em',
+                    'min' => "0",
+                ]
+            ])
+            ->add('PlannedAbsences', IntegerType::class, [
+                'attr' => [
+                    'value' => "0",
+                    'style' => 'width:5em',
+                    'min' => "0",
+                ]
+            ])
+            ->add('FurtherAbsences', IntegerType::class, [
+                'attr' => [
+                    'value' => "0",
+                    'style' => 'width:5em',
+                    'min' => "0",
+                ]
+            ])
             // ->add('UserId')
         ;
     }

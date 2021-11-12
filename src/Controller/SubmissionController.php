@@ -22,26 +22,47 @@ use Symfony\Component\HttpFoundation\Request;
 class SubmissionController extends AbstractController
 {
     /**
-     * @Route("/submission", name="submission")
+     * @Route("/submission/new", name="submission")
      */
-    public function index(Request $request, EntityManagerInterface $entityManager): Response
+    public function newSubmission(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
 
-        // $this->addFlash('error', 
-        // 'Form has already been submitted for next month.'
-        // );
-        // return $this->redirect('home');
+        $year = $request->query->get('year');
+        $month = $request->query->get('month');
 
-        $submission = new Submission();
-        $submission->setUserId($this->getUser());
-        $submission->setFormType('WorkingHours');
+        if (is_null($year) || is_null($month)) {
+            $this->addFlash(
+                'danger',
+                'Bad Request'
+            );
+            return $this->redirectToRoute('home');
+        }
+
+        $subMonth = DateTIme::createFromFormat('j-m-Y', '01-' . $month . '-' . $year);
+
+        $alreadyCreated = $this->getDoctrine()->getRepository(Submission::class)->findOneBy([
+            'SubmissionMonth' => $subMonth,
+            'UserId' => $user->getId()
+        ]);
+
+        if (!is_null($alreadyCreated)) {
+            $this->addFlash(
+                'error',
+                'Form has already been submitted for ' . $subMonth->format('F')
+            );
+            return $this->redirectToRoute('home');
+        }
 
         $today = new DateTime('now');
-        $nextMonth = new DateTime('first day of next month');
+
+        $submission = new Submission();
+        $submission->setUserId($user);
+        $submission->setFormType('WorkingHours');
 
         $submission->setCreated($today);
         $submission->setUpdated($today);
-        $submission->setSubmissionMonth($nextMonth);
+        $submission->setSubmissionMonth($subMonth);
 
 
         $task = new SubmissionTask($submission);
@@ -69,19 +90,63 @@ class SubmissionController extends AbstractController
 
             $entityManager->flush();
 
-            $this->addFlash('success', 
+            $this->addFlash(
+                'success',
                 'Form was successfully saved!'
             );
-            return $this->redirect('home');
+            return $this->redirectToRoute('home');
         }
 
         return $this->render('submission/index.html.twig', [
             'today' => $today,
-            'nextMonth' => $nextMonth,
+            'subMonth' => $subMonth,
             'form' => $form->createView(),
             'csrf_protection' => true,
             'csrf_field_name' => '_token',
             'csrf_token_id' => 'form'
         ]);
+    }
+
+    /**
+     * @Route("/submission/delete", name="deleteSubmission")
+     */
+    public function deleteSubmission(Request $request, EntityManagerInterface $entityManager): Response
+    {
+
+        $year = $request->query->get('year');
+        $month = $request->query->get('month');
+
+        if (is_null($year) || is_null($month)) {
+            $this->addFlash(
+                'danger',
+                'Bad Request'
+            );
+            return $this->redirectToRoute('home');
+        }
+
+        $user = $this->getUser();
+        $subMonth = DateTIme::createFromFormat('j-m-Y', '01-' . $month . '-' . $year);
+
+        $createdSubmission = $this->getDoctrine()->getRepository(Submission::class)->findOneBy([
+            'SubmissionMonth' => $subMonth,
+            'UserId' => $user->getId()
+        ]);
+
+        if (is_null($createdSubmission)) {
+            $this->addFlash(
+                'error',
+                'There is no submission for ' . $subMonth->format('F')
+            );
+            return $this->redirectToRoute('home');
+        }
+
+        $entityManager->remove($createdSubmission);
+        $entityManager->flush();
+
+        $this->addFlash(
+            'success',
+            'Success! Deleted submission for ' . $subMonth->format('F') . '.'
+        );
+        return $this->redirectToRoute('home');
     }
 }
