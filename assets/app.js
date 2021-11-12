@@ -78,7 +78,7 @@ const addOperationFormDeleteLink = (operationFormLi) => {
 
     const removeFormButton = document.createElement('button')
 
-    removeFormButton.classList = 'btn btn-danger bg-danger'
+    removeFormButton.classList = 'btn btn-outline-danger font-monospace'
     removeFormButton.innerText = '-'
 
     removeFormTd.append(removeFormButton);
