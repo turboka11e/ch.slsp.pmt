@@ -4,7 +4,7 @@
 
 {% macro printOperation(operations) %}
 
-	<tr>
+	<tr class="deleteable">
 		<td>{{ form_widget(operations.Category) }}</td>
 		<td>{{ form_widget(operations.Description) }}</td>
 		<td>{{ form_widget(operations.Hours, {'attr': {'class': 'opHour'}}) }}</td>
@@ -16,7 +16,7 @@
 
 {% macro printProject(projects) %}
 
-	<tr>
+	<tr class="deleteable">
 		<td>{{ form_widget(projects.Name) }}</td>
 		<td>{{ form_widget(projects.Description) }}</td>
 		<td>{{ form_widget(projects.TargetHours, {'attr': {'class': 'projectHour'}}) }}</td>
@@ -28,7 +28,7 @@
 
 {% macro printMisc(misc) %}
 
-	<tr>
+	<tr class="deleteable">
 		<td>{{ form_widget(misc.Task) }}</td>
 		<td>{{ form_widget(misc.Description) }}</td>
 		<td>{{ form_widget(misc.TargetHours, {'attr': {'class': 'miscHour'}}) }}</td>
@@ -109,7 +109,10 @@
 						</tr>
 					</thead>
 					<tbody class="operations" data-index="{{ form.operations|length > 0 ? form.operations|last.vars.name + 1 : 0 }}" data-prototype="{{ formMacros.printOperation(form.operations.vars.prototype)|e('html_attr') }}">
-						<tr></tr>
+						{# <tr></tr> #}
+						{% for operation in form.operations %}
+						{{ formMacros.printOperation(operation) }}
+        				{% endfor %}
 					</tbody>
 					<tfoot>
 						<tr>
@@ -167,7 +170,7 @@
 				</table>
 			</div>
 
-			{# Miscellaneous Table #}
+			{# miscellaneouses Table #}
 			<div class="p-3 border rounded-3" style="background-color: #fcfcfc;">
 				<h3>Others</h3>
 				<table class="table table-sm table-borderless">
@@ -180,7 +183,7 @@
 							<th class="col-1" scope="col"></th>
 						</tr>
 					</thead>
-					<tbody class="miscellaneous" data-index="{{ form.miscellaneous|length > 0 ? form.miscellaneous|last.vars.name + 1 : 0 }}" data-prototype="{{ formMacros.printMisc(form.miscellaneous.vars.prototype)|e('html_attr') }}">
+					<tbody class="miscellaneouses" data-index="{{ form.miscellaneouses|length > 0 ? form.miscellaneouses|last.vars.name + 1 : 0 }}" data-prototype="{{ formMacros.printMisc(form.miscellaneouses.vars.prototype)|e('html_attr') }}">
 						<tr></tr>
 					</tbody>
 					<tfoot>
@@ -190,7 +193,7 @@
 							<td><input class="form-control" id="miscHourSum" type="text" value="0" disabled readonly></td>
 							<td></td>
 							<td>
-								<button type="button" class="btn btn-outline-success bg-light font-monospace; add_item_link" data-collection-holder-class="miscellaneous">+</button>
+								<button type="button" class="btn btn-outline-success bg-light font-monospace; add_item_link" data-collection-holder-class="miscellaneouses">+</button>
 							</td>
 						</tr>
 					</tfoot>

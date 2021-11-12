@@ -66,12 +66,7 @@ function filterInt(value) {
     return NaN;
 }
 
-/* Brauch man erst wenn bereits Rows vorhanden sind */
-// const operations = document.querySelectorAll('ul.tags')
 
-// operations.forEach((operation) => {
-//     addOperationFormDeleteLink(operation)
-// })
 
 const addOperationFormDeleteLink = (operationFormLi) => {
     const removeFormTd = document.createElement('td')
@@ -90,6 +85,12 @@ const addOperationFormDeleteLink = (operationFormLi) => {
         operationFormLi.remove();
     })
 }
+
+/* Brauch man erst wenn bereits Rows vorhanden sind */
+const operations = document.querySelectorAll('tr.deleteable')
+operations.forEach((operation) => {
+        addOperationFormDeleteLink(operation)
+})
 
 const addFormToCollection = (e) => {
     const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);

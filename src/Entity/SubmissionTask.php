@@ -12,14 +12,26 @@ class SubmissionTask
     protected $submission;
     protected $operations;
     protected $projects;
-    protected $miscellaneous;
+    protected $miscellaneouses;
 
     public function __construct(Submission $submission)
     {
         $this->submission = $submission;
         $this->operations = new ArrayCollection();
         $this->projects = new ArrayCollection();
-        $this->miscellaneous = new ArrayCollection();
+        $this->miscellaneouses = new ArrayCollection();
+    }
+
+    public function addOperation(Operation $operation) {
+        $this->operations->add($operation);
+    }
+
+    public function addProject(Project $project) {
+        $this->projects->add($project);
+    }
+
+    public function addMiscellaneous(Miscellaneous $misc) {
+        $this->miscellaneouses->add($misc);
     }
 
     public function removeOperation(Operation $operation) {
@@ -31,7 +43,7 @@ class SubmissionTask
     }
 
     public function removeMiscellaneous(Miscellaneous $misc) {
-        $this->miscellaneous->removeElement($misc);
+        $this->miscellaneouses->removeElement($misc);
     }
 
     public function getSubmission(): ?Submission {
@@ -46,8 +58,8 @@ class SubmissionTask
         return $this->projects;
     }
 
-    public function getMiscellaneous(): Collection {
-        return $this->miscellaneous;
+    public function getMiscellaneouses(): Collection {
+        return $this->miscellaneouses;
     }
 
 }

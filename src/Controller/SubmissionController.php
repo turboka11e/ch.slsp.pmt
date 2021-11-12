@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\CategoryChoice;
+use App\Entity\Operation;
 use App\Entity\ProjectChoice;
 use App\Entity\Submission;
 use App\Entity\SubmissionTask;
+use App\Form\OperationFormType;
 use App\Form\SubmissionTaskFormType;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -64,6 +66,7 @@ class SubmissionController extends AbstractController
         $submission->setUpdated($today);
         $submission->setSubmissionMonth($subMonth);
 
+        
 
         $task = new SubmissionTask($submission);
 
@@ -83,7 +86,7 @@ class SubmissionController extends AbstractController
                 $project->setSubmissionId($submission);
                 $entityManager->persist($project);
             }
-            foreach ($task->getMiscellaneous() as $misc) {
+            foreach ($task->getMiscellaneouses() as $misc) {
                 $misc->setSubmissionId($submission);
                 $entityManager->persist($misc);
             }

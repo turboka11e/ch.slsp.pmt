@@ -21,6 +21,7 @@ class SubmissionTaskFormType extends AbstractType
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete' => true,
+                'by_reference' => false,
             ])
             ->add('projects', CollectionType::class, [
                 'label' => false,
@@ -28,13 +29,15 @@ class SubmissionTaskFormType extends AbstractType
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete' => true,
+                'by_reference' => false,
             ])
-            ->add('miscellaneous', CollectionType::class, [
+            ->add('miscellaneouses', CollectionType::class, [
                 'label' => false,
                 'entry_type' => MiscellaneousFormType::class,
                 'entry_options' => ['label' => false,],
                 'allow_add' => true,
                 'allow_delete' => true,
+                'by_reference' => false,
             ])
             ->add('Submit', SubmitType::class)
         ;
