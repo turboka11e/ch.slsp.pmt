@@ -18,19 +18,22 @@ class SubmissionFormType extends AbstractType
                 'attr' => [
                     'style' => 'width:5em',
                     'min' => "0",
-                    'placeholder' => "0"
+                    'placeholder' => "0",
+                    'step' => "0.5",
                 ]
             ])
             ->add('PlannedAbsences', IntegerType::class, [
                 'attr' => [
                     'style' => 'width:5em',
                     'min' => "0",
+                    'step' => "0.5",
                 ]
             ])
             ->add('FurtherAbsences', IntegerType::class, [
                 'attr' => [
                     'style' => 'width:5em',
                     'min' => "0",
+                    'step' => "0.5",
                 ]
             ])
             // ->add('UserId')

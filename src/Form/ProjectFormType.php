@@ -23,7 +23,11 @@ class ProjectFormType extends AbstractType
                 'choice_value' => 'Project',
             ])
             ->add('Description')
-            ->add('TargetHours', IntegerType::class)
+            ->add('TargetHours', IntegerType::class, [
+                'attr' => [
+                    'step' => "0.5",
+                ]
+            ])
             // ->add('ActualHours')
             ->add('Priority', ChoiceType::class, [
                 'choices' => ['Low' => 'Low', 'Medium' => 'Medium', 'High' => 'High']

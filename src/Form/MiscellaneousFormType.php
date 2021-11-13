@@ -15,7 +15,11 @@ class MiscellaneousFormType extends AbstractType
         $builder
             ->add('Task')
             ->add('Description')
-            ->add('TargetHours', IntegerType::class)
+            ->add('TargetHours', IntegerType::class, [
+                'attr' => [
+                    'step' => "0.5",
+                ]
+            ])
             ->add('Comment')
             // ->add('SubmissionId')
         ;

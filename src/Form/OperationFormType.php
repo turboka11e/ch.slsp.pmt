@@ -31,7 +31,11 @@ class OperationFormType extends AbstractType
                 'choice_value' => 'Category',
             ])
             ->add('Description')
-            ->add('Hours', IntegerType::class)
+            ->add('Hours', IntegerType::class, [
+                'attr' => [
+                    'step' => "0.5",
+                ]
+            ])
             ->add('Priority', ChoiceType::class, [
                 'choices' => ['Low' => 'Low', 'Medium' => 'Medium', 'High' => 'High']
             ])
