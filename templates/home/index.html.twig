@@ -1,16 +1,76 @@
-{% extends 'base.html.twig' %}
+{% extends 'nav.base.html.twig' %}
 
+{% set homelink = 'active' %}
 
-{% block body %}
+{% block content %}
 
-<form>
-    <label for="fname">Operand 1:</label><br>
-    <input type="text" id="fname" class="op" name="fname" value=""><br>
-    <label for="lname">Operand 2:</label><br>
-    <input type="text" id="lname" class="op" name="lname" value=""><br><br>
-    <label for="rname">Result</label><br>
-    <input type="text" id="rname"name="rname" value=""><br><br>
-</form> 
+<div class="mt-3 p-3 container-xl bg-white shadow-sm">
+	<h1>Hello,
+		{{ app.user.name }}</h1>
 
-<a type="button" class="btn btn-primary" href="logout">Logout</a>
+	<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quae, nesciunt laudantium ratione fugiat dignissimos
+		provident exercitationem ipsum quisquam dolor necessitatibus distinctio quod. Earum dolorem ut veritatis
+		perspiciatis nihil pariatur repellat, delectus a commodi asperiores dolorum accusantium dolore modi in vero! In
+		natus earum, amet mollitia maxime voluptates voluptas rem eveniet obcaecati, repellendus ratione cupiditate esse
+		harum quae neque. Mollitia sed deleniti sapiente voluptatum ipsam, eveniet labore exercitationem dignissimos
+		velit esse molestiae accusamus et deserunt. Accusamus eligendi quod, distinctio sit debitis ullam voluptate qui
+		quo tempora omnis est animi hic. Eius possimus atque magni perspiciatis, mollitia error vero? Repudiandae, iure
+		magnam.</p>
+</div>
+<div class="container-xl my-5">
+	<div class="row row-cols g-3 justify-content-center">
+		<div class="col-md-4">
+			<div class="card text-center shadow-sm">
+				<div class="card-body flex-column">
+					<h5 class="card-title">New submission</h5>
+					<p class="card-text">Create a new submission for {{ nextMonth|date('F') }}.</p>
+					<form action="{{ path('new_submission') }}">
+						<div>
+							<input type="hidden" id="year" name="year" value="{{ nextMonth|date('Y') }}">
+							<input type="hidden" id="month" name="month" value="{{ nextMonth|date('m') }}">
+						</div>
+						<div>
+							<button type="submit" class="btn btn-success">New</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="card text-center shadow-sm">
+				<div class="card-body flex-column">
+					<h5 class="card-title">Edit submission</h5>
+					<p class="card-text">Edit submission for {{ nextMonth|date('F') }}.</p>
+					<form action="{{ path('edit_submission') }}">
+						<div>
+							<input type="hidden" id="year" name="year" value="{{ nextMonth|date('Y') }}">
+							<input type="hidden" id="month" name="month" value="{{ nextMonth|date('m') }}">
+						</div>
+						<div>
+							<button type="submit" class="btn btn-warning">Edit</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="card text-center shadow-sm">
+				<div class="card-body flex-column">
+					<h5 class="card-title">Delete submission</h5>
+					<p class="card-text">Delete submission for {{ nextMonth|date('F') }}.</p>
+					<form action="{{ path('delete_submission') }}">
+						<div>
+							<input type="hidden" id="year" name="year" value="{{ nextMonth|date('Y') }}">
+							<input type="hidden" id="month" name="month" value="{{ nextMonth|date('m') }}">
+						</div>
+						<div>
+							<button type="submit" class="btn btn-danger">Delete</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
 {% endblock %}
