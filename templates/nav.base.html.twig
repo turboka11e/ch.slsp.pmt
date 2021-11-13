@@ -5,7 +5,7 @@
 
 		<nav class="navbar navbar-expand-md navbar-light bg-light bg-gradient border-bottom">
 			<div class="container-xl">
-				<a class="navbar-brand" href="/Projectmanagement/public/index.php/home">
+				<a class="navbar-brand" href="{{ path('home') }}">
 					<img class="d-inline-block align-text-center" src="{{ asset('images/SLSP_Logo.svg') }}" width="50" height="50">
 					Project Management
 				</a>
@@ -16,7 +16,7 @@
 
 					<ul class="navbar-nav me-auto">
 						<li class="nav-item">
-							<a class="nav-link {{ homelink|default('') }}" href="/Projectmanagement/public/index.php/home">Home</a>
+							<a class="nav-link {{ homelink|default('') }}" href="{{ path('home') }}">Home</a>
 						</li>
 					</ul>
 					<ul class="navbar-nav">
@@ -27,7 +27,7 @@
 							</a>
 							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 								<li>
-									<a class="dropdown-item" href="logout">
+									<a class="dropdown-item" href="{{ path('app_logout') }}">
 										Logout
 									</a>
 								</li>
