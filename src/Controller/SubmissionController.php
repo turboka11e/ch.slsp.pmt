@@ -32,9 +32,9 @@ class SubmissionController extends AbstractController
     public function newSubmission(Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
-
-        $year = $request->query->get('year');
-        $month = $request->query->get('month');
+            
+        $year = $request->get('year');
+        $month = $request->get('month');
 
         if (is_null($year) || is_null($month)) {
             $this->addFlash(
@@ -68,8 +68,6 @@ class SubmissionController extends AbstractController
         $submission->setCreated($today);
         $submission->setUpdated($today);
         $submission->setSubmissionMonth($subMonth);
-
-        
 
         $task = new SubmissionTask($submission);
 
@@ -120,8 +118,8 @@ class SubmissionController extends AbstractController
     {
         $user = $this->getUser();
 
-        $year = $request->query->get('year');
-        $month = $request->query->get('month');
+        $year = $request->get('year');
+        $month = $request->get('month');
 
         if (is_null($year) || is_null($month)) {
             $this->addFlash(
@@ -233,8 +231,8 @@ class SubmissionController extends AbstractController
     public function deleteSubmission(Request $request, EntityManagerInterface $entityManager): Response
     {
 
-        $year = $request->query->get('year');
-        $month = $request->query->get('month');
+        $year = $request->get('year');
+        $month = $request->get('month');
 
         if (is_null($year) || is_null($month)) {
             $this->addFlash(

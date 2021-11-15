@@ -35,18 +35,22 @@
 
 {% endmacro %}
 
-{{ form_start(form, {'attr': {'oninput': 
-'
+{% block javascripts %}
+<script>
+function calcSubmission() {
     totalworkhours.value=Number(8.4*((parseFloat(submission_task_form_submission_Workdays.value) || 0)-(parseFloat(submission_task_form_submission_PlannedAbsences.value) || 0)-(parseFloat(submission_task_form_submission_FurtherAbsences.value) || 0))).toFixed(2)
-    ;hourstoplan.value=Number((parseFloat(totalworkhours.value)||0)*0.8).toFixed(2)
-    ;opHourTarget.value=Number((parseFloat(hourstoplan.value) || 0 )*0.6).toFixed(2)
-    ;projectHourTarget.value=Number((parseFloat(hourstoplan.value) || 0)*0.4).toFixed(2)
-    '
-}}) }}
+    hourstoplan.value=Number((parseFloat(totalworkhours.value)||0)*0.8).toFixed(2)
+    opHourTarget.value=Number((parseFloat(hourstoplan.value) || 0 )*0.6).toFixed(2)
+    projectHourTarget.value=Number((parseFloat(hourstoplan.value) || 0)*0.4).toFixed(2)
+}
+</script>
+<body onload="calcSubmission()">
+{% endblock %}
+
+{{ form_start(form, {'attr': {'oninput': 'calcSubmission()'} }) }}
 {{ form_errors(form) }}
 
-<div
-	class="row g-3">
+<div class="row g-3">
 
 	{# General #}
 	<div class="container">

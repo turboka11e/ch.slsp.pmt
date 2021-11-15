@@ -31,10 +31,11 @@ class OperationFormType extends AbstractType
                 'choice_value' => 'Category',
             ])
             ->add('Description')
-            ->add('Hours', IntegerType::class, [
+            ->add('Hours', NumberType::class, [
                 'attr' => [
                     'step' => "0.5",
-                ]
+                ],
+                'html5' => true
             ])
             ->add('Priority', ChoiceType::class, [
                 'choices' => ['Low' => 'Low', 'Medium' => 'Medium', 'High' => 'High']
@@ -48,7 +49,7 @@ class OperationFormType extends AbstractType
 
         $builder->get('Category')->addModelTransformer(new CallbackTransformer(
             function ($category) {
-                if(!is_null($category)) {
+                if (!is_null($category)) {
                     $cat = new CategoryChoice();
                     $cat = $cat->setCategory($category);
                     return $cat;

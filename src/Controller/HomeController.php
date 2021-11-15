@@ -19,11 +19,11 @@ class HomeController extends AbstractController
      */
     public function index(): Response
     {
-
         $today = new DateTime('now');
         $nextMonth = $today->modify('first day of next month');
 
         return $this->render('home/index.html.twig', [
+            'today' => new DateTime('now'),
             'nextMonth' => $nextMonth,
             'controller_name' => 'HomeController',
         ]);

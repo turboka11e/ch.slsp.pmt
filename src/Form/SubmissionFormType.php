@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Submission;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,27 +15,31 @@ class SubmissionFormType extends AbstractType
     {
         $builder
             // ->add('FormType')
-            ->add('Workdays', IntegerType::class, [
+            ->add('Workdays', NumberType::class, [
                 'attr' => [
                     'style' => 'width:5em',
                     'min' => "0",
                     'placeholder' => "0",
                     'step' => "0.5",
-                ]
+                    'role' => 'status',
+                ],
+                'html5' => true
             ])
-            ->add('PlannedAbsences', IntegerType::class, [
+            ->add('PlannedAbsences', NumberType::class, [
                 'attr' => [
                     'style' => 'width:5em',
                     'min' => "0",
                     'step' => "0.5",
-                ]
+                ],
+                'html5' => true
             ])
-            ->add('FurtherAbsences', IntegerType::class, [
+            ->add('FurtherAbsences', NumberType::class, [
                 'attr' => [
                     'style' => 'width:5em',
                     'min' => "0",
                     'step' => "0.5",
-                ]
+                ],
+                'html5' => true
             ])
             // ->add('UserId')
         ;

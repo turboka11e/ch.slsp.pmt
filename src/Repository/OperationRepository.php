@@ -19,10 +19,9 @@ class OperationRepository extends ServiceEntityRepository
         parent::__construct($registry, Operation::class);
     }
 
-    // /**
-    //  * @return Operation[] Returns an array of Operation objects
-    //  */
-    /*
+    /**
+     * @return Operation[] Returns an array of Operation objects
+     */
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('o')
@@ -34,7 +33,6 @@ class OperationRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Operation

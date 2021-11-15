@@ -24,13 +24,13 @@
 				<div class="card-body flex-column">
 					<h5 class="card-title">New submission</h5>
 					<p class="card-text">Create a new submission for {{ nextMonth|date('F') }}.</p>
-					<form action="{{ path('new_submission') }}">
+					<form action="{{ path('new_submission') }}" method="PUT">
 						<div>
 							<input type="hidden" id="year" name="year" value="{{ nextMonth|date('Y') }}">
 							<input type="hidden" id="month" name="month" value="{{ nextMonth|date('m') }}">
 						</div>
 						<div>
-							<button type="submit" class="btn btn-success">New</button>
+							<button type="submit" class="btn btn-outline-success">New</button>
 						</div>
 					</form>
 				</div>
@@ -41,13 +41,13 @@
 				<div class="card-body flex-column">
 					<h5 class="card-title">Edit submission</h5>
 					<p class="card-text">Edit submission for {{ nextMonth|date('F') }}.</p>
-					<form action="{{ path('edit_submission') }}">
+					<form action="{{ path('edit_submission') }}" method="PUT">
 						<div>
 							<input type="hidden" id="year" name="year" value="{{ nextMonth|date('Y') }}">
 							<input type="hidden" id="month" name="month" value="{{ nextMonth|date('m') }}">
 						</div>
 						<div>
-							<button type="submit" class="btn btn-warning">Edit</button>
+							<button type="submit" class="btn btn-outline-warning">Edit</button>
 						</div>
 					</form>
 				</div>
@@ -58,18 +58,33 @@
 				<div class="card-body flex-column">
 					<h5 class="card-title">Delete submission</h5>
 					<p class="card-text">Delete submission for {{ nextMonth|date('F') }}.</p>
-					<form action="{{ path('delete_submission') }}">
+					<form action="{{ path('delete_submission') }}" method="PUT">
 						<div>
 							<input type="hidden" id="year" name="year" value="{{ nextMonth|date('Y') }}">
 							<input type="hidden" id="month" name="month" value="{{ nextMonth|date('m') }}">
 						</div>
 						<div>
-							<button type="submit" class="btn btn-danger">Delete</button>
+							<button type="submit" class="btn btn-outline-danger">Delete</button>
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
+		{% if is_granted('ROLE_MANAGER') %}
+		<div class="col-md-4">
+			<div class="card text-center shadow-sm">
+				<div class="card-body flex-column">
+					<h5 class="card-title">Evaluation</h5>
+					<p class="card-text">Evaluation for {{ today|date('F') }}.</p>
+					<form action="{{path('app_download_user_year_month', {year: '2021', month: '12', user: '2'})}}" method="GET">
+						<div>
+							<button type="submit" class="btn btn-outline-primary">Download</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		{% endif %}
 	</div>
 </div>
 

@@ -15,8 +15,8 @@ import './bootstrap';
 // Use this jquery to sum two operands
 $('body').on("keyup change", '.opHour', function () {
     var sum = 0;
-    $(".opHour").each(function(index) {
-        var text = $( this ).val();
+    $(".opHour").each(function (index) {
+        var text = $(this).val();
         sum += Number(text);
     });
 
@@ -29,8 +29,8 @@ $('body').on("keyup change", '.opHour', function () {
 
 $('body').on("keyup change", '.projectHour', function () {
     var sum = 0;
-    $(".projectHour").each(function(index) {
-        var text = $( this ).val();
+    $(".projectHour").each(function (index) {
+        var text = $(this).val();
         sum += Number(text);
     });
 
@@ -43,8 +43,8 @@ $('body').on("keyup change", '.projectHour', function () {
 
 $('body').on("keyup change", '.miscHour', function () {
     var sum = 0;
-    $(".miscHour").each(function(index) {
-        var text = $( this ).val();
+    $(".miscHour").each(function (index) {
+        var text = $(this).val();
         sum += Number(text);
     });
 
@@ -89,7 +89,7 @@ const addOperationFormDeleteLink = (operationFormLi) => {
 /* Brauch man erst wenn bereits Rows vorhanden sind */
 const operations = document.querySelectorAll('tr.deleteable')
 operations.forEach((operation) => {
-        addOperationFormDeleteLink(operation)
+    addOperationFormDeleteLink(operation)
 })
 
 const addFormToCollection = (e) => {
@@ -104,7 +104,7 @@ const addFormToCollection = (e) => {
     addOperationFormDeleteLink(item);
 
     collectionHolder.dataset.index++;
-    
+
 };
 
 document.querySelectorAll('.add_item_link').forEach(btn => btn.addEventListener("click", addFormToCollection));
