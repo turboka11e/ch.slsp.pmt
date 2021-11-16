@@ -11,7 +11,6 @@ import './styles/app.css';
 // start the Stimulus application
 import './bootstrap';
 
-
 // qualify integer
 function filterInt(value) {
     if (value.length == 0) {
@@ -21,4 +20,3 @@ function filterInt(value) {
         return Number(value);
     return NaN;
 }
-

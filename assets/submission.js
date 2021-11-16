@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
     updateAllSums();
 });
 
-function updateAllSums() {
+export function updateAllSums() {
     updateSum("opHour");
     updateSum("projectHour");
     updateSum("miscHour");

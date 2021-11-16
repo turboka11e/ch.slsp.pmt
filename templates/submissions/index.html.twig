@@ -1,0 +1,36 @@
+{% extends 'nav.base.html.twig' %}
+
+{% set submissionslink = 'active' %}
+
+{% block javascripts %}
+{{ encore_entry_script_tags('submissions') }}
+{% endblock %}
+
+{% block content %}
+
+<div class="container-xxl">
+    <div class="row">
+        <div class="col-2 p-3 bg-white shadow-sm">
+            <h4 class="border-bottom pb-3">Entries</h4>
+            <ul class="list-unstyled ps-0">
+                <li class="mb-1">
+                    <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
+                        data-bs-target="#home-collapse" aria-expanded="true">
+                        2021
+                    </button>
+                    <div class="collapse show" id="home-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li><a href="#" class="ajax link-dark rounded" year="2021" month="12">Dezember</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-10 p-3">
+            <div class="container-lg p-3 bg-white shadow-sm">
+                <div id="ajax-results" class=""></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
