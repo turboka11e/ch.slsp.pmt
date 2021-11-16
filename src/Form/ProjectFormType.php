@@ -22,6 +22,9 @@ class ProjectFormType extends AbstractType
                 'class' => ProjectChoice::class,
                 'choice_label' => 'Project',
                 'choice_value' => 'Project',
+                'attr' => [
+                    'style' => 'width: min-content'
+                ]
             ])
             ->add('Description')
             ->add('TargetHours', NumberType::class, [

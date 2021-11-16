@@ -29,6 +29,9 @@ class OperationFormType extends AbstractType
                 'class' => CategoryChoice::class,
                 'choice_label' => 'Category',
                 'choice_value' => 'Category',
+                'attr' => [
+                    'style' => 'width: min-content'
+                ]
             ])
             ->add('Description')
             ->add('Hours', NumberType::class, [
