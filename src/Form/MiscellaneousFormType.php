@@ -19,6 +19,8 @@ class MiscellaneousFormType extends AbstractType
             ->add('TargetHours', NumberType::class, [
                 'attr' => [
                     'step' => "0.5",
+                    'min' => "0",
+                    'style' => 'width:5em',
                 ],
                 'html5' => true
             ])

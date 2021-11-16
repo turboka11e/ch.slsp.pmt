@@ -35,7 +35,12 @@
 
 {% endmacro %}
 
+{# {% block javascripts %} #}
+    {# {{ parent() }} #}
+{# {% endblock %} #}
+
 {% block javascripts %}
+    {{ encore_entry_script_tags('submission') }}
 <script>
 function calcSubmission() {
     totalworkhours.value=Number(8.4*((parseFloat(submission_task_form_submission_Workdays.value) || 0)-(parseFloat(submission_task_form_submission_PlannedAbsences.value) || 0)-(parseFloat(submission_task_form_submission_FurtherAbsences.value) || 0))).toFixed(2)
@@ -97,17 +102,17 @@ function calcSubmission() {
 					<th class="col-2" scope="col">
 						<h3>Operations</h1>
 					</th>
-					<th class="col-7 text-end" scope="col">Target</th>
-					<th class="col-1" scope="col">
+					<th class="col-10 text-end" scope="col">Target</th>
+					<th class="col-auto" scope="col">
 						<output name="result" id="opHourTarget" for="hourstoplan">0</output>
 					</th>
-					<th class="col-1" scope="col"></th>
-					<th class="col-1" scope="col"></th>
+					<th class="col-auto" scope="col"></th>
+					<th class="col-auto" scope="col"></th>
 					<th class="col-1" scope="col"></th>
 				</tr>
 				<tr>
 					<th class="col-2" scope="col">Category</th>
-					<th class="col-7" scope="col">Description</th>
+					<th class="col-10" scope="col">Description</th>
 					<th class="col-1" scope="col">Hours</th>
 					<th class="col-1" scope="col">Priority</th>
 					<th class="col-1" scope="col">Status</th>
@@ -144,20 +149,20 @@ function calcSubmission() {
 					<th class="col-2" scope="col">
 						<h3>Projects</h3>
 					</th>
-					<th class="col-7 text-end" scope="col">Target</th>
-					<th class="col-1" scope="col">
+					<th class="col-10 text-end" scope="col">Target</th>
+					<th class="col-auto" scope="col">
 						<output name="result" id="projectHourTarget" for="hourstoplan">0</output>
 					</th>
-					<th class="col-1" scope="col"></th>
-					<th class="col-1" scope="col"></th>
+					<th class="col-auto" scope="col"></th>
+					<th class="col-auto" scope="col"></th>
 					<th class="col-1" scope="col"></th>
 				</tr>
 				<tr>
 					<th class="col-2" scope="col">Name</th>
-					<th class="col-7" scope="col">Description</th>
-					<th class="col-1" scope="col">Hours</th>
-					<th class="col-1" scope="col">Priority</th>
-					<th class="col-1" scope="col">Status</th>
+					<th class="col-10" scope="col">Description</th>
+					<th class="col-auto" scope="col">Hours</th>
+					<th class="col-auto" scope="col">Priority</th>
+					<th class="col-auto" scope="col">Status</th>
 					<th class="col-1" scope="col"></th>
 				</tr>
 			</thead>
@@ -188,7 +193,7 @@ function calcSubmission() {
 			<thead class="border-bottom">
 				<tr>
 					<th class="col-3" scope="col">Task</th>
-					<th class="col-4" scope="col">Description</th>
+					<th class="col-7 flex-grow" scope="col">Description</th>
 					<th class="col-1" scope="col">Hours</th>
 					<th class="col-4" scope="col">Comment</th>
 					<th class="col-1" scope="col"></th>

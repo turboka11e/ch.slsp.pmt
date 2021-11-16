@@ -34,15 +34,23 @@ class OperationFormType extends AbstractType
             ->add('Hours', NumberType::class, [
                 'attr' => [
                     'step' => "0.5",
+                    'min' => "0",
+                    'style' => 'width:5em',
                 ],
                 'html5' => true
             ])
             ->add('Priority', ChoiceType::class, [
-                'choices' => ['Low' => 'Low', 'Medium' => 'Medium', 'High' => 'High']
+                'choices' => ['Low' => 'Low', 'Medium' => 'Medium', 'High' => 'High'],
+                'attr' => [
+                    'style' => 'width:7em',
+                ],
             ])
             // ->add('WorkResults')
             ->add('Status', ChoiceType::class, [
-                'choices' => ['Cont.' => 'Continuing', 'Hold' => 'Hold', 'Done' => 'Done']
+                'choices' => ['Cont.' => 'Continuing', 'Hold' => 'Hold', 'Done' => 'Done'],
+                'attr' => [
+                    'style' => 'width:6em',
+                ],
             ])
             // ->add('SubmissionId')
         ;
