@@ -2,58 +2,59 @@
 {% form_theme form 'bootstrap_5_horizontal_layout.html.twig' %}
 {% macro printOperation(operations) %}
 
-<tr class="deleteable">
-	<td>{{ form_widget(operations.Category) }}</td>
-	<td>{{ form_widget(operations.Description) }}</td>
-	<td>{{ form_widget(operations.Hours, {'attr': {'class': 'opHour'}}) }}</td>
-	<td>{{ form_widget(operations.Priority) }}</td>
-	<td>{{ form_widget(operations.Status) }}</td>
-</tr>
+	<tr class="deleteable">
+		<td>{{ form_widget(operations.Category) }}</td>
+		<td>{{ form_widget(operations.Description) }}</td>
+		<td>{{ form_widget(operations.Hours, {'attr': {'class': 'opHour'}}) }}</td>
+		<td>{{ form_widget(operations.Priority) }}</td>
+		<td>{{ form_widget(operations.Status) }}</td>
+	</tr>
 
 {% endmacro %}
 
 {% macro printProject(projects) %}
 
-<tr class="deleteable">
-	<td>{{ form_widget(projects.Name) }}</td>
-	<td>{{ form_widget(projects.Description) }}</td>
-	<td>{{ form_widget(projects.TargetHours, {'attr': {'class': 'projectHour'}}) }}</td>
-	<td>{{ form_widget(projects.Priority) }}</td>
-	<td>{{ form_widget(projects.Status) }}</td>
-</tr>
+	<tr class="deleteable">
+		<td>{{ form_widget(projects.Name) }}</td>
+		<td>{{ form_widget(projects.Description) }}</td>
+		<td>{{ form_widget(projects.TargetHours, {'attr': {'class': 'projectHour'}}) }}</td>
+		<td>{{ form_widget(projects.Priority) }}</td>
+		<td>{{ form_widget(projects.Status) }}</td>
+	</tr>
 
 {% endmacro %}
 
 {% macro printMisc(misc) %}
 
-<tr class="deleteable">
-	<td>{{ form_widget(misc.Task) }}</td>
-	<td>{{ form_widget(misc.Description) }}</td>
-	<td>{{ form_widget(misc.TargetHours, {'attr': {'class': 'miscHour'}}) }}</td>
-	<td>{{ form_widget(misc.Comment) }}</td>
-</tr>
+	<tr class="deleteable">
+		<td>{{ form_widget(misc.Task) }}</td>
+		<td>{{ form_widget(misc.Description) }}</td>
+		<td>{{ form_widget(misc.TargetHours, {'attr': {'class': 'miscHour'}}) }}</td>
+		<td>{{ form_widget(misc.Comment) }}</td>
+	</tr>
 
 {% endmacro %}
 
 {% block javascripts %}
-{{ encore_entry_script_tags('submission') }}
-<script>
-	function calcSubmission() {
-		totalworkhours.value = Number(8.4 * ((parseFloat(submission_task_form_submission_Workdays.value) || 0) - (parseFloat(submission_task_form_submission_PlannedAbsences.value) || 0) - (parseFloat(submission_task_form_submission_FurtherAbsences.value) || 0))).toFixed(2)
-		hourstoplan.value = Number((parseFloat(totalworkhours.value) || 0) * 0.8).toFixed(2)
-		opHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.6).toFixed(2)
-		projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toFixed(2)
-	}
-</script>
+	{{ encore_entry_script_tags('submission') }}
+	<script>
+		function calcSubmission() {
+totalworkhours.value = Number(8.4 * ((parseFloat(submission_task_form_submission_Workdays.value) || 0) - (parseFloat(submission_task_form_submission_PlannedAbsences.value) || 0) - (parseFloat(submission_task_form_submission_FurtherAbsences.value) || 0))).toFixed(2)
+hourstoplan.value = Number((parseFloat(totalworkhours.value) || 0) * 0.8).toFixed(2)
+opHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.6).toFixed(2)
+projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toFixed(2)
+}
+	</script>
 
-<body onload="calcSubmission()">
+	<body onload="calcSubmission()">
 
 	{% endblock %}
 
 	{{ form_start(form, {'attr': {'oninput': 'calcSubmission()', 'id' : 'formId'} }) }}
 	{{ form_errors(form) }}
 
-	<div class="row g-3">
+	<div
+		class="row g-3">
 
 		{# General #}
 		<div class="container">
@@ -69,12 +70,12 @@
 				</div>
 				<div class="col-sm-auto">
 					<label for="submission_task_form_submission_PlannedAbsences" class="form-label">Planned
-						absences</label>
+												absences</label>
 					{{ form_widget(form.submission.PlannedAbsences) }}
 				</div>
 				<div class="col-sm-auto">
 					<label for="submission_task_form_submission_FurtherAbsences" class="form-label">Further
-						absences</label>
+												absences</label>
 					{{ form_widget(form.submission.FurtherAbsences) }}
 				</div>
 				<div class="col-sm-auto">
@@ -82,14 +83,11 @@
 						<div class="col">
 							<div class="input-group" style="width: max-content;">
 								<span class="input-group-text bg-light" style="width: 10rem;">Total hours work</span>
-								<output class="form-control text-end" style="width: 5em;" id="totalworkhours"
-									name="totalworkhours"
-									for="submission_task_form_submission_Workdays submission_task_form_submission_PlannedAbsences submission_task_form_submission_FurtherAbsences"></output>
+								<output class="form-control text-end" style="width: 5em;" id="totalworkhours" name="totalworkhours" for="submission_task_form_submission_Workdays submission_task_form_submission_PlannedAbsences submission_task_form_submission_FurtherAbsences"></output>
 							</div>
 							<div class="mt-1 input-group" style="width: max-content;">
 								<span class="input-group-text bg-light" style="width: 10rem;">Hours to plan</span>
-								<output class="form-control text-end" style="width: 5em;" id="hourstoplan"
-									for="totalworkhours"></output>
+								<output class="form-control text-end" style="width: 5em;" id="hourstoplan" for="totalworkhours"></output>
 							</div>
 						</div>
 					</div>
@@ -123,12 +121,10 @@
 							<th class="col" scope="col"></th>
 						</tr>
 					</thead>
-					<tbody class="operations"
-						data-index="{{ form.operations|length > 0 ? form.operations|last.vars.name + 1 : 0 }}"
-						data-prototype="{{ formMacros.printOperation(form.operations.vars.prototype)|e('html_attr') }}">
+					<tbody class="operations" data-index="{{ form.operations|length > 0 ? form.operations|last.vars.name + 1 : 0 }}" data-prototype="{{ formMacros.printOperation(form.operations.vars.prototype)|e('html_attr') }}">
 						<tr></tr>
 						{% for operation in form.operations %}
-						{{ formMacros.printOperation(operation) }}
+							{{ formMacros.printOperation(operation) }}
 						{% endfor %}
 					</tbody>
 					<tfoot>
@@ -136,8 +132,7 @@
 							<td></td>
 							<td></td>
 							<td>
-								<input class="form-control" id="opHourSum" type="text" value="0" style="width: 5em;"
-									disabled readonly>
+								<input class="form-control" id="opHourSum" type="text" value="0" style="width: 5em;" disabled readonly>
 							</td>
 							<td>
 								<div style="width: 7em;"></div>
@@ -146,8 +141,7 @@
 								<div style="width: 6em;"></div>
 							</td>
 							<td>
-								<button type="button" class="btn btn-outline-success bg-light; add_item_link"
-									data-collection-holder-class="operations">+</button>
+								<button type="button" class="btn btn-outline-success bg-light; add_item_link" data-collection-holder-class="operations">+</button>
 							</td>
 						</tr>
 					</tfoot>
@@ -166,8 +160,7 @@
 							</th>
 							<th class="col text-end" scope="col">Target</th>
 							<th class="col" scope="col">
-								<output name="result" id="projectHourTarget" for="hourstoplan"
-									style="width: 5em;">0</output>
+								<output name="result" id="projectHourTarget" for="hourstoplan" style="width: 5em;">0</output>
 							</th>
 							<th class="col" scope="col"></th>
 							<th class="col" scope="col"></th>
@@ -182,20 +175,17 @@
 							<th class="col" scope="col"></th>
 						</tr>
 					</thead>
-					<tbody class="projects"
-						data-index="{{ form.projects|length > 0 ? form.projects|last.vars.name + 1 : 0 }}"
-						data-prototype="{{ formMacros.printProject(form.projects.vars.prototype)|e('html_attr') }}">
+					<tbody class="projects" data-index="{{ form.projects|length > 0 ? form.projects|last.vars.name + 1 : 0 }}" data-prototype="{{ formMacros.printProject(form.projects.vars.prototype)|e('html_attr') }}">
 						<tr></tr>
 						{% for project in form.projects %}
-						{{ formMacros.printProject(project) }}
+							{{ formMacros.printProject(project) }}
 						{% endfor %}
 					</tbody>
 					<tfoot>
 						<tr>
 							<td></td>
 							<td></td>
-							<td><input class="form-control" id="projectHourSum" type="text" value="0"
-									style="width: 5em;" disabled readonly>
+							<td><input class="form-control" id="projectHourSum" type="text" value="0" style="width: 5em;" disabled readonly>
 							</td>
 							<td>
 								<div style="width: 7em;"></div>
@@ -204,8 +194,7 @@
 								<div style="width: 6em;"></div>
 							</td>
 							<td>
-								<button type="button" class="btn btn-outline-success bg-light; add_item_link"
-									data-collection-holder-class="projects">+</button>
+								<button type="button" class="btn btn-outline-success bg-light; add_item_link" data-collection-holder-class="projects">+</button>
 							</td>
 						</tr>
 					</tfoot>
@@ -232,26 +221,21 @@
 							<th class="col" scope="col"></th>
 						</tr>
 					</thead>
-					<tbody class="miscellaneouses"
-						data-index="{{ form.miscellaneouses|length > 0 ? form.miscellaneouses|last.vars.name + 1 : 0 }}"
-						data-prototype="{{ formMacros.printMisc(form.miscellaneouses.vars.prototype)|e('html_attr') }}">
+					<tbody class="miscellaneouses" data-index="{{ form.miscellaneouses|length > 0 ? form.miscellaneouses|last.vars.name + 1 : 0 }}" data-prototype="{{ formMacros.printMisc(form.miscellaneouses.vars.prototype)|e('html_attr') }}">
 						<tr></tr>
 						{% for misc in form.miscellaneouses %}
-						{{ formMacros.printMisc(misc) }}
+							{{ formMacros.printMisc(misc) }}
 						{% endfor %}
 					</tbody>
 					<tfoot>
 						<tr>
 							<td></td>
 							<td></td>
-							<td><input class="form-control" id="miscHourSum" type="text" value="0" style="width: 5em;"
-									disabled readonly>
+							<td><input class="form-control" id="miscHourSum" type="text" value="0" style="width: 5em;" disabled readonly>
 							</td>
 							<td></td>
 							<td>
-								<button type="button"
-									class="btn btn-outline-success bg-light font-monospace; add_item_link"
-									data-collection-holder-class="miscellaneouses">+</button>
+								<button type="button" class="btn btn-outline-success bg-light font-monospace; add_item_link" data-collection-holder-class="miscellaneouses">+</button>
 							</td>
 						</tr>
 					</tfoot>
@@ -260,8 +244,34 @@
 		</div>
 	</div>
 
-	<div class="mt-3 d-flex">
-		{{ form_widget(form.Submit, {'attr': {'class': 'ms-auto btn btn-lg btn-outline-success'}}) }}
+	<div
+		class="mt-3 d-flex">
+		<!-- Button trigger modal -->
+		<button type="button" class="ms-auto me-3 btn btn-lg btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+			Cancel
+		</button>
+
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Attention</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						Do you really want to cancel?
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abort</button>
+						<a type="button" class="btn btn-danger" href="{{ path('home') }}">Cancel</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		
+		{{ form_widget(form.Submit, {'attr': {'class': 'btn btn-lg btn-outline-success'}}) }}
 	</div>
 
 	{{ form_end(form) }}

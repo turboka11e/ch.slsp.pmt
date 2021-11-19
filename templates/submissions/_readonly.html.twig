@@ -63,24 +63,48 @@ projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toF
 						{{ subMonth|date('F Y') }}
 					</h1>
 					<div class="row row-cols-auto">
-					<form action="{{ path('edit_submission') }}" method="PUT">
-						<div>
-							<input type="hidden" id="year" name="year" value="{{ year }}">
-							<input type="hidden" id="month" name="month" value="{{ month }}">
+						<form action="{{ path('edit_submission') }}" method="PUT">
+							<div>
+								<input type="hidden" id="year" name="year" value="{{ year }}">
+								<input type="hidden" id="month" name="month" value="{{ month }}">
+							</div>
+							<div>
+								<button type="submit" class="btn btn btn-outline-warning">Edit</button>
+							</div>
+						</form>
+
+						<button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+							Delete
+						</button>
+
+						<!-- Modal -->
+						<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="deleteModalLabel">Attention</h5>
+										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										Do you really want to delete submission from
+										{{ subMonth|date('F Y') }}?
+									</div>
+									<form action="{{ path('delete_submission') }}" method="PUT">
+										<div>
+											<input type="hidden" id="year" name="year" value="{{ year }}">
+											<input type="hidden" id="month" name="month" value="{{ month }}">
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abort</button>
+											<button type="submit" class="btn btn-danger">Delete</button>
+										</div>
+									</form>
+
+								</div>
+							</div>
 						</div>
-						<div>
-							<button type="submit" class="btn btn btn-outline-warning">Edit</button>
-						</div>
-					</form>
-					<form action="{{ path('delete_submission') }}" method="PUT">
-						<div>
-							<input type="hidden" id="year" name="year" value="{{ year }}">
-							<input type="hidden" id="month" name="month" value="{{ month }}">
-						</div>
-						<div>
-							<button type="submit" class="btn btn btn-outline-danger">Delete</button>
-						</div>
-					</form>
+
+
 					</div>
 					{{ form_start(form, {'attr': {'oninput': 'calcSubmission()'} }) }}
 					{{ form_errors(form) }}
@@ -92,12 +116,12 @@ projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toF
 				</div>
 				<div class="col-sm-auto">
 					<label for="submission_task_form_submission_PlannedAbsences" class="form-label">Planned
-																								absences</label>
+																																										absences</label>
 					{{ form_widget(form.submission.PlannedAbsences, {'attr': {'disabled': 'disabled'}}) }}
 				</div>
 				<div class="col-sm-auto">
 					<label for="submission_task_form_submission_FurtherAbsences" class="form-label">Further
-																								absences</label>
+																																										absences</label>
 					{{ form_widget(form.submission.FurtherAbsences, {'attr': {'disabled': 'disabled'}}) }}
 				</div>
 				<div class="col-sm-auto">
