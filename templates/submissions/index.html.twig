@@ -9,10 +9,10 @@
 {% block content %}
 
 <div class="container-xxl">
-	<div class="row d-flex">
-		<div class="col-2 pt-3 align-self-start">
+	<div class="row">
+		<div class="col-auto mt-2">
 			<div class="p-3 bg-white shadow-sm">
-				<h4 class="border-bottom pb-3">Entries</h4>
+				<h5 class="border-bottom pb-3">Submissions</h5>
 
 				{% for year, months in subYearMonth %}
 				<ul class="list-unstyled ps-0">
@@ -36,13 +36,13 @@
 					</li>
 				</ul>
 				{% endfor %}
-				<ul class="border-bottom"></ul>
+				<ul class="border-bottom">
+				</ul>
 				{% include "submission/_create.html.twig" %}
-
 			</div>
 		</div>
-		<div class="col-10 p-3">
-			<div id="ajax-results" class="container-lg p-3 bg-white shadow-sm">
+		<div class="col flex-column">
+			<div id="ajax-results" class="d-flex flex-column mt-2 p-3 bg-white shadow-sm">
 				<h3>Overview of submitted forms.</h3>
 			</div>
 		</div>

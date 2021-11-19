@@ -89,7 +89,7 @@ class SubmissionController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Form was successfully saved for' . $subMonth->format('M Y') . '.'
+                'Form was successfully saved for ' . $subMonth->format('F Y') . '.'
             );
             return $this->redirectToRoute('app_submissions');
         }
@@ -256,7 +256,7 @@ class SubmissionController extends AbstractController
 
         $this->addFlash(
             'success',
-            'Success! Deleted submission for ' . $subMonth->format('F') . '.'
+            'Success! Deleted submission for ' . $subMonth->format('F Y') . '.'
         );
         return $this->redirectToRoute('app_submissions');
     }
