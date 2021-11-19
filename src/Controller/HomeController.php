@@ -28,7 +28,9 @@ class HomeController extends AbstractController
         $form = $this->createFormBuilder($defaultData)
             ->setAction($this->generateUrl('new_submission'))
             ->setMethod('GET')
-            ->add('Date', DateType::class)
+            ->add('Date', DateType::class, [
+                'years' => range(date('Y'), date('Y') + 10)
+            ])
             ->add('Create', SubmitType::class)
             ->getForm();
 

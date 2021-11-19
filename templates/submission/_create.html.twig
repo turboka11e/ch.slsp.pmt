@@ -12,7 +12,7 @@
 				<h5 class="modal-title" id="exampleModalLabel">New Submission</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
-
+            {{ form_start(createForm) }}
 			<div class="modal-body">
 				{{ form_widget(createForm.Date.day, {
                     'attr': {'style': 'display:none'}
@@ -29,6 +29,7 @@
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 			</div>
 			{{ form_rest(createForm) }}
+            {{ form_end(createForm) }}
 		</div>
 	</div>
 </div>
