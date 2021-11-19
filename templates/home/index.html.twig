@@ -23,20 +23,13 @@
 			<div class="card text-center shadow-sm">
 				<div class="card-body flex-column">
 					<h5 class="card-title">New submission</h5>
-					<p class="card-text">Create a new submission for {{ nextMonth|date('F') }}.</p>
-					<form action="{{ path('new_submission') }}" method="PUT">
-						<div>
-							<input type="hidden" id="year" name="year" value="{{ nextMonth|date('Y') }}">
-							<input type="hidden" id="month" name="month" value="{{ nextMonth|date('m') }}">
-						</div>
-						<div>
-							<button type="submit" class="btn btn-outline-success">New</button>
-						</div>
-					</form>
+					<p class="card-text">Create a new submission.</p>
+					{% include "submission/_create.html.twig" %}
 				</div>
 			</div>
 		</div>
-		<div class="col-md-4">
+		{# EDIT #}
+		{# <div class="col-md-4">
 			<div class="card text-center shadow-sm">
 				<div class="card-body flex-column">
 					<h5 class="card-title">Edit submission</h5>
@@ -52,8 +45,9 @@
 					</form>
 				</div>
 			</div>
-		</div>
-		<div class="col-md-4">
+		</div> #}
+		{# DELETE #}
+		{# <div class="col-md-4">
 			<div class="card text-center shadow-sm">
 				<div class="card-body flex-column">
 					<h5 class="card-title">Delete submission</h5>
@@ -69,7 +63,7 @@
 					</form>
 				</div>
 			</div>
-		</div>
+		</div> #}
 		{% if is_granted('ROLE_MANAGER') %}
 		<div class="col-md-4">
 			<div class="card text-center shadow-sm">

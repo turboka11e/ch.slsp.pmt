@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\CategoryChoice;
 use App\Entity\Miscellaneous;
 use App\Entity\Operation;
 use App\Entity\Project;
@@ -19,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -27,23 +27,16 @@ use Symfony\Component\HttpFoundation\Request;
 class SubmissionController extends AbstractController
 {
     /**
-     * @Route("/submission/new", name="new_submission")
+     * @Route("profile/submission/new", name="new_submission")
      */
     public function newSubmission(Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
             
-        $year = $request->get('year');
-        $month = $request->get('month');
-
-        if (is_null($year) || is_null($month)) {
-            $this->addFlash(
-                'danger',
-                'Bad Request'
-            );
-            return $this->redirectToRoute('home');
-        }
-
+        $date = $request->get('form')['Date'];
+        $year = $date['year'];
+        $month = $date['month'];
+  
         $subMonth = DateTIme::createFromFormat('j-m-Y', '01-' . $month . '-' . $year);
 
         $alreadyCreated = $this->getDoctrine()->getRepository(Submission::class)->findOneBy([
@@ -56,7 +49,7 @@ class SubmissionController extends AbstractController
                 'error',
                 'Form has already been submitted for ' . $subMonth->format('F')
             );
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('app_submissions');
         }
 
         $today = new DateTime('now');
@@ -98,7 +91,7 @@ class SubmissionController extends AbstractController
                 'success',
                 'Form was successfully saved!'
             );
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('app_submissions');
         }
 
         return $this->render('submission/new.html.twig', [
@@ -112,7 +105,7 @@ class SubmissionController extends AbstractController
     }
 
     /**
-     * @Route("/submission/edit", name="edit_submission")
+     * @Route("profile/submission/edit", name="edit_submission")
      */
     public function editSubmission(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -212,7 +205,7 @@ class SubmissionController extends AbstractController
                 'success',
                 'Form was successfully saved!'
             );
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('app_submissions');
         }
 
         return $this->render('submission/edit.html.twig', [
@@ -265,6 +258,6 @@ class SubmissionController extends AbstractController
             'success',
             'Success! Deleted submission for ' . $subMonth->format('F') . '.'
         );
-        return $this->redirectToRoute('home');
+        return $this->redirectToRoute('app_submissions');
     }
 }

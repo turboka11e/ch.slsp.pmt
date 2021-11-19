@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * @IsGranted("ROLE_USER")
@@ -22,9 +24,18 @@ class HomeController extends AbstractController
         $today = new DateTime('now');
         $nextMonth = $today->modify('first day of next month');
 
+        $defaultData = ['Date' => new DateTime('first day of next month')];
+        $form = $this->createFormBuilder($defaultData)
+            ->setAction($this->generateUrl('new_submission'))
+            ->setMethod('GET')
+            ->add('Date', DateType::class)
+            ->add('Create', SubmitType::class)
+            ->getForm();
+
         return $this->render('home/index.html.twig', [
             'today' => new DateTime('now'),
             'nextMonth' => $nextMonth,
+            'createForm' => $form->createView(),
             'controller_name' => 'HomeController',
         ]);
     }

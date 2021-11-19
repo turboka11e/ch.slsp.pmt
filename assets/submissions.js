@@ -1,8 +1,8 @@
 import { updateAllSums } from "./submission";
 
-$(document).one('click', 'a.ajax', function (e) {
+var loadSubmission = function (e) {
     $.ajax({
-        url: "submissions",
+        url: $(this).attr('href'),
         type: "POST",
         dataType: "json",
         data: {
@@ -14,7 +14,11 @@ $(document).one('click', 'a.ajax', function (e) {
             $('div#ajax-results').html(data.output);
             calcSubmission();
             updateAllSums();
+            $(document).one('click', 'a.ajax', loadSubmission);
         }
     });
+    e.stopImmediatePropagation();
     return false;
-});
+};
+
+$(document).one('click', 'a.ajax', loadSubmission);
