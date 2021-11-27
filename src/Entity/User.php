@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Submission\Submission;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -50,7 +51,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $surname;
 
     /**
-     * @ORM\OneToMany(targetEntity=Submission::class, mappedBy="UserId")
+     * @ORM\OneToMany(targetEntity=App\Entity\Submission\Submission::class, mappedBy="UserId")
      */
     private $submissions;
 

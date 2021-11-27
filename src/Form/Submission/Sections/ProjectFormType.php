@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Submission\Sections;
 
-use App\Entity\Project;
-use App\Entity\ProjectChoice;
+use App\Entity\Choices\ProjectChoice;
+use App\Entity\Submission\Sections\Project;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

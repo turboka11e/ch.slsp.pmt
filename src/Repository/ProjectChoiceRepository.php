@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\ProjectChoice;
+use App\Entity\Choices\ProjectChoice;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

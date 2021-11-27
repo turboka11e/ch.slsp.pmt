@@ -1,7 +1,11 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Submission;
 
+use App\Entity\User;
+use App\Entity\Submission\Sections\Miscellaneous;
+use App\Entity\Submission\Sections\Operation;
+use App\Entity\Submission\Sections\Project;
 use App\Repository\SubmissionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -51,17 +55,17 @@ class Submission
     private $Workdays;
 
     /**
-     * @ORM\OneToMany(targetEntity=Operation::class, mappedBy="SubmissionId", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=App\Entity\Submission\Sections\Operation::class, mappedBy="SubmissionId", orphanRemoval=true)
      */
     private $operations;
 
     /**
-     * @ORM\OneToMany(targetEntity=Project::class, mappedBy="SubmissionId", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=App\Entity\Submission\Sections\Project::class, mappedBy="SubmissionId", orphanRemoval=true)
      */
     private $projects;
 
     /**
-     * @ORM\OneToMany(targetEntity=Miscellaneous::class, mappedBy="SubmissionId", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=App\Entity\Submission\Sections\Miscellaneous::class, mappedBy="SubmissionId", orphanRemoval=true)
      */
     private $miscellaneouses;
 

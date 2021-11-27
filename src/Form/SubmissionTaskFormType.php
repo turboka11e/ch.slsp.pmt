@@ -3,6 +3,10 @@
 namespace App\Form;
 
 use App\Entity\SubmissionTask;
+use App\Form\Submission\Sections\MiscellaneousFormType;
+use App\Form\Submission\Sections\OperationFormType;
+use App\Form\Submission\Sections\ProjectFormType;
+use App\Form\Submission\SubmissionFormType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;

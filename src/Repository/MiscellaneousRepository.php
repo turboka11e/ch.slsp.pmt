@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Miscellaneous;
+use App\Entity\Submission\Sections\Miscellaneous;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

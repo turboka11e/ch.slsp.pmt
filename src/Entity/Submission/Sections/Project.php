@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Submission\Sections;
 
-use App\Repository\OperationRepository;
+use App\Entity\Submission\Submission;
+use App\Repository\ProjectRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=OperationRepository::class)
+ * @ORM\Entity(repositoryClass=ProjectRepository::class)
  */
-class Operation
+class Project
 {
     /**
      * @ORM\Id
@@ -20,7 +21,7 @@ class Operation
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Category;
+    private $Name;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -30,7 +31,12 @@ class Operation
     /**
      * @ORM\Column(type="float")
      */
-    private $Hours;
+    private $TargetHours;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $ActualHours;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -48,7 +54,7 @@ class Operation
     private $Status;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Submission::class, inversedBy="operations")
+     * @ORM\ManyToOne(targetEntity=App\Entity\Submission\Submission::class, inversedBy="projects")
      * @ORM\JoinColumn(nullable=false)
      */
     private $SubmissionId;
@@ -58,14 +64,14 @@ class Operation
         return $this->id;
     }
 
-    public function getCategory(): ?string
+    public function getName(): ?string
     {
-        return $this->Category;
+        return $this->Name;
     }
 
-    public function setCategory(string $Category): self
+    public function setName(string $Name): self
     {
-        $this->Category = $Category;
+        $this->Name = $Name;
 
         return $this;
     }
@@ -82,14 +88,26 @@ class Operation
         return $this;
     }
 
-    public function getHours(): ?float
+    public function getTargetHours(): ?float
     {
-        return $this->Hours;
+        return $this->TargetHours;
     }
 
-    public function setHours(float $Hours): self
+    public function setTargetHours(float $TargetHours): self
     {
-        $this->Hours = $Hours;
+        $this->TargetHours = $TargetHours;
+
+        return $this;
+    }
+
+    public function getActualHours(): ?float
+    {
+        return $this->ActualHours;
+    }
+
+    public function setActualHours(float $ActualHours): self
+    {
+        $this->ActualHours = $ActualHours;
 
         return $this;
     }

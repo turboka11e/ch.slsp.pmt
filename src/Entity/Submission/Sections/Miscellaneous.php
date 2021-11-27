@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Submission\Sections;
 
+use App\Entity\Submission\Submission;
 use App\Repository\MiscellaneousRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -38,7 +39,7 @@ class Miscellaneous
     private $Comment;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Submission::class, inversedBy="miscellaneouses")
+     * @ORM\ManyToOne(targetEntity=App\Entity\Submission\Submission::class, inversedBy="miscellaneouses")
      * @ORM\JoinColumn(nullable=false)
      */
     private $SubmissionId;

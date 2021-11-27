@@ -2,13 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Miscellaneous;
-use App\Entity\Operation;
-use App\Entity\Project;
-use App\Entity\ProjectChoice;
-use App\Entity\Submission;
+use App\Entity\Submission\Sections\Miscellaneous;
+use App\Entity\Submission\Sections\Operation;
+use App\Entity\Submission\Sections\Project;
+use App\Entity\Submission\Submission;
 use App\Entity\SubmissionTask;
-use App\Form\OperationFormType;
 use App\Form\SubmissionTaskFormType;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -18,7 +16,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\HttpFoundation\Request;
 
 /**

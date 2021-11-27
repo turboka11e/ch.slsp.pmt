@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
-use App\Entity\Submission;
+use App\Entity\Submission\Sections\Miscellaneous;
+use App\Entity\Submission\Sections\Operation;
+use App\Entity\Submission\Sections\Project;
+use App\Entity\Submission\Submission;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 

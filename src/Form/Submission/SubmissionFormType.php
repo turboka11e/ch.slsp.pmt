@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Submission;
 
-use App\Entity\Submission;
+use App\Entity\Submission\Submission;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;

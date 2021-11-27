@@ -2,14 +2,13 @@
 
 namespace App\Controller;
 
-use App\Entity\Miscellaneous;
-use App\Entity\Operation;
-use App\Entity\Project;
-use App\Entity\Submission;
+use App\Entity\Submission\Sections\Miscellaneous;
+use App\Entity\Submission\Sections\Operation;
+use App\Entity\Submission\Sections\Project;
+use App\Entity\Submission\Submission;
 use App\Entity\SubmissionTask;
 use App\Entity\User;
 use App\Form\SubmissionTaskFormType;
-use DateInterval;
 use DateTime;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -28,13 +27,6 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
-
-use function PHPUnit\Framework\containsEqual;
-use function PHPUnit\Framework\isNull;
 
 /**
  * @IsGranted("ROLE_USER")
@@ -187,7 +179,6 @@ class SubmissionsController extends AbstractController
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->setTitle("My First Worksheet");
 
-
         $qb = $em->createQueryBuilder()
             ->select('u.surname')
             ->from(User::class, 'u')
@@ -199,7 +190,7 @@ class SubmissionsController extends AbstractController
 
         $name = $query->execute();
 
-        $sheet->setCellValue('A1', $name[1]['surname']);
+        $sheet->setCellValue('A1', $name[0]['surname']);
 
 
 

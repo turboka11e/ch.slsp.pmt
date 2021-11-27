@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace App\Entity\Choices;
 
 use App\Repository\CategoryChoiceRepository;
 use Doctrine\ORM\Mapping as ORM;
