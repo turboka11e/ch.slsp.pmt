@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Evaluation;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ResultsController extends AbstractController
+class EvaluationController extends AbstractController
 {
     /**
-     * @Route("/results", name="app_results")
+     * @Route("/evaluation", name="submission_evaluation")
      */
     public function index(): Response
     {

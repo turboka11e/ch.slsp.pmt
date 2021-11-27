@@ -23,7 +23,7 @@
 						</li>
 						{% if is_granted('ROLE_MANAGER') %}
 						<li class="nav-item">
-							<a class="nav-link {{ resultslink|default('') }}" href="{{ path('app_results') }}">Results</a>
+							<a class="nav-link {{ resultslink|default('') }}" href="{{ path('submission_evaluation') }}">Results</a>
 						</li>
 						{% endif %}
 					</ul>

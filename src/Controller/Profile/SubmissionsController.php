@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Profile;
 
 use App\Entity\Submission\Sections\Miscellaneous;
 use App\Entity\Submission\Sections\Operation;
@@ -69,7 +69,7 @@ class SubmissionsController extends AbstractController
         }
 
         $submissions = $entityManager->getRepository(Submission::class)->findBy([
-            'UserId' => $this->getUser()->getId(),
+            'UserId' => $this->getUser()->getId()
         ]);
 
         $submissionsSubMonth = array_map(function (Submission $s) {

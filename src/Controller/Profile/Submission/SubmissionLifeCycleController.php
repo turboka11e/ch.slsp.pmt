@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Profile\Submission;
 
 use App\Entity\Submission\Sections\Miscellaneous;
 use App\Entity\Submission\Sections\Operation;
@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * @IsGranted("ROLE_USER")
  */
-class SubmissionController extends AbstractController
+class SubmissionLifeCycleController extends AbstractController
 {
     /**
      * @Route("profile/submission/new", name="new_submission")
