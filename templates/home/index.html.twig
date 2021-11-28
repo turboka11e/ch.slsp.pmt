@@ -24,7 +24,7 @@
 				<div class="card-body flex-column">
 					<h5 class="card-title">New submission</h5>
 					<p class="card-text">Create a new submission.</p>
-					{% include "submission/_create.html.twig" %}
+					{% include "submission/_create.modal.html.twig" %}
 				</div>
 			</div>
 		</div>
@@ -64,7 +64,7 @@
 				</div>
 			</div>
 		</div> #}
-		{% if is_granted('ROLE_MANAGER') %}
+		{# {% if is_granted('ROLE_MANAGER') %}
 		<div class="col-md-4">
 			<div class="card text-center shadow-sm">
 				<div class="card-body flex-column">
@@ -78,7 +78,7 @@
 				</div>
 			</div>
 		</div>
-		{% endif %}
+		{% endif %} #}
 	</div>
 </div>
 

@@ -136,8 +136,6 @@ class SubmissionLifeCycleController extends AbstractController
 
         $today = new DateTime('now');
 
-        $submission->setUpdated($today);
-
         $task = new SubmissionTask($submission);
 
         $operations = $this->getDoctrine()->getRepository(Operation::class)->findBy([
@@ -161,6 +159,7 @@ class SubmissionLifeCycleController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $submission = $task->getSubmission();
+            $submission->setUpdated($today);
             $entityManager->persist($submission);
 
             // Operations

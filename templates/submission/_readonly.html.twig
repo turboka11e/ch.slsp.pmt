@@ -62,50 +62,6 @@ projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toF
 					<h1>
 						{{ subMonth|date('F Y') }}
 					</h1>
-					<div class="row row-cols-auto">
-						<form action="{{ path('edit_submission') }}" method="PUT">
-							<div>
-								<input type="hidden" id="year" name="year" value="{{ year }}">
-								<input type="hidden" id="month" name="month" value="{{ month }}">
-							</div>
-							<div>
-								<button type="submit" class="btn btn btn-outline-warning">Edit</button>
-							</div>
-						</form>
-
-						<button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-							Delete
-						</button>
-
-						<!-- Modal -->
-						<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="deleteModalLabel">Attention</h5>
-										<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-									</div>
-									<div class="modal-body">
-										Do you really want to delete submission from
-										{{ subMonth|date('F Y') }}?
-									</div>
-									<form action="{{ path('delete_submission') }}" method="PUT">
-										<div>
-											<input type="hidden" id="year" name="year" value="{{ year }}">
-											<input type="hidden" id="month" name="month" value="{{ month }}">
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abort</button>
-											<button type="submit" class="btn btn-danger">Delete</button>
-										</div>
-									</form>
-
-								</div>
-							</div>
-						</div>
-
-
-					</div>
 					{{ form_start(form, {'attr': {'oninput': 'calcSubmission()'} }) }}
 					{{ form_errors(form) }}
 				</div>
@@ -116,12 +72,12 @@ projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toF
 				</div>
 				<div class="col-sm-auto">
 					<label for="submission_task_form_submission_PlannedAbsences" class="form-label">Planned
-																																																absences</label>
+																																																						absences</label>
 					{{ form_widget(form.submission.PlannedAbsences, {'attr': {'disabled': 'disabled'}}) }}
 				</div>
 				<div class="col-sm-auto">
 					<label for="submission_task_form_submission_FurtherAbsences" class="form-label">Further
-																																																absences</label>
+																																																						absences</label>
 					{{ form_widget(form.submission.FurtherAbsences, {'attr': {'disabled': 'disabled'}}) }}
 				</div>
 				<div class="col-sm-auto">
@@ -142,7 +98,7 @@ projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toF
 		</div>
 
 		{# Operations Table #}
-		<div class="p-3 border rounded-3" style="background-color: #fcfcfc;">
+		<div class="p-1 border rounded-3" style="background-color: #fcfcfc;">
 			<div class="table-responsive">
 				<table class="table table-sm table-borderless">
 					<thead class="border-bottom">
@@ -193,7 +149,7 @@ projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toF
 		</div>
 
 		{# Projects Table #}
-		<div class="p-3 border rounded-3" style="background-color: #fcfcfc;">
+		<div class="p-1 border rounded-3" style="background-color: #fcfcfc;">
 			<div class="table-responsive">
 				<table class="table table-sm table-borderless">
 					<thead class="border-bottom">
@@ -242,7 +198,7 @@ projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toF
 		</div>
 
 		{# miscellaneouses Table #}
-		<div class="pt-3 border rounded-3" style="background-color: #fcfcfc;">
+		<div class="pt-1 border rounded-3" style="background-color: #fcfcfc;">
 
 			<div class="table-responsive">
 				<table class="table table-sm table-borderless">
@@ -279,4 +235,18 @@ projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toF
 		</div>
 	</div>
 	{{ form_end(form) }}
+
+	<div class="row row-cols-auto justify-content-end me-1">
+		<form action="{{ path('edit_submission') }}" method="PUT">
+			<div>
+				<input type="hidden" id="year" name="year" value="{{ year }}">
+				<input type="hidden" id="month" name="month" value="{{ month }}">
+			</div>
+			<div>
+				<button type="submit" class="btn btn btn-outline-warning">Edit</button>
+			</div>
+		</form>
+		{{ include('submission/_delete.modal.html.twig') }}
+	</div>
+
 </body>

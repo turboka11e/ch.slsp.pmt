@@ -29,7 +29,7 @@ class HomeController extends AbstractController
             ->setAction($this->generateUrl('new_submission'))
             ->setMethod('GET')
             ->add('Date', DateType::class, [
-                'years' => range(date('Y'), date('Y') + 10)
+                'years' => range(date('Y') - 1, date('Y') + 2)
             ])
             ->add('Create', SubmitType::class)
             ->getForm();

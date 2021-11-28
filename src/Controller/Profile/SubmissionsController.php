@@ -48,7 +48,9 @@ class SubmissionsController extends AbstractController
             [$year, $month, $today, $subMonth] = $results;
 
             $user = $this->getUser();
-            $task = $this->getSubmission($entityManager, $subMonth, $today, $user);
+
+            $task = $entityManager->getRepository(Submission::class)->findSubmissionTask($subMonth, $user);
+
             if (is_null($task)) {
                 return new JsonResponse(['output' => $this->renderView('submissions/_error.html.twig')]);
             }
@@ -56,7 +58,7 @@ class SubmissionsController extends AbstractController
             $form = $this->createForm(SubmissionTaskFormType::class, $task);
             $form->remove('Submit');
 
-            return new JsonResponse(['output' => $this->renderView('submissions/_readonly.html.twig', [
+            return new JsonResponse(['output' => $this->renderView('submission/_readonly.html.twig', [
                 'today' => $today,
                 'subMonth' => $subMonth,
                 'year' => $year,
@@ -102,7 +104,7 @@ class SubmissionsController extends AbstractController
             ->setAction($this->generateUrl('new_submission'))
             ->setMethod('GET')
             ->add('Date', DateType::class, [
-                'years' => range(date('Y'), date('Y') + 10)
+                'years' => range(date('Y') - 1, date('Y') + 2)
             ])
             ->add('Create', SubmitType::class)
             ->getForm();
@@ -127,42 +129,6 @@ class SubmissionsController extends AbstractController
             );
         }
         return $results;
-    }
-
-    public function getSubmission(EntityManager $entityManager, $subMonth, $today, $user): ?SubmissionTask
-    {
-        $submission = $entityManager->getRepository(Submission::class)->findOneBy([
-            'SubmissionMonth' => $subMonth,
-            'UserId' => $user->getId()
-        ]);
-
-        if (is_null($submission)) {
-            $this->addFlash(
-                'error',
-                'Form not available for ' . $subMonth->format('F')
-            );
-            return null;
-        }
-
-        $submission->setUpdated($today);
-
-        $task = new SubmissionTask($submission);
-
-        $operations = $entityManager->getRepository(Operation::class)->findBy([
-            'SubmissionId' => $submission,
-        ]);
-        $task->setOperations(new ArrayCollection($operations));
-
-        $projects = $this->getDoctrine()->getRepository(Project::class)->findBy([
-            'SubmissionId' => $submission,
-        ]);
-        $task->setProjects(new ArrayCollection($projects));
-
-        $miscs = $this->getDoctrine()->getRepository(Miscellaneous::class)->findBy([
-            'SubmissionId' => $submission,
-        ]);
-        $task->setMiscellaneouses(new ArrayCollection($miscs));
-        return $task;
     }
 
     /**
