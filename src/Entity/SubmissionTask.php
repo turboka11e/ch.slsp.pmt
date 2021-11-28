@@ -20,9 +20,9 @@ class SubmissionTask
     public function __construct(Submission $submission)
     {
         $this->submission = $submission;
-        $this->operations = new ArrayCollection();
-        $this->projects = new ArrayCollection();
-        $this->miscellaneouses = new ArrayCollection();
+        $this->operations = $submission->getOperations();
+        $this->projects = $submission->getProjects();
+        $this->miscellaneouses = $submission->getMiscellaneouses();
     }
 
     public function addOperation(Operation $operation) {

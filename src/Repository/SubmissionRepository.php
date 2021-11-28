@@ -2,15 +2,11 @@
 
 namespace App\Repository;
 
-use App\Entity\Submission\Sections\Miscellaneous;
-use App\Entity\Submission\Sections\Operation;
-use App\Entity\Submission\Sections\Project;
 use App\Entity\Submission\Submission;
 use App\Entity\SubmissionTask;
 use App\Entity\User;
 use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -44,31 +40,7 @@ class SubmissionRepository extends ServiceEntityRepository
             return null;
         }
 
-        $task = new SubmissionTask($submission);
-        
-        $operations = $this->getEntityManager()->getRepository(Operation::class)->findBy([
-            'SubmissionId' => $submission,
-        ]);
-        $task->setOperations(new ArrayCollection($operations));
-
-        $projects = $this->getEntityManager()->getRepository(Project::class)->findBy([
-            'SubmissionId' => $submission,
-        ]);
-        $task->setProjects(new ArrayCollection($projects));
-
-        $miscs = $this->getEntityManager()->getRepository(Miscellaneous::class)->findBy([
-            'SubmissionId' => $submission,
-        ]);
-        $task->setMiscellaneouses(new ArrayCollection($miscs));
-        return $task;
+        return new SubmissionTask($submission);
     }
 
-    /**
-     * @return SubmissionTask[]|null Returns an SubmissionTask
-     */
-    public function findAllSubmissionTasks(DateTime $subMonth)
-    {
-        $qb = $this->createQueryBuilder('o');
-
-    }
 }

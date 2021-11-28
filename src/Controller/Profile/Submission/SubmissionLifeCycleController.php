@@ -138,20 +138,9 @@ class SubmissionLifeCycleController extends AbstractController
 
         $task = new SubmissionTask($submission);
 
-        $operations = $this->getDoctrine()->getRepository(Operation::class)->findBy([
-            'SubmissionId' => $submission,
-        ]);
-        $task->setOperations(new ArrayCollection($operations));
-        
-        $projects = $this->getDoctrine()->getRepository(Project::class)->findBy([
-            'SubmissionId' => $submission,
-        ]);
-        $task->setProjects(new ArrayCollection($projects));
-        
-        $miscs = $this->getDoctrine()->getRepository(Miscellaneous::class)->findBy([
-            'SubmissionId' => $submission,
-        ]);
-        $task->setMiscellaneouses(new ArrayCollection($miscs));
+        $operations = $submission->getOperations();
+        $projects = $submission->getProjects();
+        $miscs = $submission->getMiscellaneouses();
 
         $form = $this->createForm(SubmissionTaskFormType::class, $task);
 
