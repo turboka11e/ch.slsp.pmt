@@ -8,6 +8,7 @@
 		<td>{{ form_widget(operations.Hours, {'attr': {'class': 'opHour'}}) }}</td>
 		<td>{{ form_widget(operations.Priority) }}</td>
 		<td>{{ form_widget(operations.Status) }}</td>
+		<td>{{ form_widget(operations.WorkResults) }}</td>
 	</tr>
 
 {% endmacro %}
@@ -18,8 +19,10 @@
 		<td>{{ form_widget(projects.Name) }}</td>
 		<td>{{ form_widget(projects.Description) }}</td>
 		<td>{{ form_widget(projects.TargetHours, {'attr': {'class': 'projectHour'}}) }}</td>
+		<td>{{ form_widget(projects.ActualHours, {'attr': {'class': 'projectActualHour'}}) }}</td>
 		<td>{{ form_widget(projects.Priority) }}</td>
 		<td>{{ form_widget(projects.Status) }}</td>
+		<td>{{ form_widget(projects.WorkResults) }}</td>
 	</tr>
 
 {% endmacro %}
@@ -39,7 +42,7 @@
 	{{ encore_entry_script_tags('submission') }}
 	<script>
 		function calcSubmission() {
-totalworkhours.value = Number(8.4 * ((parseFloat(submission_task_form_submission_Workdays.value) || 0) - (parseFloat(submission_task_form_submission_PlannedAbsences.value) || 0) - (parseFloat(submission_task_form_submission_FurtherAbsences.value) || 0))).toFixed(2)
+totalworkhours.value = Number(8.4 * ((parseFloat(submission_form_Workdays.value) || 0) - (parseFloat(submission_form_PlannedAbsences.value) || 0) - (parseFloat(submission_form_FurtherAbsences.value) || 0))).toFixed(2)
 hourstoplan.value = Number((parseFloat(totalworkhours.value) || 0) * 0.8).toFixed(2)
 opHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.6).toFixed(2)
 projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toFixed(2)
@@ -66,17 +69,15 @@ projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toF
 				</div>
 				<div class="col-sm-auto">
 					<label for="submission_task_form_submission_Workdays" class="form-label">Workdays</label>
-					{{ form_widget(form.submission.Workdays) }}
+					{{ form_widget(form.Workdays) }}
 				</div>
 				<div class="col-sm-auto">
-					<label for="submission_task_form_submission_PlannedAbsences" class="form-label">Planned
-												absences</label>
-					{{ form_widget(form.submission.PlannedAbsences) }}
+					<label for="submission_task_form_submission_PlannedAbsences" class="form-label">Planned absences</label>
+					{{ form_widget(form.PlannedAbsences) }}
 				</div>
 				<div class="col-sm-auto">
-					<label for="submission_task_form_submission_FurtherAbsences" class="form-label">Further
-												absences</label>
-					{{ form_widget(form.submission.FurtherAbsences) }}
+					<label for="submission_task_form_submission_FurtherAbsences" class="form-label">Further absences</label>
+					{{ form_widget(form.FurtherAbsences) }}
 				</div>
 				<div class="col-sm-auto">
 					<div class="row">
@@ -111,6 +112,7 @@ projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toF
 							<th class="col" scope="col"></th>
 							<th class="col" scope="col"></th>
 							<th class="col" scope="col"></th>
+							<th class="col" scope="col"></th>
 						</tr>
 						<tr>
 							<th class="col" scope="col">Category</th>
@@ -118,6 +120,7 @@ projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toF
 							<th class="col" scope="col">Hours</th>
 							<th class="col" scope="col">Priority</th>
 							<th class="col" scope="col">Status</th>
+							<th class="col" scope="col">Work Results</th>
 							<th class="col" scope="col"></th>
 						</tr>
 					</thead>
@@ -141,6 +144,9 @@ projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toF
 								<div style="width: 6em;"></div>
 							</td>
 							<td>
+								<div style="width: 20em;"></div>
+							</td>
+							<td>
 								<button type="button" class="btn btn-outline-success bg-light; add_item_link" data-collection-holder-class="operations">+</button>
 							</td>
 						</tr>
@@ -162,6 +168,8 @@ projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toF
 							<th class="col" scope="col">
 								<output name="result" id="projectHourTarget" for="hourstoplan" style="width: 5em;">0</output>
 							</th>
+							<th class="col" scope="col">Actual</th>
+							<th class="col" scope="col"></th>
 							<th class="col" scope="col"></th>
 							<th class="col" scope="col"></th>
 							<th class="col" scope="col"></th>
@@ -170,8 +178,10 @@ projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toF
 							<th class="col" scope="col">Name</th>
 							<th class="col-8" scope="col">Description</th>
 							<th class="col" scope="col">Hours</th>
+							<th class="col" scope="col">Hours</th>
 							<th class="col" scope="col">Priority</th>
 							<th class="col" scope="col">Status</th>
+							<th class="col" scope="col">Work Results</th>
 							<th class="col" scope="col"></th>
 						</tr>
 					</thead>
@@ -185,13 +195,20 @@ projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toF
 						<tr>
 							<td></td>
 							<td></td>
-							<td><input class="form-control" id="projectHourSum" type="text" value="0" style="width: 5em;" disabled readonly>
+							<td>
+								<input class="form-control" id="projectHourSum" type="text" value="0" style="width: 5em;" disabled readonly>
+							</td>
+							<td>
+								<input class="form-control" id="projectActualHourSum" type="text" value="0" style="width: 5em;" disabled readonly>
 							</td>
 							<td>
 								<div style="width: 7em;"></div>
 							</td>
 							<td>
 								<div style="width: 6em;"></div>
+							</td>
+							<td>
+								<div style="width: 20em;"></div>
 							</td>
 							<td>
 								<button type="button" class="btn btn-outline-success bg-light; add_item_link" data-collection-holder-class="projects">+</button>
@@ -244,10 +261,9 @@ projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toF
 		</div>
 	</div>
 
-	<div
-		class="mt-3 d-flex">
+	<div class="mt-3 d-flex">
 		{{ include('submission/_cancel.modal.html.twig')}}
-		
+
 		{{ form_widget(form.Submit, {'attr': {'class': 'btn btn-lg btn-outline-success'}}) }}
 	</div>
 

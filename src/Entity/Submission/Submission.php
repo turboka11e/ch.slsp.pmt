@@ -3,10 +3,10 @@
 namespace App\Entity\Submission;
 
 use App\Entity\User;
+use App\Repository\SubmissionRepository;
 use App\Entity\Submission\Sections\Miscellaneous;
 use App\Entity\Submission\Sections\Operation;
 use App\Entity\Submission\Sections\Project;
-use App\Repository\SubmissionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -55,17 +55,17 @@ class Submission
     private $Workdays;
 
     /**
-     * @ORM\OneToMany(targetEntity=App\Entity\Submission\Sections\Operation::class, mappedBy="SubmissionId", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=App\Entity\Submission\Sections\Operation::class, mappedBy="SubmissionId", orphanRemoval=true, cascade={"persist"})
      */
     private $operations;
 
     /**
-     * @ORM\OneToMany(targetEntity=App\Entity\Submission\Sections\Project::class, mappedBy="SubmissionId", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=App\Entity\Submission\Sections\Project::class, mappedBy="SubmissionId", orphanRemoval=true, cascade={"persist"})
      */
     private $projects;
 
     /**
-     * @ORM\OneToMany(targetEntity=App\Entity\Submission\Sections\Miscellaneous::class, mappedBy="SubmissionId", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=App\Entity\Submission\Sections\Miscellaneous::class, mappedBy="SubmissionId", orphanRemoval=true, cascade={"persist"})
      */
     private $miscellaneouses;
 

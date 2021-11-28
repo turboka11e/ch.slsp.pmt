@@ -2,17 +2,11 @@
 
 namespace App\Controller\Profile;
 
-use App\Entity\Submission\Sections\Miscellaneous;
-use App\Entity\Submission\Sections\Operation;
-use App\Entity\Submission\Sections\Project;
 use App\Entity\Submission\Submission;
-use App\Entity\SubmissionTask;
+use App\Form\Submission\SubmissionFormType;
 use App\Entity\User;
-use App\Form\SubmissionTaskFormType;
 use DateTime;
 use DateTimeInterface;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -49,13 +43,16 @@ class SubmissionsController extends AbstractController
 
             $user = $this->getUser();
 
-            $task = $entityManager->getRepository(Submission::class)->findSubmissionTask($subMonth, $user);
+            $task = $entityManager->getRepository(Submission::class)->findOneBy([
+                'SubmissionMonth' => $subMonth,
+                'UserId' => $user->getId()
+            ]);
 
             if (is_null($task)) {
                 return new JsonResponse(['output' => $this->renderView('submissions/_error.html.twig')]);
             }
 
-            $form = $this->createForm(SubmissionTaskFormType::class, $task);
+            $form = $this->createForm(SubmissionFormType::class, $task);
             $form->remove('Submit');
 
             return new JsonResponse(['output' => $this->renderView('submission/_readonly.html.twig', [

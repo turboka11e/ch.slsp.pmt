@@ -9,6 +9,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -41,12 +42,17 @@ class OperationFormType extends AbstractType
                     'style' => 'width:7em',
                 ],
             ])
-            // ->add('WorkResults')
             ->add('Status', ChoiceType::class, [
                 'choices' => ['Cont.' => 'Continuing', 'Hold' => 'Hold', 'Done' => 'Done'],
                 'attr' => [
                     'style' => 'width:6em',
                 ],
+                ])
+            ->add('WorkResults', TextareaType::class, [
+                'required' => false,
+                'attr' => [
+                    'style'  => 'height: 1em'
+                ]
             ])
             // ->add('SubmissionId')
         ;

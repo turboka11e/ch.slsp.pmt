@@ -2,14 +2,9 @@
 
 namespace App\Controller\Profile\Submission;
 
-use App\Entity\Submission\Sections\Miscellaneous;
-use App\Entity\Submission\Sections\Operation;
-use App\Entity\Submission\Sections\Project;
 use App\Entity\Submission\Submission;
-use App\Entity\SubmissionTask;
-use App\Form\SubmissionTaskFormType;
+use App\Form\Submission\SubmissionFormType;
 use DateTime;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -59,29 +54,12 @@ class SubmissionLifeCycleController extends AbstractController
         $submission->setUpdated($today);
         $submission->setSubmissionMonth($subMonth);
 
-        $task = new SubmissionTask($submission);
-
-        $form = $this->createForm(SubmissionTaskFormType::class, $task);
+        $form = $this->createForm(SubmissionFormType::class, $submission);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $submission = $task->getSubmission();
             $entityManager->persist($submission);
-
-            foreach ($task->getOperations() as $op) {
-                $op->setSubmissionId($submission);
-                $entityManager->persist($op);
-            }
-            foreach ($task->getProjects() as $project) {
-                $project->setSubmissionId($submission);
-                $entityManager->persist($project);
-            }
-            foreach ($task->getMiscellaneouses() as $misc) {
-                $misc->setSubmissionId($submission);
-                $entityManager->persist($misc);
-            }
-
             $entityManager->flush();
 
             $this->addFlash(
@@ -136,54 +114,12 @@ class SubmissionLifeCycleController extends AbstractController
 
         $today = new DateTime('now');
 
-        $task = new SubmissionTask($submission);
-
-        $operations = $submission->getOperations();
-        $projects = $submission->getProjects();
-        $miscs = $submission->getMiscellaneouses();
-
-        $form = $this->createForm(SubmissionTaskFormType::class, $task);
-
+        $form = $this->createForm(SubmissionFormType::class, $submission);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $submission = $task->getSubmission();
             $submission->setUpdated($today);
             $entityManager->persist($submission);
-
-            // Operations
-            foreach ($operations as $original) {
-                if (false === $task->getOperations()->contains($original)) {
-                    $entityManager->remove($original);
-                }
-            }
-            foreach ($task->getOperations() as $op) {
-                $op->setSubmissionId($submission);
-                $entityManager->persist($op);
-            }
-
-            // Projects
-            foreach ($projects as $original) {
-                if (false === $task->getProjects()->contains($original)) {
-                    $entityManager->remove($original);
-                }
-            }
-            foreach ($task->getProjects() as $project) {
-                $project->setSubmissionId($submission);
-                $entityManager->persist($project);
-            }
-
-            // Miscs
-            foreach ($miscs as $original) {
-                if (false === $task->getProjects()->contains($original)) {
-                    $entityManager->remove($original);
-                }
-            }
-            foreach ($task->getMiscellaneouses() as $misc) {
-                $misc->setSubmissionId($submission);
-                $entityManager->persist($misc);
-            }
-
             $entityManager->flush();
 
             $this->addFlash(

@@ -9,6 +9,7 @@
 		<td>{{ form_widget(operations.Hours, {'attr': {'class': 'opHour', 'disabled': 'disabled'}}) }}</td>
 		<td>{{ form_widget(operations.Priority, {'attr': {'disabled': 'disabled'}}) }}</td>
 		<td>{{ form_widget(operations.Status, {'attr': {'disabled': 'disabled'}}) }}</td>
+		<td>{{ form_widget(operations.WorkResults, {'attr': {'disabled': 'disabled'}}) }}</td>
 	</tr>
 
 {% endmacro %}
@@ -19,8 +20,10 @@
 		<td>{{ form_widget(projects.Name, {'attr': {'disabled': 'disabled'}}) }}</td>
 		<td>{{ form_widget(projects.Description, {'attr': {'disabled': 'disabled'}}) }}</td>
 		<td>{{ form_widget(projects.TargetHours, {'attr': {'class': 'projectHour', 'disabled': 'disabled'}}) }}</td>
+		<td>{{ form_widget(projects.ActualHours, {'attr': {'class': 'projectActualHour', 'disabled': 'disabled'}}) }}</td>
 		<td>{{ form_widget(projects.Priority, {'attr': {'disabled': 'disabled'}}) }}</td>
 		<td>{{ form_widget(projects.Status, {'attr': {'disabled': 'disabled'}}) }}</td>
+		<td>{{ form_widget(projects.WorkResults, {'attr': {'disabled': 'disabled'}}) }}</td>
 	</tr>
 
 {% endmacro %}
@@ -40,7 +43,7 @@
 	{{ encore_entry_script_tags('submission') }}
 	<script>
 		function calcSubmission() {
-totalworkhours.value = Number(8.4 * ((parseFloat(submission_task_form_submission_Workdays.value) || 0) - (parseFloat(submission_task_form_submission_PlannedAbsences.value) || 0) - (parseFloat(submission_task_form_submission_FurtherAbsences.value) || 0))).toFixed(2)
+totalworkhours.value = Number(8.4 * ((parseFloat(submission_form_Workdays.value) || 0) - (parseFloat(submission_form_PlannedAbsences.value) || 0) - (parseFloat(submission_form_FurtherAbsences.value) || 0))).toFixed(2)
 hourstoplan.value = Number((parseFloat(totalworkhours.value) || 0) * 0.8).toFixed(2)
 opHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.6).toFixed(2)
 projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toFixed(2)
@@ -68,17 +71,17 @@ projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toF
 
 				<div class="col-sm-auto">
 					<label for="submission_task_form_submission_Workdays" class="form-label">Workdays</label>
-					{{ form_widget(form.submission.Workdays, {'attr': {'disabled': 'disabled'}}) }}
+					{{ form_widget(form.Workdays, {'attr': {'disabled': 'disabled'}}) }}
 				</div>
 				<div class="col-sm-auto">
 					<label for="submission_task_form_submission_PlannedAbsences" class="form-label">Planned
-																																																						absences</label>
-					{{ form_widget(form.submission.PlannedAbsences, {'attr': {'disabled': 'disabled'}}) }}
+																																																																								absences</label>
+					{{ form_widget(form.PlannedAbsences, {'attr': {'disabled': 'disabled'}}) }}
 				</div>
 				<div class="col-sm-auto">
 					<label for="submission_task_form_submission_FurtherAbsences" class="form-label">Further
-																																																						absences</label>
-					{{ form_widget(form.submission.FurtherAbsences, {'attr': {'disabled': 'disabled'}}) }}
+																																																																								absences</label>
+					{{ form_widget(form.FurtherAbsences, {'attr': {'disabled': 'disabled'}}) }}
 				</div>
 				<div class="col-sm-auto">
 					<div class="row">
@@ -112,7 +115,7 @@ projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toF
 							</th>
 							<th class="col" scope="col"></th>
 							<th class="col" scope="col"></th>
-
+							<th class="col" scope="col"></th>
 						</tr>
 						<tr>
 							<th class="col" scope="col">Category</th>
@@ -120,7 +123,7 @@ projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toF
 							<th class="col" scope="col">Hours</th>
 							<th class="col" scope="col">Priority</th>
 							<th class="col" scope="col">Status</th>
-
+							<th class="col" scope="col">Work Results</th>
 						</tr>
 					</thead>
 					<tbody class="operations" data-index="{{ form.operations|length > 0 ? form.operations|last.vars.name + 1 : 0 }}" data-prototype="{{ formMacros.printOperation(form.operations.vars.prototype)|e('html_attr') }}">
@@ -142,6 +145,9 @@ projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toF
 							<td>
 								<div style="width: 6em;"></div>
 							</td>
+							<td>
+								<div style="width: 20em;"></div>
+							</td>
 						</tr>
 					</tfoot>
 				</table>
@@ -161,16 +167,20 @@ projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toF
 							<th class="col" scope="col">
 								<output name="result" id="projectHourTarget" for="hourstoplan" style="width: 5em;">0</output>
 							</th>
+							<th class="col" scope="col">Actual</th>
 							<th class="col" scope="col"></th>
 							<th class="col" scope="col"></th>
-
+							<th class="col" scope="col"></th>
+							<th class="col" scope="col"></th>
 						</tr>
 						<tr>
 							<th class="col" scope="col">Name</th>
 							<th class="col-8" scope="col">Description</th>
 							<th class="col" scope="col">Hours</th>
+							<th class="col" scope="col">Hours</th>
 							<th class="col" scope="col">Priority</th>
 							<th class="col" scope="col">Status</th>
+							<th class="col" scope="col">Work Results</th>
 						</tr>
 					</thead>
 					<tbody class="projects" data-index="{{ form.projects|length > 0 ? form.projects|last.vars.name + 1 : 0 }}" data-prototype="{{ formMacros.printProject(form.projects.vars.prototype)|e('html_attr') }}">
@@ -183,13 +193,20 @@ projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toF
 						<tr>
 							<td></td>
 							<td></td>
-							<td><input class="form-control" id="projectHourSum" type="text" value="0" style="width: 5em;" disabled readonly>
+							<td>
+								<input class="form-control" id="projectHourSum" type="text" value="0" style="width: 5em;" disabled readonly>
+							</td>
+							<td>
+								<input class="form-control" id="projectActualHourSum" type="text" value="0" style="width: 5em;" disabled readonly>
 							</td>
 							<td>
 								<div style="width: 7em;"></div>
 							</td>
 							<td>
 								<div style="width: 6em;"></div>
+							</td>
+							<td>
+								<div style="width: 20em;"></div>
 							</td>
 						</tr>
 					</tfoot>
