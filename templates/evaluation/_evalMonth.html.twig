@@ -1,0 +1,11 @@
+<h1>{{ subMonth|date('F Y')}}</h1>
+
+<h5 class="mt-3">Forms submitted:</h5>
+
+<ul>
+	{% for submission in submissions %}
+		<li>
+			{{ submission['Name'] }} {{ submission['Surname'] }}
+		</li>
+	{% endfor %}
+</ul>

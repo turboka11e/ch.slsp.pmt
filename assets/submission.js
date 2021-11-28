@@ -46,7 +46,6 @@ const addOperationFormDeleteLink = (operationFormLi) => {
     })
 }
 
-/* Brauch man erst wenn bereits Rows vorhanden sind */
 const operations = document.querySelectorAll('tr.deleteable')
 operations.forEach((operation) => {
     addOperationFormDeleteLink(operation)
