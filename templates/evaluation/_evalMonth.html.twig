@@ -16,7 +16,7 @@
 	<tbody>
 		{% for submission in submissions %}
 		<tr>
-			<td> {{ submission.UserId.Name }} {{ submission.UserId.Surname }} </td>
+			<td> {{ submission.User.Name }} {{ submission.User.Surname }} </td>
 			<td> {{ submission.Workdays }} </td>
 			<td> {{ submission.PlannedAbsences }} / {{ submission.FurtherAbsences }}</td>
 			<td> {{ submission.Operations|length }} </td>

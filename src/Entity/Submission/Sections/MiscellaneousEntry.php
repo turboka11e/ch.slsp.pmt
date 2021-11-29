@@ -3,13 +3,13 @@
 namespace App\Entity\Submission\Sections;
 
 use App\Entity\Submission\Submission;
-use App\Repository\MiscellaneousRepository;
+use App\Repository\MiscellaneousEntryRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=MiscellaneousRepository::class)
+ * @ORM\Entity(repositoryClass=MiscellaneousEntryRepository::class)
  */
-class Miscellaneous
+class MiscellaneousEntry
 {
     /**
      * @ORM\Id
@@ -42,7 +42,7 @@ class Miscellaneous
      * @ORM\ManyToOne(targetEntity=App\Entity\Submission\Submission::class, inversedBy="miscellaneouses")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $SubmissionId;
+    private $Submission;
 
     public function getId(): ?int
     {
@@ -97,14 +97,14 @@ class Miscellaneous
         return $this;
     }
 
-    public function getSubmissionId(): ?Submission
+    public function getSubmission(): ?Submission
     {
-        return $this->SubmissionId;
+        return $this->Submission;
     }
 
-    public function setSubmissionId(?Submission $SubmissionId): self
+    public function setSubmission(?Submission $Submission): self
     {
-        $this->SubmissionId = $SubmissionId;
+        $this->Submission = $Submission;
 
         return $this;
     }

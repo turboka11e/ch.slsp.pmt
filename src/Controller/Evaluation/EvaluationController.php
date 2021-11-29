@@ -2,10 +2,9 @@
 
 namespace App\Controller\Evaluation;
 
-use App\Entity\Submission\Sections\Operation;
-use App\Entity\Submission\Sections\Project;
+
+use App\Entity\Submission\Sections\ProjectEntry;
 use App\Entity\Submission\Submission;
-use App\Entity\User;
 use DateTime;
 use DateTimeInterface;
 use Doctrine\ORM\EntityManagerInterface;
@@ -101,17 +100,17 @@ class EvaluationController extends AbstractController
             foreach ($submissions as $submission) {
                 if ($submission instanceof Submission) {
                     $project = $submission->getProjects();
-                    $project->map(function(Project $project) use (&$projects) {
+                    $project->map(function(ProjectEntry $project) use (&$projects) {
                         $projectName = $project->getName();
                         if (array_key_exists($projectName, $projects)) {
                             $projects[$projectName][] = [
-                                'user' => $project->getSubmissionId()->getUserId()->getName(),
+                                'user' => $project->getSubmission()->getUser()->getName(),
                                 'actualHours' => $project->getActualHours() ?? 'NA',
                                 'targetHours' => $project->getTargetHours(),
                             ];
                         } else {
                             $projects[$projectName][] = [
-                                'user' => $project->getSubmissionId()->getUserId()->getName(),
+                                'user' => $project->getSubmission()->getUser()->getName(),
                                 'actualHours' => $project->getActualHours() ?? 'NA',
                                 'targetHours' => $project->getTargetHours(),
                             ];

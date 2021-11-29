@@ -3,7 +3,7 @@
 namespace App\Form\Submission\Sections;
 
 use App\Entity\Choices\CategoryChoice;
-use App\Entity\Submission\Sections\Operation;
+use App\Entity\Submission\Sections\OperationEntry;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
@@ -13,7 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class OperationFormType extends AbstractType
+class OperationEntryFormType extends AbstractType
 {
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -75,7 +75,7 @@ class OperationFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Operation::class,
+            'data_class' => OperationEntry::class,
         ]);
     }
 }

@@ -2,11 +2,11 @@
 
 namespace App\Entity\Submission;
 
+use App\Entity\Submission\Sections\MiscellaneousEntry;
 use App\Entity\User;
 use App\Repository\SubmissionRepository;
-use App\Entity\Submission\Sections\Miscellaneous;
-use App\Entity\Submission\Sections\Operation;
-use App\Entity\Submission\Sections\Project;
+use App\Entity\Submission\Sections\OperationEntry;
+use App\Entity\Submission\Sections\ProjectEntry;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -27,7 +27,7 @@ class Submission
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="submissions")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $UserId;
+    private $User;
 
     /**
      * @ORM\Column(type="date")
@@ -55,17 +55,17 @@ class Submission
     private $Workdays;
 
     /**
-     * @ORM\OneToMany(targetEntity=App\Entity\Submission\Sections\Operation::class, mappedBy="SubmissionId", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=App\Entity\Submission\Sections\OperationEntry::class, mappedBy="Submission", orphanRemoval=true, cascade={"persist"})
      */
     private $operations;
 
     /**
-     * @ORM\OneToMany(targetEntity=App\Entity\Submission\Sections\Project::class, mappedBy="SubmissionId", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=App\Entity\Submission\Sections\ProjectEntry::class, mappedBy="Submission", orphanRemoval=true, cascade={"persist"})
      */
     private $projects;
 
     /**
-     * @ORM\OneToMany(targetEntity=App\Entity\Submission\Sections\Miscellaneous::class, mappedBy="SubmissionId", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=App\Entity\Submission\Sections\MiscellaneousEntry::class, mappedBy="Submission", orphanRemoval=true, cascade={"persist"})
      */
     private $miscellaneouses;
 
@@ -93,14 +93,14 @@ class Submission
         return $this->id;
     }
 
-    public function getUserId(): ?User
+    public function getUser(): ?User
     {
-        return $this->UserId;
+        return $this->User;
     }
 
-    public function setUserId(?User $UserId): self
+    public function setUser(?User $User): self
     {
-        $this->UserId = $UserId;
+        $this->User = $User;
 
         return $this;
     }
@@ -173,22 +173,22 @@ class Submission
         return $this->operations;
     }
 
-    public function addOperation(Operation $operation): self
+    public function addOperation(OperationEntry $operation): self
     {
         if (!$this->operations->contains($operation)) {
             $this->operations[] = $operation;
-            $operation->setSubmissionId($this);
+            $operation->setSubmission($this);
         }
 
         return $this;
     }
 
-    public function removeOperation(Operation $operation): self
+    public function removeOperation(OperationEntry $operation): self
     {
         if ($this->operations->removeElement($operation)) {
             // set the owning side to null (unless already changed)
-            if ($operation->getSubmissionId() === $this) {
-                $operation->setSubmissionId(null);
+            if ($operation->getSubmission() === $this) {
+                $operation->setSubmission(null);
             }
         }
 
@@ -203,22 +203,22 @@ class Submission
         return $this->projects;
     }
 
-    public function addProject(Project $project): self
+    public function addProject(ProjectEntry $project): self
     {
         if (!$this->projects->contains($project)) {
             $this->projects[] = $project;
-            $project->setSubmissionId($this);
+            $project->setSubmission($this);
         }
 
         return $this;
     }
 
-    public function removeProject(Project $project): self
+    public function removeProject(ProjectEntry $project): self
     {
         if ($this->projects->removeElement($project)) {
             // set the owning side to null (unless already changed)
-            if ($project->getSubmissionId() === $this) {
-                $project->setSubmissionId(null);
+            if ($project->getSubmission() === $this) {
+                $project->setSubmission(null);
             }
         }
 
@@ -233,22 +233,22 @@ class Submission
         return $this->miscellaneouses;
     }
 
-    public function addMiscellaneouse(Miscellaneous $miscellaneouse): self
+    public function addMiscellaneouse(MiscellaneousEntry $miscellaneouse): self
     {
         if (!$this->miscellaneouses->contains($miscellaneouse)) {
             $this->miscellaneouses[] = $miscellaneouse;
-            $miscellaneouse->setSubmissionId($this);
+            $miscellaneouse->setSubmission($this);
         }
 
         return $this;
     }
 
-    public function removeMiscellaneouse(Miscellaneous $miscellaneouse): self
+    public function removeMiscellaneouse(MiscellaneousEntry $miscellaneouse): self
     {
         if ($this->miscellaneouses->removeElement($miscellaneouse)) {
             // set the owning side to null (unless already changed)
-            if ($miscellaneouse->getSubmissionId() === $this) {
-                $miscellaneouse->setSubmissionId(null);
+            if ($miscellaneouse->getSubmission() === $this) {
+                $miscellaneouse->setSubmission(null);
             }
         }
 

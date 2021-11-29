@@ -7,9 +7,9 @@ use App\Repository\OperationRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=OperationRepository::class)
+ * @ORM\Entity(repositoryClass=OperationEntryRepository::class)
  */
-class Operation
+class OperationEntry
 {
     /**
      * @ORM\Id
@@ -52,7 +52,7 @@ class Operation
      * @ORM\ManyToOne(targetEntity=App\Entity\Submission\Submission::class, inversedBy="operations")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $SubmissionId;
+    private $Submission;
 
     public function getId(): ?int
     {
@@ -131,14 +131,14 @@ class Operation
         return $this;
     }
 
-    public function getSubmissionId(): ?Submission
+    public function getSubmission(): ?Submission
     {
-        return $this->SubmissionId;
+        return $this->Submission;
     }
 
-    public function setSubmissionId(?Submission $SubmissionId): self
+    public function setSubmission(?Submission $Submission): self
     {
-        $this->SubmissionId = $SubmissionId;
+        $this->Submission = $Submission;
 
         return $this;
     }

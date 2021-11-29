@@ -33,7 +33,7 @@ class SubmissionLifeCycleController extends AbstractController
 
         $alreadyCreated = $this->getDoctrine()->getRepository(Submission::class)->findOneBy([
             'SubmissionMonth' => $subMonth,
-            'UserId' => $user->getId()
+            'User' => $user->getId()
         ]);
 
         if (!is_null($alreadyCreated)) {
@@ -47,7 +47,7 @@ class SubmissionLifeCycleController extends AbstractController
         $today = new DateTime('now');
 
         $submission = new Submission();
-        $submission->setUserId($user);
+        $submission->setUser($user);
         $submission->setFormType('WorkingHours');
 
         $submission->setCreated($today);
@@ -101,7 +101,7 @@ class SubmissionLifeCycleController extends AbstractController
 
         $submission = $this->getDoctrine()->getRepository(Submission::class)->findOneBy([
             'SubmissionMonth' => $subMonth,
-            'UserId' => $user->getId()
+            'User' => $user->getId()
         ]);
 
         if (is_null($submission)) {
@@ -161,7 +161,7 @@ class SubmissionLifeCycleController extends AbstractController
 
         $createdSubmission = $this->getDoctrine()->getRepository(Submission::class)->findOneBy([
             'SubmissionMonth' => $subMonth,
-            'UserId' => $user->getId()
+            'User' => $user->getId()
         ]);
 
         if (is_null($createdSubmission)) {

@@ -45,7 +45,7 @@ class SubmissionsController extends AbstractController
 
             $task = $entityManager->getRepository(Submission::class)->findOneBy([
                 'SubmissionMonth' => $subMonth,
-                'UserId' => $user->getId()
+                'User' => $user->getId()
             ]);
 
             if (is_null($task)) {
@@ -68,7 +68,7 @@ class SubmissionsController extends AbstractController
         }
 
         $submissions = $entityManager->getRepository(Submission::class)->findBy([
-            'UserId' => $this->getUser()->getId()
+            'User' => $this->getUser()->getId()
         ]);
 
         $submissionsSubMonth = array_map(function (Submission $s) {

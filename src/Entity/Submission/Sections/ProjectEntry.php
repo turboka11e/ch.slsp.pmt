@@ -3,13 +3,13 @@
 namespace App\Entity\Submission\Sections;
 
 use App\Entity\Submission\Submission;
-use App\Repository\ProjectRepository;
+use App\Repository\ProjectEntryRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ProjectRepository::class)
+ * @ORM\Entity(repositoryClass=ProjectEntryRepository::class)
  */
-class Project
+class ProjectEntry
 {
     /**
      * @ORM\Id
@@ -57,7 +57,7 @@ class Project
      * @ORM\ManyToOne(targetEntity=App\Entity\Submission\Submission::class, inversedBy="projects")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $SubmissionId;
+    private $Submission;
 
     public function getId(): ?int
     {
@@ -148,14 +148,14 @@ class Project
         return $this;
     }
 
-    public function getSubmissionId(): ?Submission
+    public function getSubmission(): ?Submission
     {
-        return $this->SubmissionId;
+        return $this->Submission;
     }
 
-    public function setSubmissionId(?Submission $SubmissionId): self
+    public function setSubmission(?Submission $Submission): self
     {
-        $this->SubmissionId = $SubmissionId;
+        $this->Submission = $Submission;
 
         return $this;
     }

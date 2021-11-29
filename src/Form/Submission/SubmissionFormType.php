@@ -3,9 +3,9 @@
 namespace App\Form\Submission;
 
 use App\Entity\Submission\Submission;
-use App\Form\Submission\Sections\MiscellaneousFormType;
-use App\Form\Submission\Sections\OperationFormType;
-use App\Form\Submission\Sections\ProjectFormType;
+use App\Form\Submission\Sections\MiscellaneousEntryFormType;
+use App\Form\Submission\Sections\OperationEntryFormType;
+use App\Form\Submission\Sections\ProjectEntryFormType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -47,7 +47,7 @@ class SubmissionFormType extends AbstractType
             ])
             ->add('operations', CollectionType::class, [
                 'label' => false,
-                'entry_type' => OperationFormType::class,
+                'entry_type' => OperationEntryFormType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete' => true,
@@ -55,7 +55,7 @@ class SubmissionFormType extends AbstractType
             ])
             ->add('projects', CollectionType::class, [
                 'label' => false,
-                'entry_type' => ProjectFormType::class,
+                'entry_type' => ProjectEntryFormType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete' => true,
@@ -63,7 +63,7 @@ class SubmissionFormType extends AbstractType
             ])
             ->add('miscellaneouses', CollectionType::class, [
                 'label' => false,
-                'entry_type' => MiscellaneousFormType::class,
+                'entry_type' => MiscellaneousEntryFormType::class,
                 'entry_options' => ['label' => false,],
                 'allow_add' => true,
                 'allow_delete' => true,

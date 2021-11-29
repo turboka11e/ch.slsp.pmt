@@ -2,21 +2,21 @@
 
 namespace App\Repository;
 
-use App\Entity\Submission\Sections\Miscellaneous;
+use App\Entity\Submission\Sections\MiscellaneousEntry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Miscellaneous|null find($id, $lockMode = null, $lockVersion = null)
- * @method Miscellaneous|null findOneBy(array $criteria, array $orderBy = null)
- * @method Miscellaneous[]    findAll()
- * @method Miscellaneous[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method MiscellaneousEntry|null find($id, $lockMode = null, $lockVersion = null)
+ * @method MiscellaneousEntry|null findOneBy(array $criteria, array $orderBy = null)
+ * @method MiscellaneousEntry[]    findAll()
+ * @method MiscellaneousEntry[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class MiscellaneousRepository extends ServiceEntityRepository
+class MiscellaneousEntryRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Miscellaneous::class);
+        parent::__construct($registry, MiscellaneousEntry::class);
     }
 
     // /**

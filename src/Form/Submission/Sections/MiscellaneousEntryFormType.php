@@ -2,13 +2,13 @@
 
 namespace App\Form\Submission\Sections;
 
-use App\Entity\Submission\Sections\Miscellaneous;
+use App\Entity\Submission\Sections\MiscellaneousEntry;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class MiscellaneousFormType extends AbstractType
+class MiscellaneousEntryFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -31,7 +31,7 @@ class MiscellaneousFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Miscellaneous::class,
+            'data_class' => MiscellaneousEntry::class,
         ]);
     }
 }
