@@ -2,6 +2,8 @@
 
 namespace App\Controller\Evaluation;
 
+use App\Entity\Submission\Sections\Operation;
+use App\Entity\Submission\Sections\Project;
 use App\Entity\Submission\Submission;
 use App\Entity\User;
 use DateTime;
@@ -24,20 +26,6 @@ class EvaluationController extends AbstractController
      */
     public function evaluationOverview(EntityManagerInterface $entityManager): Response
     {
-
-        // $opIds = $operations->map(function (Operation $o) {
-        //     echo "test " . $o->getId();
-        //     return $o->getId();
-        // });
-        // $opIds = $opIds->toArray();
-        // echo strval($opIds[0]);
-        // $qb->delete(Operation::class, 'o')
-        //     ->andWhere($qb->expr()->notIn('o.id', $opIds))
-        //     ->andWhere($qb->expr()->eq('o.submission', $task->getSubmission()->getId()));
-
-        // echo sizeof($opIds);
-        // $qb->getQuery()->execute()
-
         $submissions = $entityManager->createQueryBuilder()
             ->select('s.SubmissionMonth')
             ->from(Submission::class, 's')
@@ -87,20 +75,55 @@ class EvaluationController extends AbstractController
             $month = $request->request->get('month');
             $subMonth = DateTIme::createFromFormat('j-m-Y', '01-' . $month . '-' . $year);
 
-            $qb = $entityManager->createQueryBuilder();
-            $qb->select('u.name AS Name, u.surname AS Surname, s.SubmissionMonth')
-                ->from(Submission::class, 's')
-                ->from(User::class, 'u')
-                ->andWhere($qb->expr()->eq('u.id', 's.UserId'))
-                ->andWhere($qb->expr()->eq('s.SubmissionMonth', ':date'))
-                ->groupBy('s.SubmissionMonth, u.name, u.surname')
-                ->setParameter('date', $subMonth->format("Y-m-d") . " 00:00:00");
+            $submissions = $entityManager->getRepository(Submission::class)->findBy([
+                'SubmissionMonth' => $subMonth
+            ]);
 
-            $submissions = $qb->getQuery()->getResult();
+
+            ### Evaluation
+            // $projectNames = [];
+            // $usersProject = [];
+            // foreach ($submissions as $submission) {
+            //     if ($submission instanceof Submission) {
+            //         $project = $submission->getProjects();
+            //         $project->map(function(Project $project) use (&$projectNames, &$usersProject) {
+            //             $projectNames[$project->getName()] = [];
+            //             $usersProject[$project->getSubmissionId()->getUserId()] = [];
+            //         });
+            //     }
+            // }
+
+            // foreach ($usersProject as $userProjects) {
+            //     $userProjects[] = $projectNames;
+            // }
+
+            $projects = [];
+            foreach ($submissions as $submission) {
+                if ($submission instanceof Submission) {
+                    $project = $submission->getProjects();
+                    $project->map(function(Project $project) use (&$projects) {
+                        $projectName = $project->getName();
+                        if (array_key_exists($projectName, $projects)) {
+                            $projects[$projectName][] = [
+                                'user' => $project->getSubmissionId()->getUserId()->getName(),
+                                'actualHours' => $project->getActualHours() ?? 'NA',
+                                'targetHours' => $project->getTargetHours(),
+                            ];
+                        } else {
+                            $projects[$projectName][] = [
+                                'user' => $project->getSubmissionId()->getUserId()->getName(),
+                                'actualHours' => $project->getActualHours() ?? 'NA',
+                                'targetHours' => $project->getTargetHours(),
+                            ];
+                        }
+                    });
+                }
+            }
 
             return new JsonResponse(['output' => $this->renderView('evaluation/_evalMonth.html.twig', [
                 'submissions' => $submissions,
                 'subMonth' => $subMonth,
+                'projects' => $projects,
             ])]);
         }
 

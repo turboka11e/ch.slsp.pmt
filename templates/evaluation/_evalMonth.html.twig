@@ -2,10 +2,51 @@
 
 <h5 class="mt-3">Forms submitted:</h5>
 
-<ul>
-	{% for submission in submissions %}
-		<li>
-			{{ submission['Name'] }} {{ submission['Surname'] }}
-		</li>
-	{% endfor %}
-</ul>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<td>Name</td>
+			<td>Workdays</td>
+			<td>Planned/Further Absences</td>
+			<td>Operations</td>
+			<td>Projects</td>
+			<td>Miscellaneous</td>
+		</tr>
+	</thead>
+	<tbody>
+		{% for submission in submissions %}
+		<tr>
+			<td> {{ submission.UserId.Name }} {{ submission.UserId.Surname }} </td>
+			<td> {{ submission.Workdays }} </td>
+			<td> {{ submission.PlannedAbsences }} / {{ submission.FurtherAbsences }}</td>
+			<td> {{ submission.Operations|length }} </td>
+			<td> {{ submission.Projects|length }} </td>
+			<td> {{ submission.Miscellaneouses|length }} </td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+
+
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			{% for project_name in projects|keys %}
+			<td>{{ project_name }}</td>
+			{% endfor %}
+		</tr>
+	</thead>
+	<tbody>
+		{% for project in projects %}
+		<tr>
+			{% for userproject in project %}
+			<td>
+				{{ userproject.actualHours }} / {{ userproject.targetHours }} {{ userproject.user }}
+			</td>
+			{% endfor %}
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
