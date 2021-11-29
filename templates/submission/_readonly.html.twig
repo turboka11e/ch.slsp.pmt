@@ -251,7 +251,7 @@ projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toF
 	</div>
 	{{ form_end(form) }}
 
-	<div class="row row-cols-auto justify-content-end me-1">
+	<div class="row row-cols-auto justify-content-end me-1 mt-1">
 		<form action="{{ path('edit_submission') }}" method="PUT">
 			<div>
 				<input type="hidden" id="year" name="year" value="{{ year }}">
