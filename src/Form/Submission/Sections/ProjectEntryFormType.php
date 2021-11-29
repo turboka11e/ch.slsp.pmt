@@ -3,7 +3,9 @@
 namespace App\Form\Submission\Sections;
 
 use App\Entity\Choices\ProjectChoice;
+use App\Entity\Project;
 use App\Entity\Submission\Sections\ProjectEntry;
+use Doctrine\ORM\Mapping\Entity;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
@@ -18,12 +20,11 @@ class ProjectEntryFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('Name', EntityType::class, [
-                'class' => ProjectChoice::class,
-                'choice_label' => 'Project',
-                'choice_value' => 'Project',
+            ->add('project', EntityType::class, [
+                'class' => Project::class,
+                'choice_label' => 'Name',
                 'attr' => [
-                    'style' => 'width: min-content'
+                            'style' => 'width: min-content'
                 ]
             ])
             ->add('Description')
@@ -65,19 +66,19 @@ class ProjectEntryFormType extends AbstractType
             // ->add('SubmissionId')
         ;
 
-        $builder->get('Name')->addModelTransformer(new CallbackTransformer(
-            function ($project) {
-                if (!is_null($project)) {
-                    $cat = new ProjectChoice();
-                    $cat = $cat->setProject($project);
-                    return $cat;
-                }
-                return $project;
-            },
-            function (ProjectChoice $project) {
-                return $project->getProject();
-            }
-        ));
+        // $builder->get('Name')->addModelTransformer(new CallbackTransformer(
+        //     function ($project) {
+        //         if (!is_null($project)) {
+        //             $cat = new ProjectChoice();
+        //             $cat = $cat->setProject($project);
+        //             return $cat;
+        //         }
+        //         return $project;
+        //     },
+        //     function (ProjectChoice $project) {
+        //         return $project->getProject();
+        //     }
+        // ));
     }
 
     public function configureOptions(OptionsResolver $resolver): void

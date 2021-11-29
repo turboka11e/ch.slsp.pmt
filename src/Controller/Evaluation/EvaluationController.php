@@ -101,7 +101,7 @@ class EvaluationController extends AbstractController
                 if ($submission instanceof Submission) {
                     $project = $submission->getProjects();
                     $project->map(function(ProjectEntry $project) use (&$projects) {
-                        $projectName = $project->getName();
+                        $projectName = $project->getProject()->getName();
                         if (array_key_exists($projectName, $projects)) {
                             $projects[$projectName][] = [
                                 'user' => $project->getSubmission()->getUser()->getName(),

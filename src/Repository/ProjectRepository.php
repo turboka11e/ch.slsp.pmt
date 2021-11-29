@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Choices\ProjectChoice;
+use App\Entity\Project;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method ProjectChoice|null find($id, $lockMode = null, $lockVersion = null)
- * @method ProjectChoice|null findOneBy(array $criteria, array $orderBy = null)
- * @method ProjectChoice[]    findAll()
- * @method ProjectChoice[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Project|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Project|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Project[]    findAll()
+ * @method Project[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ProjectChoiceRepository extends ServiceEntityRepository
+class ProjectRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ProjectChoice::class);
+        parent::__construct($registry, Project::class);
     }
 
     // /**
-    //  * @return ProjectChoice[] Returns an array of ProjectChoice objects
+    //  * @return Project[] Returns an array of Project objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class ProjectChoiceRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?ProjectChoice
+    public function findOneBySomeField($value): ?Project
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.exampleField = :val')

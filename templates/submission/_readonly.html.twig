@@ -17,7 +17,7 @@
 {% macro printProject(projects) %}
 
 	<tr>
-		<td>{{ form_widget(projects.Name, {'attr': {'disabled': 'disabled'}}) }}</td>
+		<td>{{ form_widget(projects.project, {'attr': {'disabled': 'disabled'}}) }}</td>
 		<td>{{ form_widget(projects.Description, {'attr': {'disabled': 'disabled'}}) }}</td>
 		<td>{{ form_widget(projects.TargetHours, {'attr': {'class': 'projectHour', 'disabled': 'disabled'}}) }}</td>
 		<td>{{ form_widget(projects.ActualHours, {'attr': {'class': 'projectActualHour', 'disabled': 'disabled'}}) }}</td>

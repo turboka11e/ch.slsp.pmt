@@ -51,7 +51,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $surname;
 
     /**
-     * @ORM\OneToMany(targetEntity=App\Entity\Submission\Submission::class, mappedBy="UserId")
+     * @ORM\OneToMany(targetEntity=App\Entity\Submission\Submission::class, mappedBy="User")
      */
     private $submissions;
 
@@ -185,7 +185,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->submissions->contains($submission)) {
             $this->submissions[] = $submission;
-            $submission->setUserId($this);
+            $submission->setUser($this);
         }
 
         return $this;
@@ -195,8 +195,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->submissions->removeElement($submission)) {
             // set the owning side to null (unless already changed)
-            if ($submission->getUserId() === $this) {
-                $submission->setUserId(null);
+            if ($submission->getUser() === $this) {
+                $submission->setUser(null);
             }
         }
 
