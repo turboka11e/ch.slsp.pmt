@@ -2,7 +2,7 @@
 
 namespace App\Controller\Evaluation;
 
-
+use App\Entity\Project;
 use App\Entity\Submission\Sections\ProjectEntry;
 use App\Entity\Submission\Submission;
 use DateTime;
@@ -57,8 +57,19 @@ class EvaluationController extends AbstractController
             });
         }
 
+        $projects = $entityManager->getRepository(Project::class)->findBy([
+            'Archive' => false
+        ]);
+        
+        foreach ($projects as $project) {
+            if ($project instanceof Project) {
+                $project->sortProjectEntriesByTime();
+            }
+        }
+
         return $this->render('evaluation/index.html.twig', [
-            'subsYearMonth' => $subsYearMonth
+            'subsYearMonth' => $subsYearMonth,
+            'projects' => $projects
         ]);
     }
 

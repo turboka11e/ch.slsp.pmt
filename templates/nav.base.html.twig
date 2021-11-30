@@ -25,6 +25,9 @@
 						<li class="nav-item">
 							<a class="nav-link {{ evaluationlink|default('') }}" href="{{ path('submission_evaluation') }}">Evaluation</a>
 						</li>
+						<li class="nav-item">
+							<a class="nav-link {{ projectslink|default('') }}" href="{{ path('project_index') }}">Projects</a>
+						</li>
 						{% endif %}
 					</ul>
 					<ul class="navbar-nav">

@@ -14,7 +14,7 @@
 	<div class="container-xxl">
 		<div class="row">
 			<div class="col-auto mt-2">
-				<div class="p-3 bg-white shadow-sm" style="width: 9rem;" >
+				<div class="p-3 bg-white shadow-sm" style="width: 9rem;">
 					<h5 class="border-bottom pb-3 text-center">Timeline</h5>
 
 					{% for year, months in subsYearMonth %}
@@ -41,10 +41,45 @@
 
 				<div class="d-flex flex-column mt-2 p-3 bg-white shadow-sm">
 					<div id="ajax-results">
-                        <h1>Evaluation</h1>
-                    </div>
+						<h1>Evaluation</h1>
+
+
+						<table class="table table-sm table-hover">
+							<thead>
+								<tr>
+									<th>Project</th>
+									<th>Name</th>
+									<th>Submission Month</th>
+									<th>Actual Hours</th>
+									<th>Target Hours</th>
+									<th>Diff</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for project in projects %}
+
+									{% for index, entry in project.ProjectEntry %}
+										<tr>
+											{% if loop.first %}
+												<th>{{ project.Name }}</th>
+											{% else %}
+												<th></th>
+											{% endif %}
+											<td>{{ entry.submission.User.Name }}</td>
+											<td>{{ entry.submission.SubmissionMonth|date('Y F') }}</td>
+											<td>{{ entry.ActualHours ?? 'NA' }}</td>
+											<td>{{ entry.TargetHours }}</td>
+											<td>{{ entry.TargetHours - entry.ActualHours ?? '0'}}
+										</tr>
+									{% endfor %}
+								{% endfor %}
+							</tbody>
+						</table>
+
+					</div>
 				</div>
 			</div>
+
 		</div>
 	</div>
 {% endblock %}

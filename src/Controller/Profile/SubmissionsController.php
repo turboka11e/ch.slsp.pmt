@@ -69,7 +69,7 @@ class SubmissionsController extends AbstractController
 
         $submissions = $entityManager->getRepository(Submission::class)->findBy([
             'User' => $this->getUser()->getId()
-        ]);
+        ], ["SubmissionMonth" => 'desc']);
 
         $submissionsSubMonth = array_map(function (Submission $s) {
             return $s->getSubmissionMonth();

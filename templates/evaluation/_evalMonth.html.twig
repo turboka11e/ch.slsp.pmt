@@ -41,9 +41,9 @@
 	<tbody>
 		{% for project in projects %}
 		<tr>
-			{% for userproject in project %}
+			{% for projectEntry in project %}
 			<td>
-				{{ userproject.actualHours }} / {{ userproject.targetHours }} {{ userproject.user }}
+				{{ projectEntry.actualHours }} / {{ projectEntry.targetHours }} {{ projectEntry.user }}
 			</td>
 			{% endfor %}
 		</tr>

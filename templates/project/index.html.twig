@@ -1,0 +1,46 @@
+{% extends 'nav.base.html.twig' %}
+
+{% set projectslink = 'active' %}
+
+{% block title %}Projects
+{% endblock %}
+
+{% block content %}
+	<div class="mt-3 p-3 container-xl bg-white shadow-sm">
+		<h1>Projects</h1>
+
+		<table class="table table-sm table-hover">
+			<thead>
+				<tr>
+					<th>Projects</th>
+					<th>Hours Sold</th>
+					<th>Created</th>
+					<th>Status</th>
+					<th>Archive</th>
+					<th>actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for project in projects %}
+					<tr>
+						<th>{{ project.Name }}</th>
+						<td>{{ project.HoursSold }}</td>
+						<td>{{ project.Created ? project.Created|date('Y-m-d') : '' }}</td>
+						<td>{{ project.Status }}</td>
+						<td>{{ project.Archive ? 'Yes' : 'No' }}</td>
+						<td>
+							<a class="btn btn-outline-primary btn-sm" href="{{ path('project_edit', {'id': project.id}) }}">edit</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="7">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+		<a class="btn btn-outline-success" href="{{ path('project_new') }}">Create new</a>
+	</div>
+
+{% endblock %}

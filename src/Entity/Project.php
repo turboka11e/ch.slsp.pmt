@@ -7,6 +7,7 @@ use App\Repository\ProjectRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OrderBy;
 
 /**
  * @ORM\Entity(repositoryClass=ProjectRepository::class)
@@ -47,6 +48,7 @@ class Project
 
     /**
      * @ORM\OneToMany(targetEntity=ProjectEntry::class, mappedBy="project", orphanRemoval=true)
+     * @OrderBy({"Submission" = "DESC"})
      */
     private $ProjectEntry;
 
@@ -126,6 +128,18 @@ class Project
     public function getProjectEntry(): Collection
     {
         return $this->ProjectEntry;
+    }
+
+    /**
+     * @return void
+     */
+    public function sortProjectEntriesByTime()
+    {
+        $iter = $this->ProjectEntry->getIterator();
+        $iter->uasort(function (ProjectEntry $a, ProjectEntry $b) {
+            return ($a->getSubmission()->getSubmissionMonth() <=> $b->getSubmission()->getSubmissionMonth()) * (-1);
+        });
+        $this->ProjectEntry = new ArrayCollection(iterator_to_array($iter));
     }
 
     public function addProjectEntry(ProjectEntry $projectEntry): self
