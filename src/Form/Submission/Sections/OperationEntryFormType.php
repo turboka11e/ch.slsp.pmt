@@ -32,7 +32,7 @@ class OperationEntryFormType extends AbstractType
                 'attr' => [
                     'step' => "0.5",
                     'min' => "0",
-                    'style' => 'width:5em',
+                    'style' => 'width:6em',
                 ],
                 'html5' => true
             ])
@@ -43,11 +43,12 @@ class OperationEntryFormType extends AbstractType
                 ],
             ])
             ->add('Status', ChoiceType::class, [
-                'choices' => ['Cont.' => 'Continuing', 'Hold' => 'Hold', 'Done' => 'Done'],
-                'attr' => [
-                    'style' => 'width:6em',
+                'choices' => [
+                    'Cont.' => 'Continuing',
+                    'Hold' => 'Hold',
+                    'Done' => 'Done'
                 ],
-                ])
+            ])
             ->add('WorkResults', TextareaType::class, [
                 'required' => false,
                 'attr' => [

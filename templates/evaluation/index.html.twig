@@ -58,7 +58,7 @@
 							<tbody>
 								{% for project in projects %}
 
-									{% for index, entry in project.ProjectEntry %}
+									{% for index, entry in project.ProjectEntries %}
 										<tr>
 											{% if loop.first %}
 												<th>{{ project.Name }}</th>

@@ -57,17 +57,17 @@ class Submission
     /**
      * @ORM\OneToMany(targetEntity=App\Entity\Submission\Sections\OperationEntry::class, mappedBy="Submission", orphanRemoval=true, cascade={"persist"})
      */
-    private $operations;
+    private $operationEntries;
 
     /**
      * @ORM\OneToMany(targetEntity=App\Entity\Submission\Sections\ProjectEntry::class, mappedBy="Submission", orphanRemoval=true, cascade={"persist"})
      */
-    private $projects;
+    private $projectEntries;
 
     /**
      * @ORM\OneToMany(targetEntity=App\Entity\Submission\Sections\MiscellaneousEntry::class, mappedBy="Submission", orphanRemoval=true, cascade={"persist"})
      */
-    private $miscellaneouses;
+    private $miscellaneousEntries;
 
     /**
      * @ORM\Column(type="float")
@@ -83,9 +83,9 @@ class Submission
     {
         $this->FurtherAbsences = 0;
         $this->PlannedAbsences = 0;
-        $this->operations = new ArrayCollection();
-        $this->projects = new ArrayCollection();
-        $this->miscellaneouses = new ArrayCollection();
+        $this->operationEntries = new ArrayCollection();
+        $this->projectEntries = new ArrayCollection();
+        $this->miscellaneousEntries = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -166,29 +166,29 @@ class Submission
     }
 
     /**
-     * @return Collection|Operation[]
+     * @return Collection|OperationEntry[]
      */
-    public function getOperations(): Collection
+    public function getOperationEntries(): Collection
     {
-        return $this->operations;
+        return $this->operationEntries;
     }
 
-    public function addOperation(OperationEntry $operation): self
+    public function addOperationEntry(OperationEntry $operationEntry): self
     {
-        if (!$this->operations->contains($operation)) {
-            $this->operations[] = $operation;
-            $operation->setSubmission($this);
+        if (!$this->operationEntries->contains($operationEntry)) {
+            $this->operationEntries[] = $operationEntry;
+            $operationEntry->setSubmission($this);
         }
 
         return $this;
     }
 
-    public function removeOperation(OperationEntry $operation): self
+    public function removeOperationEntry(OperationEntry $operationEntry): self
     {
-        if ($this->operations->removeElement($operation)) {
+        if ($this->operationEntries->removeElement($operationEntry)) {
             // set the owning side to null (unless already changed)
-            if ($operation->getSubmission() === $this) {
-                $operation->setSubmission(null);
+            if ($operationEntry->getSubmission() === $this) {
+                $operationEntry->setSubmission(null);
             }
         }
 
@@ -196,29 +196,29 @@ class Submission
     }
 
     /**
-     * @return Collection|Project[]
+     * @return Collection|ProjectEntry[]
      */
-    public function getProjects(): Collection
+    public function getProjectEntries(): Collection
     {
-        return $this->projects;
+        return $this->projectEntries;
     }
 
-    public function addProject(ProjectEntry $project): self
+    public function addProjectEntry(ProjectEntry $projectEntry): self
     {
-        if (!$this->projects->contains($project)) {
-            $this->projects[] = $project;
-            $project->setSubmission($this);
+        if (!$this->projectEntries->contains($projectEntry)) {
+            $this->projectEntries[] = $projectEntry;
+            $projectEntry->setSubmission($this);
         }
 
         return $this;
     }
 
-    public function removeProject(ProjectEntry $project): self
+    public function removeProjectEntry(ProjectEntry $projectEntry): self
     {
-        if ($this->projects->removeElement($project)) {
+        if ($this->projectEntries->removeElement($projectEntry)) {
             // set the owning side to null (unless already changed)
-            if ($project->getSubmission() === $this) {
-                $project->setSubmission(null);
+            if ($projectEntry->getSubmission() === $this) {
+                $projectEntry->setSubmission(null);
             }
         }
 
@@ -226,29 +226,29 @@ class Submission
     }
 
     /**
-     * @return Collection|Miscellaneous[]
+     * @return Collection|MiscellaneousEntries[]
      */
-    public function getMiscellaneouses(): Collection
+    public function getMiscellaneousEntries(): Collection
     {
-        return $this->miscellaneouses;
+        return $this->miscellaneousEntries;
     }
 
-    public function addMiscellaneouse(MiscellaneousEntry $miscellaneouse): self
+    public function addMiscellaneousEntry(MiscellaneousEntry $miscellaneousEntry): self
     {
-        if (!$this->miscellaneouses->contains($miscellaneouse)) {
-            $this->miscellaneouses[] = $miscellaneouse;
-            $miscellaneouse->setSubmission($this);
+        if (!$this->miscellaneousEntries->contains($miscellaneousEntry)) {
+            $this->miscellaneousEntries[] = $miscellaneousEntry;
+            $miscellaneousEntry->setSubmission($this);
         }
 
         return $this;
     }
 
-    public function removeMiscellaneouse(MiscellaneousEntry $miscellaneouse): self
+    public function removeMiscellaneousEntry(MiscellaneousEntry $miscellaneousEntry): self
     {
-        if ($this->miscellaneouses->removeElement($miscellaneouse)) {
+        if ($this->miscellaneousEntries->removeElement($miscellaneousEntry)) {
             // set the owning side to null (unless already changed)
-            if ($miscellaneouse->getSubmission() === $this) {
-                $miscellaneouse->setSubmission(null);
+            if ($miscellaneousEntry->getSubmission() === $this) {
+                $miscellaneousEntry->setSubmission(null);
             }
         }
 

@@ -43,27 +43,24 @@ class SubmissionsController extends AbstractController
 
             $user = $this->getUser();
 
-            $task = $entityManager->getRepository(Submission::class)->findOneBy([
+            $submission = $entityManager->getRepository(Submission::class)->findOneBy([
                 'SubmissionMonth' => $subMonth,
                 'User' => $user->getId()
             ]);
 
-            if (is_null($task)) {
+            if (is_null($submission)) {
                 return new JsonResponse(['output' => $this->renderView('submissions/_error.html.twig')]);
             }
 
-            $form = $this->createForm(SubmissionFormType::class, $task);
-            $form->remove('Submit');
+            // $form = $this->createForm(SubmissionFormType::class, $task);
+            // $form->remove('Submit');
 
             return new JsonResponse(['output' => $this->renderView('submission/_readonly.html.twig', [
                 'today' => $today,
                 'subMonth' => $subMonth,
                 'year' => $year,
                 'month' => $month,
-                'form' => $form->createView(),
-                'csrf_protection' => true,
-                'csrf_field_name' => '_token',
-                'csrf_token_id' => 'form'
+                'submission' => $submission,
             ])]);
         }
 

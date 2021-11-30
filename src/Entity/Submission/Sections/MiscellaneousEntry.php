@@ -39,7 +39,7 @@ class MiscellaneousEntry
     private $Comment;
 
     /**
-     * @ORM\ManyToOne(targetEntity=App\Entity\Submission\Submission::class, inversedBy="miscellaneouses")
+     * @ORM\ManyToOne(targetEntity=App\Entity\Submission\Submission::class, inversedBy="miscellaneousEntries")
      * @ORM\JoinColumn(nullable=false)
      */
     private $Submission;

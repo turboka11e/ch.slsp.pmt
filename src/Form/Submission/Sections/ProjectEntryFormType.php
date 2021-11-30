@@ -32,7 +32,7 @@ class ProjectEntryFormType extends AbstractType
                 'attr' => [
                     'step' => "0.5",
                     'min' => "0",
-                    'style' => 'width:5em',
+                    'style' => 'width:6em',
                 ],
                 'html5' => true
             ])
@@ -40,7 +40,7 @@ class ProjectEntryFormType extends AbstractType
                 'attr' => [
                     'step' => "0.5",
                     'min' => "0",
-                    'style' => 'width:5em',
+                    'style' => 'width: 6em',
                 ],
                 'required' => false,
                 'html5' => true

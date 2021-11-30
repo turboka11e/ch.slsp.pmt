@@ -50,11 +50,11 @@ class Project
      * @ORM\OneToMany(targetEntity=ProjectEntry::class, mappedBy="project", orphanRemoval=true)
      * @OrderBy({"Submission" = "DESC"})
      */
-    private $ProjectEntry;
+    private $ProjectEntries;
 
     public function __construct()
     {
-        $this->ProjectEntry = new ArrayCollection();
+        $this->ProjectEntries = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -125,9 +125,9 @@ class Project
     /**
      * @return Collection|ProjectEntry[]
      */
-    public function getProjectEntry(): Collection
+    public function getProjectEntries(): Collection
     {
-        return $this->ProjectEntry;
+        return $this->ProjectEntries;
     }
 
     /**
@@ -135,17 +135,17 @@ class Project
      */
     public function sortProjectEntriesByTime()
     {
-        $iter = $this->ProjectEntry->getIterator();
+        $iter = $this->ProjectEntries->getIterator();
         $iter->uasort(function (ProjectEntry $a, ProjectEntry $b) {
             return ($a->getSubmission()->getSubmissionMonth() <=> $b->getSubmission()->getSubmissionMonth()) * (-1);
         });
-        $this->ProjectEntry = new ArrayCollection(iterator_to_array($iter));
+        $this->ProjectEntries = new ArrayCollection(iterator_to_array($iter));
     }
 
     public function addProjectEntry(ProjectEntry $projectEntry): self
     {
-        if (!$this->ProjectEntry->contains($projectEntry)) {
-            $this->ProjectEntry[] = $projectEntry;
+        if (!$this->ProjectEntries->contains($projectEntry)) {
+            $this->ProjectEntries[] = $projectEntry;
             $projectEntry->setProject($this);
         }
 
@@ -154,7 +154,7 @@ class Project
 
     public function removeProjectEntry(ProjectEntry $projectEntry): self
     {
-        if ($this->ProjectEntry->removeElement($projectEntry)) {
+        if ($this->ProjectEntries->removeElement($projectEntry)) {
             // set the owning side to null (unless already changed)
             if ($projectEntry->getProject() === $this) {
                 $projectEntry->setProject(null);

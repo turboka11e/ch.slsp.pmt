@@ -173,6 +173,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getNameComplete(): ?string {
+        return $this->name . ' ' . $this->surname;
+    }
+
+    public function getNameShort(): ?string {
+        return substr($this->name, 0, 1) . substr($this->surname, 0, 2); 
+    }
+
     /**
      * @return Collection|Submission[]
      */

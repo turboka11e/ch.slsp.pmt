@@ -50,13 +50,13 @@ class ProjectEntry
     private $Status;
 
     /**
-     * @ORM\ManyToOne(targetEntity=App\Entity\Submission\Submission::class, inversedBy="projects")
+     * @ORM\ManyToOne(targetEntity=App\Entity\Submission\Submission::class, inversedBy="projectEntries")
      * @ORM\JoinColumn(nullable=false)
      */
     private $Submission;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="ProjectEntry")
+     * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="ProjectEntries")
      * @ORM\JoinColumn(nullable=false)
      */
     private $project;

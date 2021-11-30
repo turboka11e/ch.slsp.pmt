@@ -45,7 +45,7 @@ class SubmissionFormType extends AbstractType
                 ],
                 'html5' => true
             ])
-            ->add('operations', CollectionType::class, [
+            ->add('operationEntries', CollectionType::class, [
                 'label' => false,
                 'entry_type' => OperationEntryFormType::class,
                 'entry_options' => ['label' => false],
@@ -53,7 +53,7 @@ class SubmissionFormType extends AbstractType
                 'allow_delete' => true,
                 'by_reference' => false,
             ])
-            ->add('projects', CollectionType::class, [
+            ->add('projectEntries', CollectionType::class, [
                 'label' => false,
                 'entry_type' => ProjectEntryFormType::class,
                 'entry_options' => ['label' => false],
@@ -61,7 +61,7 @@ class SubmissionFormType extends AbstractType
                 'allow_delete' => true,
                 'by_reference' => false,
             ])
-            ->add('miscellaneouses', CollectionType::class, [
+            ->add('miscellaneousEntries', CollectionType::class, [
                 'label' => false,
                 'entry_type' => MiscellaneousEntryFormType::class,
                 'entry_options' => ['label' => false,],

@@ -124,9 +124,9 @@ projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toF
 							<th class="col" scope="col"></th>
 						</tr>
 					</thead>
-					<tbody class="operations" data-index="{{ form.operations|length > 0 ? form.operations|last.vars.name + 1 : 0 }}" data-prototype="{{ formMacros.printOperation(form.operations.vars.prototype)|e('html_attr') }}">
+					<tbody class="operations" data-index="{{ form.operationEntries|length > 0 ? form.operationEntries|last.vars.name + 1 : 0 }}" data-prototype="{{ formMacros.printOperation(form.operationEntries.vars.prototype)|e('html_attr') }}">
 						<tr></tr>
-						{% for operation in form.operations %}
+						{% for operation in form.operationEntries %}
 							{{ formMacros.printOperation(operation) }}
 						{% endfor %}
 					</tbody>
@@ -135,7 +135,7 @@ projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toF
 							<td></td>
 							<td></td>
 							<td>
-								<input class="form-control" id="opHourSum" type="text" value="0" style="width: 5em;" disabled readonly>
+								<input class="form-control" id="opHourSum" type="text" value="0" style="width: 6em;" disabled readonly>
 							</td>
 							<td>
 								<div style="width: 7em;"></div>
@@ -166,7 +166,7 @@ projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toF
 							</th>
 							<th class="col text-end" scope="col">Target</th>
 							<th class="col" scope="col">
-								<output name="result" id="projectHourTarget" for="hourstoplan" style="width: 5em;">0</output>
+								<output name="result" id="projectHourTarget" for="hourstoplan" style="width: 6em;">0</output>
 							</th>
 							<th class="col" scope="col">Actual</th>
 							<th class="col" scope="col"></th>
@@ -185,9 +185,9 @@ projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toF
 							<th class="col" scope="col"></th>
 						</tr>
 					</thead>
-					<tbody class="projects" data-index="{{ form.projects|length > 0 ? form.projects|last.vars.name + 1 : 0 }}" data-prototype="{{ formMacros.printProject(form.projects.vars.prototype)|e('html_attr') }}">
+					<tbody class="projects" data-index="{{ form.projectEntries|length > 0 ? form.projectEntries|last.vars.name + 1 : 0 }}" data-prototype="{{ formMacros.printProject(form.projectEntries.vars.prototype)|e('html_attr') }}">
 						<tr></tr>
-						{% for project in form.projects %}
+						{% for project in form.projectEntries %}
 							{{ formMacros.printProject(project) }}
 						{% endfor %}
 					</tbody>
@@ -196,10 +196,10 @@ projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toF
 							<td></td>
 							<td></td>
 							<td>
-								<input class="form-control" id="projectHourSum" type="text" value="0" style="width: 5em;" disabled readonly>
+								<input class="form-control" id="projectHourSum" type="text" value="0" style="width: 6em;" disabled readonly>
 							</td>
 							<td>
-								<input class="form-control" id="projectActualHourSum" type="text" value="0" style="width: 5em;" disabled readonly>
+								<input class="form-control" id="projectActualHourSum" type="text" value="0" style="width: 6em;" disabled readonly>
 							</td>
 							<td>
 								<div style="width: 7em;"></div>
@@ -238,9 +238,9 @@ projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toF
 							<th class="col" scope="col"></th>
 						</tr>
 					</thead>
-					<tbody class="miscellaneouses" data-index="{{ form.miscellaneouses|length > 0 ? form.miscellaneouses|last.vars.name + 1 : 0 }}" data-prototype="{{ formMacros.printMisc(form.miscellaneouses.vars.prototype)|e('html_attr') }}">
+					<tbody class="miscellaneouses" data-index="{{ form.miscellaneousEntries|length > 0 ? form.miscellaneousEntries|last.vars.name + 1 : 0 }}" data-prototype="{{ formMacros.printMisc(form.miscellaneousEntries.vars.prototype)|e('html_attr') }}">
 						<tr></tr>
-						{% for misc in form.miscellaneouses %}
+						{% for misc in form.miscellaneousEntries %}
 							{{ formMacros.printMisc(misc) }}
 						{% endfor %}
 					</tbody>
@@ -248,7 +248,7 @@ projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toF
 						<tr>
 							<td></td>
 							<td></td>
-							<td><input class="form-control" id="miscHourSum" type="text" value="0" style="width: 5em;" disabled readonly>
+							<td><input class="form-control" id="miscHourSum" type="text" value="0" style="width: 6em;" disabled readonly>
 							</td>
 							<td></td>
 							<td>

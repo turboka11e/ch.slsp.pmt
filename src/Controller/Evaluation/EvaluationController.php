@@ -60,7 +60,7 @@ class EvaluationController extends AbstractController
         $projects = $entityManager->getRepository(Project::class)->findBy([
             'Archive' => false
         ]);
-        
+
         foreach ($projects as $project) {
             if ($project instanceof Project) {
                 $project->sortProjectEntriesByTime();
@@ -83,7 +83,7 @@ class EvaluationController extends AbstractController
 
             $year = $request->request->get('year');
             $month = $request->request->get('month');
-            $subMonth = DateTIme::createFromFormat('j-m-Y', '01-' . $month . '-' . $year);
+            $subMonth = DateTime::createFromFormat('j-m-Y', '01-' . $month . '-' . $year);
 
             $submissions = $entityManager->getRepository(Submission::class)->findBy([
                 'SubmissionMonth' => $subMonth
@@ -91,49 +91,56 @@ class EvaluationController extends AbstractController
 
 
             ### Evaluation
-            // $projectNames = [];
-            // $usersProject = [];
-            // foreach ($submissions as $submission) {
-            //     if ($submission instanceof Submission) {
-            //         $project = $submission->getProjects();
-            //         $project->map(function(Project $project) use (&$projectNames, &$usersProject) {
-            //             $projectNames[$project->getName()] = [];
-            //             $usersProject[$project->getSubmissionId()->getUserId()] = [];
-            //         });
-            //     }
-            // }
-
-            // foreach ($usersProject as $userProjects) {
-            //     $userProjects[] = $projectNames;
-            // }
-
-            $projects = [];
+            $projectNames = [];
+            $userNames = [];
+            // Prepare Lists as template for evaluation
             foreach ($submissions as $submission) {
                 if ($submission instanceof Submission) {
-                    $project = $submission->getProjects();
-                    $project->map(function(ProjectEntry $project) use (&$projects) {
-                        $projectName = $project->getProject()->getName();
-                        if (array_key_exists($projectName, $projects)) {
-                            $projects[$projectName][] = [
-                                'user' => $project->getSubmission()->getUser()->getName(),
-                                'actualHours' => $project->getActualHours() ?? 'NA',
-                                'targetHours' => $project->getTargetHours(),
-                            ];
-                        } else {
-                            $projects[$projectName][] = [
-                                'user' => $project->getSubmission()->getUser()->getName(),
-                                'actualHours' => $project->getActualHours() ?? 'NA',
-                                'targetHours' => $project->getTargetHours(),
-                            ];
-                        }
+                    // Save Username in List
+                    $userNames[$submission->getUser()->getNameShort()] = [];
+                    // Save Projectname in List
+                    $project = $submission->getProjectEntries();
+                    $project->map(function (ProjectEntry $project) use (&$projectNames) {
+                        $projectNames[$project->getProject()->getName()] = [];
                     });
                 }
             }
+            $userNames["Total"] = [
+                'actualHours' => 0.0,
+                'targetHours' => 0.0,
+                'diff' => 0.0,
+            ];
+            // Put every name to each project
+            array_walk($projectNames, function (&$value, $key) use ($userNames) {
+                $value = $userNames;
+            });
+
+            array_walk($submissions, function (Submission &$submission) use (&$projectNames) {
+                $projects = $submission->getProjectEntries();
+                $username = $submission->getUser()->getNameShort();
+                $projectsArray = $projects->toArray();
+                // Iterate over users projects and put values in projectsNames
+                array_walk($projectsArray, function (ProjectEntry &$projectEntry, $key) use (&$projectNames, $username) {
+                    // Dont need to check whether project is in list because it has to be
+                    $actualHours = $projectEntry->getActualHours();
+                    $targetHours = $projectEntry->getTargetHours();
+                    $diff = $targetHours - $actualHours ?? 0;
+                    $projectNames[$projectEntry->getProject()->getName()][$username] = [
+                        'actualHours' =>  $actualHours ?? 'NA',
+                        'targetHours' => $targetHours,
+                        'diff' => $diff,
+                    ];
+                    $projectNames[$projectEntry->getProject()->getName()]["Total"]["actualHours"] += $actualHours ?? 0;
+                    $projectNames[$projectEntry->getProject()->getName()]["Total"]["targetHours"] += $targetHours;
+                    $projectNames[$projectEntry->getProject()->getName()]["Total"]["diff"] += $diff;
+                });
+            });
 
             return new JsonResponse(['output' => $this->renderView('evaluation/_evalMonth.html.twig', [
                 'submissions' => $submissions,
-                'subMonth' => $subMonth,
-                'projects' => $projects,
+                'sub_month' => $subMonth,
+                'project_names' => $projectNames,
+                'user_names' => $userNames,
             ])]);
         }
 

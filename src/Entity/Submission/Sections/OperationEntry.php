@@ -49,7 +49,7 @@ class OperationEntry
     private $Status;
 
     /**
-     * @ORM\ManyToOne(targetEntity=App\Entity\Submission\Submission::class, inversedBy="operations")
+     * @ORM\ManyToOne(targetEntity=App\Entity\Submission\Submission::class, inversedBy="operationEntries")
      * @ORM\JoinColumn(nullable=false)
      */
     private $Submission;

@@ -5,6 +5,7 @@ namespace App\Form\Submission\Sections;
 use App\Entity\Submission\Sections\MiscellaneousEntry;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -19,11 +20,16 @@ class MiscellaneousEntryFormType extends AbstractType
                 'attr' => [
                     'step' => "0.5",
                     'min' => "0",
-                    'style' => 'width:5em',
+                    'style' => 'width:6em',
                 ],
                 'html5' => true
             ])
-            ->add('Comment')
+            ->add('Comment', TextareaType::class, [
+                'attr' => [
+                    'style' => 'height: 1rem'
+                ],
+                'required' => false,
+            ])
             // ->add('SubmissionId')
         ;
     }
