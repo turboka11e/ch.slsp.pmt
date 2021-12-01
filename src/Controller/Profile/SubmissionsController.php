@@ -52,10 +52,7 @@ class SubmissionsController extends AbstractController
                 return new JsonResponse(['output' => $this->renderView('submissions/_error.html.twig')]);
             }
 
-            // $form = $this->createForm(SubmissionFormType::class, $task);
-            // $form->remove('Submit');
-
-            return new JsonResponse(['output' => $this->renderView('submission/_readonly.html.twig', [
+            return new JsonResponse(['output' => $this->renderView('submission/_ajax.readonly.html.twig', [
                 'today' => $today,
                 'subMonth' => $subMonth,
                 'year' => $year,
@@ -123,6 +120,33 @@ class SubmissionsController extends AbstractController
             );
         }
         return $results;
+    }
+
+    /**
+     * @isGranted("ROLE_MANAGER")
+     * @Route("/profile/extern/submission", name="extern_submission")
+     */
+    public function externSubmission(Request $request, EntityManagerInterface $entityManager): Response
+    {
+
+        if ($request->isXmlHttpRequest()) {
+
+            $results = $this->getYearMonthTodaySubMonth($request);
+            $user = $request->request->get('userId');
+            [$year, $month, $today, $subMonth] = $results;
+            $submission = $entityManager->getRepository(Submission::class)->findOneBy([
+                'SubmissionMonth' => $subMonth,
+                'User' => $user,
+            ]);
+
+            return new JsonResponse(['output' => $this->renderView('submission/modal/_ajax.content.html.twig', [
+                'today' => $today,
+                'subMonth' => $subMonth,
+                'year' => $year,
+                'month' => $month,
+                'submission' => $submission,
+            ])]);
+        }
     }
 
     /**

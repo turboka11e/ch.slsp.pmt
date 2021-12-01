@@ -43,6 +43,9 @@
 				<h1>
 					{{ subMonth|date('F Y') }}
 				</h1>
+				<h5>
+					{{ submission.User.name }} {{ submission.User.surname }}
+				</h5>
 			</div>
 
 			<div class="col-sm-auto">
@@ -81,9 +84,9 @@
 	</div>
 
 	{# Operations Table #}
-	<div class="p-1 border rounded-3 bg-light">
+	<div class="border rounded-3 colorOperation">
 		<div class="table-responsive">
-			<table class="table table-borderless table-hover">
+			<table class="table table-hover">
 				<thead>
 					<tr>
 						<th class="col" scope="col">
@@ -97,7 +100,7 @@
 						<th class="col" scope="col"></th>
 						<th class="col" scope="col"></th>
 					</tr>
-					<tr class="border-bottom">
+					<tr>
 						<th class="col" scope="col">Category</th>
 						<th class="col-7" scope="col">Description</th>
 						<th class="col" scope="col">Hours</th>
@@ -109,10 +112,10 @@
 				<tbody>
 
 					{% for operation in submission.operationEntries %}
-					<tr class="border-bottom">
+					<tr class="border-bottom border-dark">
 						<th>{{ operation.Category }}</th>
 						<td>{{ operation.Description }}</td>
-						<td><input type="text" class="opHour form-control" value="{{ operation.Hours}}"
+						<td><input type="text" class="opHour form-control bg-white" value="{{ operation.Hours}}"
 								disabled></td>
 						<td>{{ operation.Priority }}</td>
 						<td>{{ operation.Status }}</td>
@@ -120,8 +123,8 @@
 							<div class="overflow-auto" style="max-height: 8rem;">
 								{{ operation.WorkResults }}
 						</td>
+					</tr>
 		</div>
-		</tr>
 		{% endfor %}
 		</tbody>
 		<tfoot>
@@ -147,10 +150,10 @@
 </div>
 
 {# Projects Table #}
-<div class="p-1 border rounded-3 bg-light">
+<div class="border rounded-3 colorProject">
 	<div class="table-responsive">
-		<table class="table table-borderless table-hover">
-			<thead>
+		<table class="table table-hover">
+			<thead class="table-borderless">
 				<tr>
 					<th class="col" scope="col">
 						<h3>Projects</h3>
@@ -164,7 +167,7 @@
 					<th class="col" scope="col"></th>
 					<th class="col" scope="col"></th>
 				</tr>
-				<tr class="border-bottom">
+				<tr>
 					<th class="col" scope="col">Name</th>
 					<th class="col-8" scope="col">Description</th>
 					<th class="col" scope="col">Hours</th>
@@ -176,15 +179,15 @@
 			</thead>
 			<tbody>
 				{% for project in submission.projectEntries %}
-				<tr class="border-bottom">
+				<tr class="border-bottom border-dark">
 					<th>{{ project.project.Name }}</th>
 					<td>{{ project.Description }}</td>
 					<td>
-						<input type="text" class="projectHour form-control"
-							value="{{ project.TargetHours }}" disabled>
+						<input type="text" class="projectHour form-control bg-white" value="{{ project.TargetHours }}"
+							disabled>
 					</td>
 					<td>
-						<input type="text" class="projectActualHour form-control"
+						<input type="text" class="projectActualHour form-control bg-white"
 							value="{{ project.ActualHours }}" disabled>
 					</td>
 					<td>{{ project.Priority }}</td>
@@ -224,12 +227,20 @@
 </div>
 
 {# miscellaneouses Table #}
-<div class="pt-1 border rounded-3 bg-light">
+<div class="border rounded-3 colorMisc">
 
 	<div class="table-responsive">
-		<table class="table table-borderless">
-			<thead class="border-bottom">
-				<h3>Others</h3>
+		<table class="table table-hover">
+			<thead>
+
+				<tr>
+					<th class="col" scope="col">
+						<h3>Others</h3>
+					</th>
+					<th class="col" scope="col"></th>
+					<th class="col" scope="col"></th>
+					<th class="col" scope="col"></th>
+				</tr>
 				<tr>
 					<th class="col-3" scope="col">Task</th>
 					<th class="col-5" scope="col">Description</th>
@@ -239,11 +250,11 @@
 			</thead>
 			<tbody>
 				{% for misc in submission.miscellaneousEntries %}
-				<tr class="border-bottom">
-					<td>{{ misc.Task }}</td>
+				<tr class="border-bottom border-dark">
+					<th>{{ misc.Task }}</th>
 					<td>{{ misc.Description }}</td>
 					<td>
-						<input type="text" class="miscHour form-control" value="{{ misc.TargetHours }}"
+						<input type="text" class="miscHour form-control bg-white" value="{{ misc.TargetHours }}"
 							disabled>
 					</td>
 					<td>
@@ -259,26 +270,10 @@
 				<tr>
 					<td></td>
 					<td></td>
-					<td><output class="form-control" id="miscHourSum" type="text" value="0">
-					</td>
+					<td><output class="form-control" id="miscHourSum" type="text" value="0"></td>
 					<td></td>
 				</tr>
 			</tfoot>
 		</table>
 	</div>
 </div>
-</div>
-
-<div class="row row-cols-auto justify-content-end me-1 mt-1">
-	<form action="{{ path('edit_submission') }}" method="PUT">
-		<div>
-			<input type="hidden" id="year" name="year" value="{{ year }}">
-			<input type="hidden" id="month" name="month" value="{{ month }}">
-		</div>
-		<div>
-			<button type="submit" class="btn btn btn-outline-warning">Edit</button>
-		</div>
-	</form>
-	{{ include('submission/_delete.modal.html.twig') }}
-</div>
-</body>

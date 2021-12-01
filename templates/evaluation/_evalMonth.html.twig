@@ -11,6 +11,7 @@
 				<td></td>
 				<td></td>
 				<td></td>
+				<td></td>
 			</tr>
 			<tr>
 				<th>Name</th>
@@ -20,6 +21,7 @@
 				<th>Operations</th>
 				<th>Projects</th>
 				<th>Miscellaneous</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -32,6 +34,8 @@
 				<td>{{ submission.OperationEntries|length }} </td>
 				<td>{{ submission.ProjectEntries|length }} </td>
 				<td>{{ submission.MiscellaneousEntries|length }} </td>
+				<td><button type="button" href="{{ path('extern_submission') }}" userId="{{ submission.User.id }}" year="{{submission.SubmissionMonth|date('Y')}}" month="{{submission.SubmissionMonth|date('m')}}" class="ajax btn btn-outline-primary btn-sm" data-bs-toggle="modal"
+						data-bs-target="#submissionModal">Show</button></td>
 			</tr>
 			{% endfor %}
 		</tbody>

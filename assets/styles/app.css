@@ -45,3 +45,15 @@ body {
 .btn-toggle-nav a:focus {
   background-color: #d2f4ea;
 }
+
+.colorOperation {
+  background-color: #ddf2fd;
+}
+
+.colorProject {
+  background-color: #fcebf6;
+}
+
+.colorMisc {
+  background-color: #faf8df;
+}

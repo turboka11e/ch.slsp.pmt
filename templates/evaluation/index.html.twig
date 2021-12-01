@@ -69,7 +69,7 @@
 											<td>{{ entry.submission.SubmissionMonth|date('Y F') }}</td>
 											<td>{{ entry.ActualHours ?? 'NA' }}</td>
 											<td>{{ entry.TargetHours }}</td>
-											<td>{{ entry.TargetHours - entry.ActualHours ?? '0'}}
+											<td>{{ entry.TargetHours - entry.ActualHours ?? '0'}}</td>
 										</tr>
 									{% endfor %}
 								{% endfor %}
@@ -81,5 +81,6 @@
 			</div>
 
 		</div>
+		{% include "submission/modal/_placeholder.html.twig" %}
 	</div>
 {% endblock %}

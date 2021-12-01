@@ -89,6 +89,10 @@ class EvaluationController extends AbstractController
                 'SubmissionMonth' => $subMonth
             ]);
 
+            // Sort Submissions by Name
+            uasort($submissions, function (Submission $a, Submission $b) {
+                return $a->getUser()->getName() <=> $b->getUser()->getName();
+            });
 
             ### Evaluation
             $projectNames = [];
@@ -105,6 +109,9 @@ class EvaluationController extends AbstractController
                     });
                 }
             }
+            // Sort projectNames by Name
+            ksort($projectNames);
+            // Add Total Object at the end
             $userNames["Total"] = [
                 'actualHours' => 0.0,
                 'targetHours' => 0.0,
@@ -115,6 +122,7 @@ class EvaluationController extends AbstractController
                 $value = $userNames;
             });
 
+            // Populate projectNames with values from submissions
             array_walk($submissions, function (Submission &$submission) use (&$projectNames) {
                 $projects = $submission->getProjectEntries();
                 $username = $submission->getUser()->getNameShort();
