@@ -1,6 +1,5 @@
 <h1>{{ sub_month|date('F Y')}}</h1>
-
-<h5 class="mt-3">Forms submitted:</h5>
+{# <a class="btn btn-outline-primary" href="{{ path('download_year_month', {year: sub_month|date('Y'), month: sub_month|date('m')}) }}">Download</a> #}
 <div class="overflow-auto">
 	<table class="table table-hover">
 		<thead>
@@ -26,87 +25,25 @@
 		</thead>
 		<tbody>
 			{% for submission in submissions %}
-			<tr>
-				<td>{{ submission.User.Name }} {{ submission.User.Surname }} </td>
-				<td>{{ submission.Workdays }} </td>
-				<td>{{ submission.PlannedAbsences }}</td>
-				<td>{{ submission.FurtherAbsences }}</td>
-				<td>{{ submission.OperationEntries|length }} </td>
-				<td>{{ submission.ProjectEntries|length }} </td>
-				<td>{{ submission.MiscellaneousEntries|length }} </td>
-				<td><button type="button" href="{{ path('extern_submission') }}" userId="{{ submission.User.id }}" year="{{submission.SubmissionMonth|date('Y')}}" month="{{submission.SubmissionMonth|date('m')}}" class="ajax btn btn-outline-primary btn-sm" data-bs-toggle="modal"
-						data-bs-target="#submissionModal">Show</button></td>
-			</tr>
+				<tr>
+					<th>{{ submission.User.Name }}
+						{{ submission.User.Surname }}
+					</th>
+					<td>{{ submission.Workdays }}
+					</td>
+					<td>{{ submission.PlannedAbsences }}</td>
+					<td>{{ submission.FurtherAbsences }}</td>
+					<td>{{ submission.OperationEntries|length }}
+					</td>
+					<td>{{ submission.ProjectEntries|length }}
+					</td>
+					<td>{{ submission.MiscellaneousEntries|length }}
+					</td>
+					<td>
+						<button type="button" href="{{ path('extern_submission') }}" userid="{{ submission.User.id }}" year="{{submission.SubmissionMonth|date('Y')}}" month="{{submission.SubmissionMonth|date('m')}}" class="ajax btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#submissionModal">Show</button>
+					</td>
+				</tr>
 			{% endfor %}
 		</tbody>
 	</table>
-</div>
-<div class="overflow-auto mt-3">
-	{% if project_names is not empty %}
-	<h4>Projects</h4>
-	<table class="table table-sm table-hover">
-		<thead>
-			<tr>
-				<th></th>
-				<th class="text-muted">Hours</th>
-				{% for name in user_names|keys %}
-				<th>{{ name }}</td>
-					{% endfor %}
-			</tr>
-		</thead>
-		<tbody>
-			{% for project_name, user_entries in project_names %}
-			<tr>
-				<th>{{ project_name }}</th>
-				<td class="text-muted">Actual</td>
-				{# Actual Hours #}
-				{% for user, projectEntry in user_entries %}
-				{% if projectEntry is not empty %}
-				{% if loop.last %}
-				<th>{{projectEntry.actualHours}}</th>
-				{% else %}
-				<td>{{projectEntry.actualHours}}</td>
-				{% endif %}
-				{% else %}
-				<td></td>
-				{% endif %}
-				{% endfor %}
-			</tr>
-			<tr>
-				<td></td>
-				{# Target Hours #}
-				<td class="text-muted">Target</td>
-				{% for user, projectEntry in user_entries %}
-				{% if projectEntry is not empty %}
-				{% if loop.last %}
-				<th>{{projectEntry.targetHours}}</th>
-				{% else %}
-				<td>{{projectEntry.targetHours}}</td>
-				{% endif %}
-				{% else %}
-				<td></td>
-				{% endif %}
-				{% endfor %}
-			</tr>
-			<tr>
-				<td></td>
-				{# Diff #}
-				<td class="text-muted">Diff</td>
-				{% for user, projectEntry in user_entries %}
-				{% if projectEntry is not empty %}
-				{% if loop.last %}
-				<th>{{projectEntry.diff}}</th>
-				{% else %}
-				<td>{{projectEntry.diff}}</td>
-				{% endif %}
-				{% else %}
-				<td></td>
-				{% endif %}
-				{% endfor %}
-			</tr>
-			<tr class="border-bottom border-dark"></tr>
-			{% endfor %}
-		</tbody>
-	</table>
-	{% endif %}
 </div>

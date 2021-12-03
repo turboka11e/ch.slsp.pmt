@@ -1,4 +1,8 @@
 var loadSubmission = function (e) {
+    
+    let spinner = e.target.parentElement.querySelector('#spinner');
+    spinner.style.visibility = 'visible';
+
     $.ajax({
         url: $(this).attr('href'),
         type: "POST",
@@ -9,6 +13,7 @@ var loadSubmission = function (e) {
         },
         async: true,
         success: function (data) {
+            spinner.style.visibility = 'hidden';
             $('div#ajax-results').html(data.output);
             $(document).one('click', 'a.ajax', loadSubmission);
         }

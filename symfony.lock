@@ -252,6 +252,9 @@
             "config/packages/sensio_framework_extra.yaml"
         ]
     },
+    "svrnm/exceldatatables": {
+        "version": "dev-master"
+    },
     "symfony/asset": {
         "version": "v5.3.4"
     },

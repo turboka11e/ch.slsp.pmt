@@ -22,12 +22,12 @@
 							<a class="nav-link {{ submissionslink|default('') }}" href="{{ path('app_submissions') }}">Submissions</a>
 						</li>
 						{% if is_granted('ROLE_MANAGER') %}
-						<li class="nav-item">
-							<a class="nav-link {{ evaluationlink|default('') }}" href="{{ path('submission_evaluation') }}">Evaluation</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link {{ projectslink|default('') }}" href="{{ path('project_index') }}">Projects</a>
-						</li>
+							<li class="nav-item">
+								<a class="nav-link {{ evaluationlink|default('') }}" href="{{ path('submission_evaluation') }}">Evaluation</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link {{ projectslink|default('') }}" href="{{ path('project_index') }}">Projects</a>
+							</li>
 						{% endif %}
 					</ul>
 					<ul class="navbar-nav">
@@ -38,6 +38,11 @@
 							</a>
 							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 								<li>
+									{% if is_granted('ROLE_MANAGER') %}
+										<a class="dropdown-item" href="{{ path('user_index') }}">
+											Access Control
+										</a>
+									{% endif %}
 									<a class="dropdown-item" href="{{ path('app_logout') }}">
 										Logout
 									</a>
