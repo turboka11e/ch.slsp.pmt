@@ -5,6 +5,7 @@ namespace App\Form\Submission\Sections;
 use App\Entity\Choices\ProjectChoice;
 use App\Entity\Project;
 use App\Entity\Submission\Sections\ProjectEntry;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\Entity;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -23,8 +24,14 @@ class ProjectEntryFormType extends AbstractType
             ->add('project', EntityType::class, [
                 'class' => Project::class,
                 'choice_label' => 'Name',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('p')
+                        ->andWhere("p.Archive = false")
+                        ->orderBy('p.Name', 'ASC')
+                        ;
+                },
                 'attr' => [
-                            'style' => 'width: min-content'
+                    'style' => 'width: min-content'
                 ]
             ])
             ->add('Description')
@@ -65,20 +72,6 @@ class ProjectEntryFormType extends AbstractType
             ])
             // ->add('SubmissionId')
         ;
-
-        // $builder->get('Name')->addModelTransformer(new CallbackTransformer(
-        //     function ($project) {
-        //         if (!is_null($project)) {
-        //             $cat = new ProjectChoice();
-        //             $cat = $cat->setProject($project);
-        //             return $cat;
-        //         }
-        //         return $project;
-        //     },
-        //     function (ProjectChoice $project) {
-        //         return $project->getProject();
-        //     }
-        // ));
     }
 
     public function configureOptions(OptionsResolver $resolver): void
