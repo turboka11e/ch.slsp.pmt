@@ -27,7 +27,7 @@ class SecurityController extends AbstractController
 
     // already logged in redirect to home
     if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED') ) {
-      return $this->redirectToRoute('home');
+      return $this->redirectToRoute('app_submissions');
     }
 
     // get the login error if there is one

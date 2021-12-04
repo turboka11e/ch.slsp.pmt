@@ -12,15 +12,13 @@
 
 		<ul class="my-3 nav nav-pills">
 			<li class="nav-item">
-				<a class="nav-link active bg-success" href="#">Active</a>
+				<a class="nav-link link-dark" href="{{ path('project_index') }}" >Active</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link link-dark" href="{{ path('project_archived') }}" >Archived</a>
+				<a class="nav-link active bg-secondary" href="#">Archived</a>
 			</li>
 		</ul>
 		{% include "projects/_projectTable.html.twig" %}
-
-		<a class="btn btn-outline-success" href="{{ path('project_new') }}">Create new</a>
 	</div>
 
 {% endblock %}

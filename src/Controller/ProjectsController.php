@@ -24,7 +24,21 @@ class ProjectsController extends AbstractController
     public function index(ProjectRepository $projectRepository): Response
     {
         return $this->render('projects/index.html.twig', [
-            'projects' => $projectRepository->findBy([], ["Name" => "asc"]),
+            'projects' => $projectRepository->findBy([
+                'Archive' => false,
+            ], ["Name" => "asc"]),
+        ]);
+    }
+
+    /**
+     * @Route("/archived", name="project_archived", methods={"GET"})
+     */
+    public function archived(ProjectRepository $projectRepository): Response
+    {
+        return $this->render('projects/archived.html.twig', [
+            'projects' => $projectRepository->findBy([
+                'Archive' => true,
+            ], ["Name" => "asc"]),
         ]);
     }
 

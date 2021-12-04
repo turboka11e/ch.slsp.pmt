@@ -94,7 +94,7 @@ class SubmissionLifeCycleController extends AbstractController
                 'danger',
                 'Bad Request'
             );
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('app_submissions');
         }
 
         $subMonth = DateTIme::createFromFormat('j-m-Y', '01-' . $month . '-' . $year);
@@ -109,7 +109,7 @@ class SubmissionLifeCycleController extends AbstractController
                 'error',
                 'Form not available for ' . $subMonth->format('F')
             );
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('app_submissions');
         }
 
         $today = new DateTime('now');
@@ -153,7 +153,7 @@ class SubmissionLifeCycleController extends AbstractController
                 'danger',
                 'Bad Request'
             );
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('app_submissions');
         }
 
         $user = $this->getUser();
@@ -169,7 +169,7 @@ class SubmissionLifeCycleController extends AbstractController
                 'error',
                 'There is no submission for ' . $subMonth->format('F')
             );
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('app_submissions');
         }
 
         $entityManager->remove($createdSubmission);
