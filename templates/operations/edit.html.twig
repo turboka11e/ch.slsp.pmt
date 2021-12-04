@@ -1,0 +1,20 @@
+{% extends 'nav.base.html.twig' %}
+
+{% set operationslink = 'active' %}
+
+{% block title %}Edit Category
+{% endblock %}
+
+{% block content %}
+<div class="mt-3 p-3 container-xl bg-white shadow-sm">
+    <h1>Edit Category Choice</h1>
+
+    <div class="g-1 row">
+        {{ include('operations/_form.html.twig', {'button_label': 'Update'}) }}
+        {{ include('operations/_delete_form.html.twig') }}
+        <div class="col">
+            <a class="btn btn-secondary" href="{{ path('operations_index') }}">back to list</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

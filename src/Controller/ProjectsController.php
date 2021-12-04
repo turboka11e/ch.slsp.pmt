@@ -14,17 +14,17 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @IsGranted("ROLE_MANAGER")
- * @Route("/project")
+ * @Route("/projects")
  */
-class ProjectController extends AbstractController
+class ProjectsController extends AbstractController
 {
     /**
      * @Route("/", name="project_index", methods={"GET"})
      */
     public function index(ProjectRepository $projectRepository): Response
     {
-        return $this->render('project/index.html.twig', [
-            'projects' => $projectRepository->findAll(),
+        return $this->render('projects/index.html.twig', [
+            'projects' => $projectRepository->findBy([], ["Name" => "asc"]),
         ]);
     }
 
@@ -46,7 +46,7 @@ class ProjectController extends AbstractController
             return $this->redirectToRoute('project_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('project/new.html.twig', [
+        return $this->renderForm('projects/new.html.twig', [
             'project' => $project,
             'form' => $form,
         ]);
@@ -66,7 +66,7 @@ class ProjectController extends AbstractController
             return $this->redirectToRoute('project_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('project/edit.html.twig', [
+        return $this->renderForm('projects/edit.html.twig', [
             'project' => $project,
             'form' => $form,
         ]);
