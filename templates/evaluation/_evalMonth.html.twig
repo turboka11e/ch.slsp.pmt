@@ -1,6 +1,6 @@
 <h1>{{ sub_month|date('F Y')}}</h1>
 <div class="overflow-auto">
-	<table class="table table-hover">
+	<table class="table table-sm table-striped table-borderless">
 		<thead>
 			<tr>
 				<td></td>
@@ -22,12 +22,13 @@
 				<th></th>
 			</tr>
 		</thead>
+		<tr class="border-top border-dark"></tr>
 		<tbody>
 			{% for submission in submissions %}
 				<tr>
-					<th>{{ submission.User.Name }}
+					<td>{{ submission.User.Name }}
 						{{ submission.User.Surname }}
-					</th>
+					</td>
 					<td>{{ submission.Workdays }}
 					</td>
 					<td>{{ submission.PlannedAbsences }}</td>

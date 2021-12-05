@@ -86,7 +86,7 @@
 	{# Operations Table #}
 	<div class="border rounded-3 colorOperation">
 		<div class="table-responsive">
-			<table class="table table-hover">
+			<table class="table table-hover table-borderless">
 				<thead>
 					<tr>
 						<th class="col" scope="col">
@@ -109,10 +109,11 @@
 						<th class="col" scope="col">Work Results</th>
 					</tr>
 				</thead>
+				<tr class="border-top border-dark"></tr>
 				<tbody>
 
 					{% for operation in submission.operationEntries %}
-					<tr class="border-bottom border-dark">
+					<tr class="border-bottom border-top border-dark">
 						<th>{{ operation.Category }}</th>
 						<td>{{ operation.Description }}</td>
 						<td><input type="text" class="opHour form-control bg-white" value="{{ operation.Hours}}"
@@ -152,8 +153,8 @@
 {# Projects Table #}
 <div class="border rounded-3 colorProject">
 	<div class="table-responsive">
-		<table class="table table-hover">
-			<thead class="table-borderless">
+		<table class="table table-hover table-borderless">
+			<thead>
 				<tr>
 					<th class="col" scope="col">
 						<h3>Projects</h3>
@@ -177,9 +178,10 @@
 					<th class="col" scope="col">Work Results</th>
 				</tr>
 			</thead>
+			<tr class="border-top border-dark"></tr>
 			<tbody>
 				{% for project in submission.projectEntries %}
-				<tr class="border-bottom border-dark">
+				<tr class="border-bottom border-top border-dark">
 					<th>{{ project.project.Name }}</th>
 					<td>{{ project.Description }}</td>
 					<td>
@@ -230,9 +232,8 @@
 <div class="border rounded-3 colorMisc">
 
 	<div class="table-responsive">
-		<table class="table table-hover">
-			<thead>
-
+		<table class="table table-hover table-borderless">
+			<thead> 
 				<tr>
 					<th class="col" scope="col">
 						<h3>Others</h3>
@@ -248,9 +249,10 @@
 					<th class="col-5" scope="col">Comment</th>
 				</tr>
 			</thead>
+			<tr class="border-top border-dark"></tr>
 			<tbody>
 				{% for misc in submission.miscellaneousEntries %}
-				<tr class="border-bottom border-dark">
+				<tr class="border-bottom border-top border-dark">
 					<th>{{ misc.Task }}</th>
 					<td>{{ misc.Description }}</td>
 					<td>
