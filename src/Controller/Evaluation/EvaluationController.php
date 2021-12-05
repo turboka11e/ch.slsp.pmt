@@ -75,16 +75,19 @@ class EvaluationController extends AbstractController
         $sql = 'SELECT
                     p.name as "Name",
                     p.hours_sold as "hours_sold",
+                    count(DISTINCT (u.id)) as "submitter",
                     sum(pe.target_hours) AS "targetHours",
                     sum(pe.actual_hours) AS "actualHours",
                     sum(pe.target_hours) - sum(pe.actual_hours) AS "diff"
                 FROM
                     project_entry pe,
+                    user u,
                     submission s,
                     project p
                 WHERE 1 = 1
                     AND pe.submission_id = s.id
                     AND pe.project_id = p.id
+                    AND s.user_id = u.id
                 GROUP BY
                     p.name, p.hours_sold
                 ;';

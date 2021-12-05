@@ -2,6 +2,8 @@
 
 namespace App\Controller\Profile\Submission;
 
+use App\Entity\Project;
+use App\Entity\Submission\Sections\ProjectEntry;
 use App\Entity\Submission\Submission;
 use App\Form\Submission\SubmissionFormType;
 use DateTime;
@@ -24,11 +26,11 @@ class SubmissionLifeCycleController extends AbstractController
     public function newSubmission(Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
-            
+
         $date = $request->get('form')['Date'];
         $year = $date['year'];
         $month = $date['month'];
-  
+
         $subMonth = DateTIme::createFromFormat('j-m-Y', '01-' . $month . '-' . $year);
 
         $alreadyCreated = $this->getDoctrine()->getRepository(Submission::class)->findOneBy([
@@ -54,7 +56,13 @@ class SubmissionLifeCycleController extends AbstractController
         $submission->setUpdated($today);
         $submission->setSubmissionMonth($subMonth);
 
-        $form = $this->createForm(SubmissionFormType::class, $submission);
+        $projectChoices = $entityManager->getRepository(Project::class)->findBy([
+            'Archive' => false,
+        ], ['Name' => 'asc']);
+
+        $form = $this->createForm(SubmissionFormType::class, $submission, [
+            'project_choices' => $projectChoices
+        ]);
 
         $form->handleRequest($request);
 
@@ -114,7 +122,20 @@ class SubmissionLifeCycleController extends AbstractController
 
         $today = new DateTime('now');
 
-        $form = $this->createForm(SubmissionFormType::class, $submission);
+        $projectEntriesProjectIds = $submission->getProjectEntries()->map(function (ProjectEntry $projectEntry) {
+            return $projectEntry->getProject()->getId();
+        });
+
+        $qb = $entityManager->getRepository(Project::class)->createQueryBuilder('p');
+        $projectChoices = $qb->select('p')
+            ->where('p.Archive = false or p.id IN (:ids)')
+            ->setParameter(':ids', $projectEntriesProjectIds)
+            ->getQuery()->getResult();
+
+        $form = $this->createForm(SubmissionFormType::class, $submission, [
+            'project_choices' => $projectChoices
+        ]);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

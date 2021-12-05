@@ -48,7 +48,9 @@ class SubmissionFormType extends AbstractType
             ->add('operationEntries', CollectionType::class, [
                 'label' => false,
                 'entry_type' => OperationEntryFormType::class,
-                'entry_options' => ['label' => false],
+                'entry_options' => [
+                    'label' => false,
+                ],
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
@@ -56,7 +58,10 @@ class SubmissionFormType extends AbstractType
             ->add('projectEntries', CollectionType::class, [
                 'label' => false,
                 'entry_type' => ProjectEntryFormType::class,
-                'entry_options' => ['label' => false],
+                'entry_options' => [
+                    'label' => false,
+                    'project_choices' => $options['project_choices'],
+                ],
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
@@ -76,8 +81,11 @@ class SubmissionFormType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([
-            'data_class' => Submission::class,
-        ]);
+        $resolver
+            ->setDefaults([
+                'data_class' => Submission::class,
+            ])->setRequired([
+                'project_choices'
+            ]);
     }
 }

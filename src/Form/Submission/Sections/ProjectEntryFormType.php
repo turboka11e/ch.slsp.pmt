@@ -24,12 +24,12 @@ class ProjectEntryFormType extends AbstractType
             ->add('project', EntityType::class, [
                 'class' => Project::class,
                 'choice_label' => 'Name',
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('p')
-                        ->andWhere("p.Archive = false")
-                        ->orderBy('p.Name', 'ASC')
-                        ;
-                },
+                'choices' => $options['project_choices'],
+                // 'query_builder' => function (EntityRepository $er) {
+                //     return $er->createQueryBuilder('p')
+                //         ->andWhere("p.Archive = false")
+                //         ->orderBy('p.Name', 'ASC');
+                // },
                 'attr' => [
                     'style' => 'width: min-content'
                 ]
@@ -76,8 +76,11 @@ class ProjectEntryFormType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([
-            'data_class' => ProjectEntry::class,
-        ]);
+        $resolver
+            ->setDefaults([
+                'data_class' => ProjectEntry::class,
+            ])->setRequired([
+                'project_choices'
+            ]);
     }
 }

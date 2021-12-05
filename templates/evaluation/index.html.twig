@@ -71,6 +71,7 @@
 							<tr>
 								<th>Project</th>
 								<th>Hours Sold</th>
+								<th>Submitter</th>
 								<th>Target Hours</th>
 								<th>Actual Hours</th>
 								<th>Diff</th>
@@ -81,6 +82,7 @@
 							<tr>
 								<td>{{ project.Name}}</td>
 								<td>{{ project.hours_sold}}</td>
+								<td>{{ project.submitter }}</td>
 								<td>{{ project.targetHours }}</td>
 								<td>{{ project.actualHours ?? 'NA' }}</td>
 								<td>{{ project.diff }}</td>
