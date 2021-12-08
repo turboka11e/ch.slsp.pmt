@@ -2,7 +2,7 @@
 
 ## About
 
-Submission can be turned in for each month by web-interface. Evaluation can be downloaded as excel-file.
+Submissions can be turned in for each month by web-interface. Evaluation can be downloaded as excel-file.
 
 Two user roles: User and Manager with Access Control Interface for easy assignment.
 
@@ -14,8 +14,9 @@ Two user roles: User and Manager with Access Control Interface for easy assignme
 ### Requirements
 
 - php v.7.4.3
+- php extension ZipArchive
 - composer v.2.1.11
-- npm 8.2.0
+- npm
 
 ## Deploy
 

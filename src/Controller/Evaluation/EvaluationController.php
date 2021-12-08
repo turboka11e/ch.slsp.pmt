@@ -108,7 +108,6 @@ class EvaluationController extends AbstractController
      */
     public function evaluationMonth(Request $request, EntityManagerInterface $entityManager): Response
     {
-
         if ($request->isXmlHttpRequest()) {
 
             $year = $request->request->get('year');
@@ -125,7 +124,7 @@ class EvaluationController extends AbstractController
             ])]);
         }
 
-        return $this->redirectToRoute('home');
+        return $this->redirectToRoute('submission_evaluation');
     }
 
     /**
