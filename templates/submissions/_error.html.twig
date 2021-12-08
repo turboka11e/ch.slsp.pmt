@@ -1,0 +1,14 @@
+{% for message in app.flashes('success-subs') %}
+	<div class="mt-3 container-xl">
+		<div class="alert alert-success text-center">
+			{{ message }}
+		</div>
+	</div>
+{% endfor %}
+{% for message in app.flashes('danger-subs') %}
+	<div class="mt-3 container-xl">
+		<div class="alert alert-danger text-center">
+			{{ message }}
+		</div>
+	</div>
+{% endfor %}

@@ -17,6 +17,12 @@ class RegistrationController extends AbstractController
      */
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasherInterface): Response
     {
+
+        // already logged in redirect to home
+        if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED') ) {
+            return $this->redirectToRoute('home');
+        }
+
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);

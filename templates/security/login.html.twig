@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+	<div class="container-xxl position-absolute top-50 start-50 translate-middle d-flex justify-content-center">
+		<div class="row row-cols-1 d-flex justify-content-center">
+			<div class="mb-3 col d-flex justify-content-center">
+				<img src="{{ asset('images/SLSP_Logo.svg') }}" class="img-fluid" style="width: 100px; height: 100px; pointer-events: none" alt="SLSP Logo">
+			</div>
+			<div class="mb-3 col-sm-6 border rounded-3 bg-white shadow-lg">
+
+				<form class="p-3 needs-validation" action="{{ path('login') }}" method="post">
+					<div class="row row-cols-1 g-1">
+						<div class="col d-flex justify-content-center">
+							<h4>Planning Management Tool</h3>
+						</div>
+						<div class="col">
+							<label for="username" class="col-form-label text-secondary">Email</label>
+							<input type="email" class="form-control shadow-sm" id="username" name="_username" value="{{ last_username }}" required/>
+						</div>
+						<div class="col">
+							<label for="password" class="col-form-label text-secondary">Password</label>
+							<input type="password" class="form-control shadow-sm" id="password" name="_password"/ required>
+
+							{% if error %}
+							<label for="password" class="col-form-label text-danger">
+								{{ error.messageKey|trans(error.messageData, 'security') }}
+							</label>
+							{% endif %}
+							
+						</div>
+					</div>
+					
+					<div class="row row-cols-auto d-flex justify-content-between">
+						<div class="mt-3 col-auto">
+							<button class="btn btn-success shadow-sm" type="submit">Sign in</button>
+							<a class="ms-2 align-self-center text-secondary " href="{{ path('app_forgot_password_request') }}">Forgot password?</a>
+						</div>
+						<div class="col-auto">
+							<a class="mt-3 btn btn-outline-secondary" href="register">Register</a>
+						</div>
+					</div>
+					<input
+					type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+					
+					{# If you want to control the URL the user is redirected to on success
+						<input type="hidden" name="_target_path" value="/account"/> #}
+					</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}

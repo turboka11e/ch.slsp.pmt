@@ -10,16 +10,24 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
-  #[Route('/login', name: 'login')]
+  /**
+   * @Route("/login", name="login")
+   */
   public function index(AuthenticationUtils $authenticationUtils): Response
   {
+
+    // already logged in redirect to home
+    if ($this->isGranted('IS_AUTHENTICATED_REMEMBERED') ) {
+      return $this->redirectToRoute('home');
+    }
+
     // get the login error if there is one
     $error = $authenticationUtils->getLastAuthenticationError();
 
     // last username entered by the user
     $lastUsername = $authenticationUtils->getLastUsername();
 
-    return $this->render('login/index.html.twig', [
+    return $this->render('security/login.html.twig', [
       'controller_name' => 'LoginController',
       'last_username' => $lastUsername,
       'error'         => $error,
