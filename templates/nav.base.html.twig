@@ -5,7 +5,7 @@
 
 		<nav class="navbar navbar-expand-md navbar-light bg-light bg-gradient border-bottom">
 			<div class="container-xl">
-				<a class="navbar-brand" href="{{ path('home') }}">
+				<a class="navbar-brand" href="{{ path('app_submissions') }}">
 					<img class="d-inline-block align-text-center" src="{{ asset('images/SLSP_Logo.svg') }}" width="50" height="50">
 					Project Management
 				</a>
@@ -16,15 +16,18 @@
 
 					<ul class="navbar-nav me-auto">
 						<li class="nav-item">
-							<a class="nav-link {{ homelink|default('') }}" href="{{ path('home') }}">Home</a>
-						</li>
-						<li class="nav-item">
 							<a class="nav-link {{ submissionslink|default('') }}" href="{{ path('app_submissions') }}">Submissions</a>
 						</li>
 						{% if is_granted('ROLE_MANAGER') %}
-						<li class="nav-item">
-							<a class="nav-link {{ resultslink|default('') }}" href="{{ path('app_results') }}">Results</a>
-						</li>
+							<li class="nav-item">
+								<a class="nav-link {{ evaluationlink|default('') }}" href="{{ path('submission_evaluation') }}">Evaluation</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link {{ projectslink|default('') }}" href="{{ path('project_index') }}">Projects</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link {{ operationslink|default('') }}" href="{{ path('operations_index') }}">Operations</a>
+							</li>
 						{% endif %}
 					</ul>
 					<ul class="navbar-nav">
@@ -35,6 +38,11 @@
 							</a>
 							<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 								<li>
+									{% if is_granted('ROLE_MANAGER') %}
+										<a class="dropdown-item" href="{{ path('user_index') }}">
+											Access Control
+										</a>
+									{% endif %}
 									<a class="dropdown-item" href="{{ path('app_logout') }}">
 										Logout
 									</a>

@@ -1,0 +1,281 @@
+{% import _self as macros %}
+
+{% macro status(status) %}
+{% if status == "Continuing" %}
+<span class="badge bg-warning">{{ status }}</span>
+{% elseif status == "Hold" %}
+<span class="badge bg-danger">{{ status }}</span>
+{% elseif status == "Done" %}
+<span class="badge bg-success">{{ status }}</span>
+{% endif %}
+{% endmacro %}
+
+{% macro priority(priority) %}
+{% if priority == "Low" %}
+<span class="badge bg-success">{{ priority }}</span>
+{% elseif priority == "Medium" %}
+<span class="badge bg-warning">{{ priority }}</span>
+{% elseif priority == "High" %}
+<span class="badge bg-danger">{{ priority }}</span>
+{% endif %}
+{% endmacro %}
+
+
+{% block javascripts %}
+{{ encore_entry_script_tags('submission') }}
+<script>
+	function calcSubmission() {
+		totalworkhours.value = Number(8.4 * ((parseFloat(Workdays.value) || 0) - (parseFloat(PlannedAbsences.value) || 0) - (parseFloat(FurtherAbsences.value) || 0))).toFixed(2)
+		hourstoplan.value = Number((parseFloat(totalworkhours.value) || 0) * 0.8).toFixed(2)
+		opHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.6).toFixed(2)
+		projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toFixed(2)
+	}
+</script>
+
+{% endblock %}
+
+<div onload="calcSubmission()" class="row g-3">
+
+	{# General #}
+	<div class="container">
+		<div class="row row-cols">
+			<div class="me-auto col">
+				<h1>
+					{{ subMonth|date('F Y') }}
+				</h1>
+				<h5>
+					{{ submission.User.name }} {{ submission.User.surname }}
+				</h5>
+			</div>
+
+			<div class="col-sm-auto">
+				<label for="Workdays" class="form-label">Workdays</label>
+				<input class="form-control" id="Workdays" type="text" value="{{ submission.Workdays }}"
+					style="width: 5em;" disabled>
+			</div>
+			<div class="col-sm-auto">
+				<label for="PlannedAbsences" class="form-label">Planned absences</label>
+				<input class="form-control" id="PlannedAbsences" type="text" value="{{ submission.PlannedAbsences }}"
+					style="width: 5em;" disabled>
+			</div>
+			<div class="col-sm-auto">
+				<label for="FurtherAbsences" class="form-label">Further absences</label>
+				<input class="form-control" id="FurtherAbsences" type="text" value="{{ submission.FurtherAbsences }}"
+					style="width: 5em;" disabled>
+
+			</div>
+			<div class="col-sm-auto">
+				<div class="row">
+					<div class="col">
+						<div class="input-group" style="width: max-content;">
+							<span class="input-group-text bg-light" style="width: 10rem;">Total hours work</span>
+							<output class="form-control text-end" style="width: 5em;" id="totalworkhours"
+								name="totalworkhours" for="Workdays PlannedAbsences FurtherAbsences"></output>
+						</div>
+						<div class="mt-1 input-group" style="width: max-content;">
+							<span class="input-group-text bg-light" style="width: 10rem;">Hours to plan</span>
+							<output class="form-control text-end" style="width: 5em;" id="hourstoplan"
+								for="totalworkhours"></output>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{# Operations Table #}
+	<div class="border rounded-3 colorOperation">
+		<div class="table-responsive">
+			<table class="table table-hover table-borderless">
+				<thead>
+					<tr>
+						<th class="col" scope="col">
+							<h3>Operations</h1>
+						</th>
+						<th class="col text-end" scope="col">
+							<output name="result" id="opHourTarget" for="hourstoplan">0</output>
+						</th>
+						<th class="col" scope="col">Target</th>
+						<th class="col" scope="col"></th>
+						<th class="col" scope="col"></th>
+						<th class="col" scope="col"></th>
+					</tr>
+					<tr>
+						<th class="col" scope="col">Category</th>
+						<th class="col-7" scope="col">Description</th>
+						<th class="col" scope="col">Hours</th>
+						<th class="col" scope="col">Priority</th>
+						<th class="col" scope="col">Status</th>
+						<th class="col" scope="col">Work Results</th>
+					</tr>
+				</thead>
+				<tr class="border-top border-dark"></tr>
+				<tbody>
+
+					{% for operation in submission.operationEntries %}
+					<tr class="border-bottom border-top border-dark">
+						<th>{{ operation.Category }}</th>
+						<td>{{ operation.Description }}</td>
+						<td><input type="text" class="opHour form-control bg-white" value="{{ operation.Hours}}"
+								disabled></td>
+						<td>{{ operation.Priority }}</td>
+						<td>{{ operation.Status }}</td>
+						<td>
+							<div class="overflow-auto" style="max-height: 8rem;">
+								{{ operation.WorkResults }}
+						</td>
+					</tr>
+		</div>
+		{% endfor %}
+		</tbody>
+		<tfoot>
+			<tr>
+				<td></td>
+				<td></td>
+				<td>
+					<output class="form-control" id="opHourSum" type="text" value="0">
+				</td>
+				<td>
+					<div style="width: 7em;"></div>
+				</td>
+				<td>
+					<div style="width: 6em;"></div>
+				</td>
+				<td>
+					<div style="width: 20em;"></div>
+				</td>
+			</tr>
+		</tfoot>
+		</table>
+	</div>
+</div>
+
+{# Projects Table #}
+<div class="border rounded-3 colorProject">
+	<div class="table-responsive">
+		<table class="table table-hover table-borderless">
+			<thead>
+				<tr>
+					<th class="col" scope="col">
+						<h3>Projects</h3>
+					</th>
+					<th class="col text-end" scope="col">
+						<output name="result" id="projectHourTarget" for="hourstoplan">0</output>
+					</th>
+					<th class="col" scope="col">Target</th>
+					<th class="col" scope="col">Actual</th>
+					<th class="col" scope="col"></th>
+					<th class="col" scope="col"></th>
+					<th class="col" scope="col"></th>
+				</tr>
+				<tr>
+					<th class="col" scope="col">Name</th>
+					<th class="col-8" scope="col">Description</th>
+					<th class="col" scope="col">Hours</th>
+					<th class="col" scope="col">Hours</th>
+					<th class="col" scope="col">Priority</th>
+					<th class="col" scope="col">Status</th>
+					<th class="col" scope="col">Work Results</th>
+				</tr>
+			</thead>
+			<tr class="border-top border-dark"></tr>
+			<tbody>
+				{% for project in submission.projectEntries %}
+				<tr class="border-bottom border-top border-dark">
+					<th>{{ project.project.Name }}</th>
+					<td>{{ project.Description }}</td>
+					<td>
+						<input type="text" class="projectHour form-control bg-white" value="{{ project.TargetHours }}"
+							disabled>
+					</td>
+					<td>
+						<input type="text" class="projectActualHour form-control bg-white"
+							value="{{ project.ActualHours }}" disabled>
+					</td>
+					<td>{{ project.Priority }}</td>
+					<td>{{ project.Status }}</td>
+					<td>
+						<div class="overflow-auto" style="max-height: 8rem;">
+							{{ project.WorkResults }}
+						</div>
+					</td>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td></td>
+					<td></td>
+					<td>
+						<output class="form-control" id="projectHourSum" type="text" value="0">
+					</td>
+					<td>
+						<output class="form-control" id="projectActualHourSum" type="text" value="0">
+					</td>
+					<td>
+						<div style="width: 7em;"></div>
+					</td>
+					<td>
+						<div style="width: 6em;"></div>
+					</td>
+					<td>
+						<div style="width: 20em;"></div>
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</div>
+
+{# miscellaneouses Table #}
+<div class="border rounded-3 colorMisc">
+
+	<div class="table-responsive">
+		<table class="table table-hover table-borderless">
+			<thead> 
+				<tr>
+					<th class="col" scope="col">
+						<h3>Others</h3>
+					</th>
+					<th class="col" scope="col"></th>
+					<th class="col" scope="col"></th>
+					<th class="col" scope="col"></th>
+				</tr>
+				<tr>
+					<th class="col-3" scope="col">Task</th>
+					<th class="col-5" scope="col">Description</th>
+					<th class="col" scope="col">Hours</th>
+					<th class="col-5" scope="col">Comment</th>
+				</tr>
+			</thead>
+			<tr class="border-top border-dark"></tr>
+			<tbody>
+				{% for misc in submission.miscellaneousEntries %}
+				<tr class="border-bottom border-top border-dark">
+					<th>{{ misc.Task }}</th>
+					<td>{{ misc.Description }}</td>
+					<td>
+						<input type="text" class="miscHour form-control bg-white" value="{{ misc.TargetHours }}"
+							disabled>
+					</td>
+					<td>
+						<div class="overflow-auto" style="max-height: 8rem;">
+							{{ misc.Comment }}
+						</div>
+					</td>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+			<tfoot>
+				<tr>
+					<td></td>
+					<td></td>
+					<td><output class="form-control" id="miscHourSum" type="text" value="0"></td>
+					<td></td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</div>

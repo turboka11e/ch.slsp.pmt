@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
 export function updateAllSums() {
     updateSum("opHour");
     updateSum("projectHour");
+    updateSum("projectActualHour");
     updateSum("miscHour");
 }
 
@@ -12,6 +13,7 @@ export function updateAllSums() {
 
 $('body').on("keyup change", '.opHour', {name: "opHour"}, (event) => updateSum(event.data.name));
 $('body').on("keyup change", '.projectHour', {name: "projectHour"}, (event) => updateSum(event.data.name));
+$('body').on("keyup change", '.projectActualHour', {name: "projectActualHour"}, (event) => updateSum(event.data.name));
 $('body').on("keyup change", '.miscHour', {name: "miscHour"}, (event) => updateSum(event.data.name));
 
 function updateSum(s) {
@@ -46,7 +48,6 @@ const addOperationFormDeleteLink = (operationFormLi) => {
     })
 }
 
-/* Brauch man erst wenn bereits Rows vorhanden sind */
 const operations = document.querySelectorAll('tr.deleteable')
 operations.forEach((operation) => {
     addOperationFormDeleteLink(operation)

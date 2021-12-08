@@ -11,8 +11,8 @@
 <div class="container-xxl">
 	<div class="row">
 		<div class="col-auto mt-2">
-			<div class="p-3 bg-white shadow-sm">
-				<h5 class="border-bottom pb-3">Submissions</h5>
+			<div class="p-2 bg-white shadow-sm" style="width: 9rem;">
+				<h5 class="border-bottom py-2 text-center">Timeline</h5>
 
 				{% for year, months in subYearMonth %}
 				<ul class="list-unstyled ps-0">
@@ -27,8 +27,17 @@
 							<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
 								{% for month in months %}
 								<li>
-									<a href="{{ path('app_submissions') }}" class="ajax link-dark rounded"
-										year="{{ year }}" month="{{ month|date('m') }}">{{ month|date('F') }}</a>
+									<div class="row align-items-start">
+										<div class="col">
+											<a href="{{ path('app_submissions') }}" class="ajax link-dark rounded"
+												year="{{ year }}" month="{{ month|date('m') }}">{{ month|date('F')
+												}}</a>
+											<div id="spinner" class="my-auto spinner-border spinner-border-sm"
+												role="status" style="visibility: hidden;">
+												<span class="visually-hidden">Loading...</span>
+											</div>
+										</div>
+									</div>
 								</li>
 								{% endfor %}
 							</ul>
@@ -36,12 +45,13 @@
 					</li>
 				</ul>
 				{% endfor %}
-				<ul class="border-bottom">
-				</ul>
-				{% include "submission/_create.html.twig" %}
+				<ul class="border-bottom"></ul>
+				<div class="row  px-3">
+					{% include "submission/_create.modal.html.twig" %}
+				</div>
 			</div>
 		</div>
-		<div class="col flex-column">
+		<div class="col pb-3 flex-column">
 			<div id="ajax-results" class="d-flex flex-column mt-2 p-3 bg-white shadow-sm">
 				<h3>Overview of submitted forms.</h3>
 			</div>

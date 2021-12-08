@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Submission\Submission;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -12,6 +13,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\Table(name="`user`")
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -50,7 +52,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $surname;
 
     /**
-     * @ORM\OneToMany(targetEntity=Submission::class, mappedBy="UserId")
+     * @ORM\OneToMany(targetEntity=App\Entity\Submission\Submission::class, mappedBy="User")
      */
     private $submissions;
 
@@ -113,6 +115,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function grantManagerAccess(): self 
+    {
+        $roles = $this->roles;
+        $roles[] = 'ROLE_MANAGER';
+        $this->roles = array_unique($roles);
+        
+        return $this;
+    }
+
+    public function revokeManagerAccess(): self 
+    {
+        $roles = $this->roles;
+        $this->roles = array_diff($roles, ["ROLE_MANAGER"]);
+        
+        return $this;
+    }
+
     /**
      * @see PasswordAuthenticatedUserInterface
      */
@@ -172,6 +191,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getNameComplete(): ?string {
+        return $this->name . ' ' . $this->surname;
+    }
+
+    public function getNameShort(): ?string {
+        return substr($this->name, 0, 1) . substr($this->surname, 0, 2); 
+    }
+
     /**
      * @return Collection|Submission[]
      */
@@ -184,7 +211,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->submissions->contains($submission)) {
             $this->submissions[] = $submission;
-            $submission->setUserId($this);
+            $submission->setUser($this);
         }
 
         return $this;
@@ -194,8 +221,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->submissions->removeElement($submission)) {
             // set the owning side to null (unless already changed)
-            if ($submission->getUserId() === $this) {
-                $submission->setUserId(null);
+            if ($submission->getUser() === $this) {
+                $submission->setUser(null);
             }
         }
 

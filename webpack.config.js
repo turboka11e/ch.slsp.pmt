@@ -23,6 +23,8 @@ Encore
     .addEntry('app', './assets/app.js')
     .addEntry('submission', './assets/submission.js')
     .addEntry('submissions', './assets/submissions.js')
+    .addEntry('evaluation', './assets/evaluation.js')
+    .addEntry('submissionModal', './assets/submissionModal.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')

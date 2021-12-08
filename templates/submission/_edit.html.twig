@@ -1,0 +1,9 @@
+<form action="{{ path('edit_submission') }}" method="PUT">
+	<div>
+		<input type="hidden" id="year" name="year" value="{{ year }}">
+		<input type="hidden" id="month" name="month" value="{{ month }}">
+	</div>
+	<div>
+		<button type="submit" class="btn btn btn-outline-warning">Edit</button>
+	</div>
+</form>

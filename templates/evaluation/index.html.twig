@@ -1,0 +1,100 @@
+{% block title %}Evaluation
+{% endblock %}
+
+{% extends 'nav.base.html.twig' %}
+
+{% set evaluationlink = 'active' %}
+
+{% block javascripts %}
+{{ encore_entry_script_tags('evaluation') }}
+{% endblock %}
+
+{% block content %}
+
+<div class="container-xxl">
+	<div class="row">
+		<div class="col-auto mt-2">
+			<div class="p-2 bg-white shadow-sm" style="width: 9rem;">
+				<h5 class="border-bottom py-2 text-center">Timeline</h5>
+
+				{% for year, months in subsYearMonth %}
+				<ul class="list-unstyled ps-0">
+					<li class="mb-1">
+						<button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse"
+							data-bs-target="#collapse-{{ year }}" {% if loop.first %} aria-expanded="true" {% else %}
+							aria-expanded="false" {% endif %}>
+							{{ year }}
+						</button>
+						<div {% if loop.first %} class="collapse show" {% else %} class="collapse" {% endif %}
+							id="collapse-{{ year }}">
+							<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+								{% for month in months %}
+								<li>
+									<div class="row align-items-start">
+										<div class="col">
+											<a href="{{ path('submission_evaluation_month') }}"
+												class="ajax link-dark rounded my-auto" year="{{ year }}"
+												month="{{ month|date('m') }}">
+												{{ month|date('F') }}
+											</a>
+											<div id="spinner" class="my-auto spinner-border spinner-border-sm"
+												role="status" style="visibility: hidden;">
+												<span class="visually-hidden">Loading...</span>
+											</div>
+										</div>
+									</div>
+								</li>
+								{% endfor %}
+							</ul>
+						</div>
+					</li>
+				</ul>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="col flex-column">
+
+			<div class="d-flex flex-column mt-2 p-3 bg-white shadow-sm">
+				<div id="ajax-results">
+					<div class="row">
+						<div class="col align-self-start">
+							<h1>Evaluation</h1>
+						</div>
+						<div class="col d-flex my-auto justify-content-end align-self-end">
+							<div class="my-auto mx-2 text-center">Download</div>
+							<a class="my-auto btn btn-outline-success"
+								href="{{ path('download_all_projects') }}">Projects</a>
+						</div>
+					</div>
+					<table class="table table-sm table-striped table-borderless">
+						<thead>
+							<tr>
+								<th>Project</th>
+								<th>Hours Sold</th>
+								<th>Submitter</th>
+								<th>Target Hours</th>
+								<th>Actual Hours</th>
+								<th>Diff</th>
+							</tr>
+						</thead>
+						<tr class="border-top border-dark"></tr>
+						<tbody>
+							{% for project in all_time_projects %}
+							<tr>
+								<td>{{ project.Name}}</td>
+								<td>{{ project.hours_sold}}</td>
+								<td>{{ project.submitter }}</td>
+								<td>{{ project.targetHours }}</td>
+								<td>{{ project.actualHours ?? 'NA' }}</td>
+								<td>{{ project.diff }}</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% include "submission/modal/_placeholder.html.twig" %}
+</div>
+{% endblock %}

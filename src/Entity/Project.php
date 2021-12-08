@@ -2,8 +2,12 @@
 
 namespace App\Entity;
 
+use App\Entity\Submission\Sections\ProjectEntry;
 use App\Repository\ProjectRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OrderBy;
 
 /**
  * @ORM\Entity(repositoryClass=ProjectRepository::class)
@@ -23,29 +27,14 @@ class Project
     private $Name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      */
-    private $Description;
+    private $HoursSold;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="date")
      */
-    private $TargetHours;
-
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private $ActualHours;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $Priority;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $WorkResults;
+    private $Created;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -53,10 +42,20 @@ class Project
     private $Status;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Submission::class, inversedBy="projects")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="boolean")
      */
-    private $SubmissionId;
+    private $Archive;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ProjectEntry::class, mappedBy="project", orphanRemoval=true)
+     * @OrderBy({"Submission" = "DESC"})
+     */
+    private $ProjectEntries;
+
+    public function __construct()
+    {
+        $this->ProjectEntries = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -75,62 +74,26 @@ class Project
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getHoursSold(): ?int
     {
-        return $this->Description;
+        return $this->HoursSold;
     }
 
-    public function setDescription(string $Description): self
+    public function setHoursSold(int $HoursSold): self
     {
-        $this->Description = $Description;
+        $this->HoursSold = $HoursSold;
 
         return $this;
     }
 
-    public function getTargetHours(): ?float
+    public function getCreated(): ?\DateTimeInterface
     {
-        return $this->TargetHours;
+        return $this->Created;
     }
 
-    public function setTargetHours(float $TargetHours): self
+    public function setCreated(\DateTimeInterface $Created): self
     {
-        $this->TargetHours = $TargetHours;
-
-        return $this;
-    }
-
-    public function getActualHours(): ?float
-    {
-        return $this->ActualHours;
-    }
-
-    public function setActualHours(float $ActualHours): self
-    {
-        $this->ActualHours = $ActualHours;
-
-        return $this;
-    }
-
-    public function getPriority(): ?string
-    {
-        return $this->Priority;
-    }
-
-    public function setPriority(string $Priority): self
-    {
-        $this->Priority = $Priority;
-
-        return $this;
-    }
-
-    public function getWorkResults(): ?string
-    {
-        return $this->WorkResults;
-    }
-
-    public function setWorkResults(?string $WorkResults): self
-    {
-        $this->WorkResults = $WorkResults;
+        $this->Created = $Created;
 
         return $this;
     }
@@ -147,14 +110,56 @@ class Project
         return $this;
     }
 
-    public function getSubmissionId(): ?Submission
+    public function getArchive(): ?bool
     {
-        return $this->SubmissionId;
+        return $this->Archive;
     }
 
-    public function setSubmissionId(?Submission $SubmissionId): self
+    public function setArchive(bool $Archive): self
     {
-        $this->SubmissionId = $SubmissionId;
+        $this->Archive = $Archive;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProjectEntry[]
+     */
+    public function getProjectEntries(): Collection
+    {
+        return $this->ProjectEntries;
+    }
+
+    /**
+     * @return void
+     */
+    public function sortProjectEntriesByTime()
+    {
+        $iter = $this->ProjectEntries->getIterator();
+        $iter->uasort(function (ProjectEntry $a, ProjectEntry $b) {
+            return ($a->getSubmission()->getSubmissionMonth() <=> $b->getSubmission()->getSubmissionMonth()) * (-1);
+        });
+        $this->ProjectEntries = new ArrayCollection(iterator_to_array($iter));
+    }
+
+    public function addProjectEntry(ProjectEntry $projectEntry): self
+    {
+        if (!$this->ProjectEntries->contains($projectEntry)) {
+            $this->ProjectEntries[] = $projectEntry;
+            $projectEntry->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjectEntry(ProjectEntry $projectEntry): self
+    {
+        if ($this->ProjectEntries->removeElement($projectEntry)) {
+            // set the owning side to null (unless already changed)
+            if ($projectEntry->getProject() === $this) {
+                $projectEntry->setProject(null);
+            }
+        }
 
         return $this;
     }
