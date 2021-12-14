@@ -61,6 +61,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $isVerified = false;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $workload;
+
     public function __construct()
     {
         $this->submissions = new ArrayCollection();
@@ -242,6 +247,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getWorkload(): ?float
+    {
+        return $this->workload;
+    }
+
+    public function setWorkload(float $workload): self
+    {
+        $this->workload = $workload;
 
         return $this;
     }
