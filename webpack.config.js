@@ -22,6 +22,7 @@ Encore
      */
     .addEntry('app', './assets/app.js')
     .addEntry('submission', './assets/submission.js')
+    .addEntry('submissionWriteable', './assets/submissionWriteable.js')
     .addEntry('submissions', './assets/submissions.js')
     .addEntry('evaluation', './assets/evaluation.js')
     .addEntry('submissionModal', './assets/submissionModal.js')
@@ -60,7 +61,7 @@ Encore
     })
 
     // enables Sass/SCSS support
-    //.enableSassLoader()
+    .enableSassLoader()
 
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()

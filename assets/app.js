@@ -6,17 +6,10 @@
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
-import './styles/app.css';
+import './styles/app.scss';
 
 // start the Stimulus application
 import './bootstrap';
 
-// qualify integer
-function filterInt(value) {
-    if (value.length == 0) {
-        return 0;
-    }
-    if (/^(\-|\+)?([0-9]+|Infinity)$/.test(value))
-        return Number(value);
-    return NaN;
-}
+// the bootstrap module doesn't export/return anything
+require('bootstrap');

@@ -1,34 +1,10 @@
 {% import _self as macros %}
 
-{% macro status(status) %}
-{% if status == "Continuing" %}
-<span class="badge bg-warning">{{ status }}</span>
-{% elseif status == "Hold" %}
-<span class="badge bg-danger">{{ status }}</span>
-{% elseif status == "Done" %}
-<span class="badge bg-success">{{ status }}</span>
-{% endif %}
-{% endmacro %}
-
-{% macro priority(priority) %}
-{% if priority == "Low" %}
-<span class="badge bg-success">{{ priority }}</span>
-{% elseif priority == "Medium" %}
-<span class="badge bg-warning">{{ priority }}</span>
-{% elseif priority == "High" %}
-<span class="badge bg-danger">{{ priority }}</span>
-{% endif %}
-{% endmacro %}
-
-
 {% block javascripts %}
-{{ encore_entry_script_tags('submission') }}
 <script>
 	function calcSubmission() {
 		totalworkhours.value = Number(8.4 * ((parseFloat(Workdays.value) || 0) - (parseFloat(PlannedAbsences.value) || 0) - (parseFloat(FurtherAbsences.value) || 0))).toFixed(2)
 		hourstoplan.value = Number((parseFloat(totalworkhours.value) || 0) * 0.8).toFixed(2)
-		opHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.6).toFixed(2)
-		projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toFixed(2)
 	}
 </script>
 
@@ -37,7 +13,7 @@
 <div onload="calcSubmission()" class="row g-3">
 
 	{# General #}
-	<div class="container">
+	<div class="container-xl">
 		<div class="row row-cols">
 			<div class="me-auto col">
 				<h1>
@@ -92,9 +68,7 @@
 						<th class="col" scope="col">
 							<h3>Operations</h1>
 						</th>
-						<th class="col text-end" scope="col">
-							<output name="result" id="opHourTarget" for="hourstoplan">0</output>
-						</th>
+						<th class="col" scope="col"></th>
 						<th class="col" scope="col">Target</th>
 						<th class="col" scope="col"></th>
 						<th class="col" scope="col"></th>
@@ -159,9 +133,7 @@
 					<th class="col" scope="col">
 						<h3>Projects</h3>
 					</th>
-					<th class="col text-end" scope="col">
-						<output name="result" id="projectHourTarget" for="hourstoplan">0</output>
-					</th>
+					<th class="col" scope="col"></th>
 					<th class="col" scope="col">Target</th>
 					<th class="col" scope="col">Actual</th>
 					<th class="col" scope="col"></th>

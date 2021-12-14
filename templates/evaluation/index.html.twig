@@ -6,7 +6,10 @@
 {% set evaluationlink = 'active' %}
 
 {% block javascripts %}
+{{ parent() }}
 {{ encore_entry_script_tags('evaluation') }}
+{{ encore_entry_script_tags('submission') }}
+{{ encore_entry_script_tags('submissionModal') }}
 {% endblock %}
 
 {% block content %}

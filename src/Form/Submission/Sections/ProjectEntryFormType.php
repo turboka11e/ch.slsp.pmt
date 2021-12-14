@@ -2,14 +2,10 @@
 
 namespace App\Form\Submission\Sections;
 
-use App\Entity\Choices\ProjectChoice;
 use App\Entity\Project;
 use App\Entity\Submission\Sections\ProjectEntry;
-use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Mapping\Entity;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -25,11 +21,6 @@ class ProjectEntryFormType extends AbstractType
                 'class' => Project::class,
                 'choice_label' => 'Name',
                 'choices' => $options['project_choices'],
-                // 'query_builder' => function (EntityRepository $er) {
-                //     return $er->createQueryBuilder('p')
-                //         ->andWhere("p.Archive = false")
-                //         ->orderBy('p.Name', 'ASC');
-                // },
                 'attr' => [
                     'style' => 'width: min-content'
                 ]

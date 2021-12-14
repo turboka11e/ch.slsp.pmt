@@ -16,7 +16,11 @@
 {% macro printProject(projects) %}
 
 	<tr class="deleteable">
-		<td>{{ form_widget(projects.project) }}</td>
+		<td>
+			<div class="ui-widget">
+				{{ form_widget(projects.project) }}
+			</div>
+		</td>
 		<td>{{ form_widget(projects.Description) }}</td>
 		<td>{{ form_widget(projects.TargetHours, {'attr': {'class': 'projectHour'}}) }}</td>
 		<td>{{ form_widget(projects.ActualHours, {'attr': {'class': 'projectActualHour'}}) }}</td>
@@ -39,13 +43,11 @@
 {% endmacro %}
 
 {% block javascripts %}
-	{{ encore_entry_script_tags('submission') }}
+	{{ encore_entry_script_tags('submissionWriteable') }}
 	<script>
 		function calcSubmission() {
-totalworkhours.value = Number(8.4 * ((parseFloat(submission_form_Workdays.value) || 0) - (parseFloat(submission_form_PlannedAbsences.value) || 0) - (parseFloat(submission_form_FurtherAbsences.value) || 0))).toFixed(2)
+totalworkhours.value = Number(8.4 * ((parseFloat(submission_form_Workdays.value) || 0) - (parseFloat(submission_form_PlannedAbsences.value) || 0) - (parseFloat(submission_form_FurtherAbsences.value) || 0))).toFixed(2);
 hourstoplan.value = Number((parseFloat(totalworkhours.value) || 0) * 0.8).toFixed(2)
-opHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.6).toFixed(2)
-projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toFixed(2)
 }
 	</script>
 
@@ -105,9 +107,7 @@ projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toF
 							<th class="col" scope="col">
 								<h3>Operations</h1>
 							</th>
-							<th class="col text-end" scope="col">
-								<output name="result" id="opHourTarget" for="hourstoplan">0</output>
-							</th>
+							<th class="col" scope="col"></th>
 							<th class="col" scope="col">Target</th>
 							<th class="col" scope="col"></th>
 							<th class="col" scope="col"></th>
@@ -164,9 +164,7 @@ projectHourTarget.value = Number((parseFloat(hourstoplan.value) || 0) * 0.4).toF
 							<th class="col" scope="col">
 								<h3>Projects</h3>
 							</th>
-							<th class="col text-end" scope="col">
-								<output name="result" id="projectHourTarget" for="hourstoplan" style="width: 6em;">0</output>
-							</th>
+							<th class="col" scope="col"></th>
 							<th class="col" scope="col">Target</th>
 							<th class="col" scope="col">Actual</th>
 							<th class="col" scope="col"></th>

@@ -3,6 +3,7 @@
 {% set submissionslink = 'active' %}
 
 {% block javascripts %}
+{{ parent() }}
 {{ encore_entry_script_tags('submissions') }}
 {% endblock %}
 
@@ -53,7 +54,16 @@
 		</div>
 		<div class="col pb-3 flex-column">
 			<div id="ajax-results" class="d-flex flex-column mt-2 p-3 bg-white shadow-sm">
-				<h3>Overview of submitted forms.</h3>
+				<h3>Monthly Submission</h3>
+				<p class="text-start">
+				Please complete your monthly planning by the end of the previous month. 
+				You can do this every month by clicking on the "New" button on the left-hand side. 
+				Please remember to submit the actual hours for the projects afterwards.
+				<p class="text-start">
+				If you have any problems, questions or further feedback please do not hesitate to contact us:
+				</p>
+				<a href="mailto:Benjamin.Kuhn@slsp.ch?subject=Planning Tool" class="text-decoration-none">benjamin.kuhn@slsp.ch</a>				
+				<a href="mailto:Lukas.Kaluscha@slsp.ch?subject=Planning Tool" class="text-decoration-none">lukas.kaluscha@slsp.ch</a>
 			</div>
 		</div>
 	</div>

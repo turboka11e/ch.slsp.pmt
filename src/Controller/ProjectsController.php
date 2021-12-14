@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProjectsController extends AbstractController
 {
     /**
-     * @Route("/", name="project_index", methods={"GET"})
+     * @Route("/active", name="project_index", methods={"GET"})
      */
     public function index(ProjectRepository $projectRepository): Response
     {
