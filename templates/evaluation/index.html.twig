@@ -73,11 +73,11 @@
 						<thead>
 							<tr>
 								<th>Project</th>
-								<th>Hours Sold</th>
 								<th>Submitter</th>
-								<th>Target Hours</th>
+								<th>Hours Sold</th>
 								<th>Actual Hours</th>
-								<th>Diff</th>
+								<th>Sold / Actual Hours</th>
+								<th>Target Hours</th>
 							</tr>
 						</thead>
 						<tr class="border-top border-dark"></tr>
@@ -85,11 +85,11 @@
 							{% for project in all_time_projects %}
 							<tr>
 								<td>{{ project.Name}}</td>
-								<td>{{ project.hours_sold}}</td>
 								<td>{{ project.submitter }}</td>
-								<td>{{ project.targetHours }}</td>
+								<td>{{ project.hours_sold}}</td>
 								<td>{{ project.actualHours ?? 'NA' }}</td>
 								<td>{{ project.diff }}</td>
+								<td>{{ project.targetHours }}</td>
 							</tr>
 							{% endfor %}
 						</tbody>
