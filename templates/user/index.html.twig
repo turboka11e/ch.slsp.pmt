@@ -12,6 +12,7 @@
 					<tr>
 						<th>Surname</th>
 						<th>Name</th>
+						<th>Workload %</th>
 						<th>Email</th>
 						<th>Manager</th>
 						<th>Verified</th>
@@ -23,6 +24,7 @@
 						<tr>
 							<td>{{ user.surname }}</td>
 							<td>{{ user.name }}</td>
+							<td>{{ user.workload * 100 }}</td>
 							<td>{{ user.email }}</td>
 							{% if "ROLE_MANAGER" in user.roles|json_encode %}
 								<td><input type="checkbox" checked disabled></td>

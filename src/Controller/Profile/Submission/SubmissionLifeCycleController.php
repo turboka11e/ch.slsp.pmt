@@ -81,6 +81,7 @@ class SubmissionLifeCycleController extends AbstractController
             'today' => $today,
             'subMonth' => $subMonth,
             'form' => $form->createView(),
+            'workload' => $user->getWorkload(),
             'csrf_protection' => true,
             'csrf_field_name' => '_token',
             'csrf_token_id' => 'form'
@@ -154,6 +155,7 @@ class SubmissionLifeCycleController extends AbstractController
             'today' => $today,
             'subMonth' => $subMonth,
             'form' => $form->createView(),
+            'workload' => $user->getWorkload(),
             'csrf_protection' => true,
             'csrf_field_name' => '_token',
             'csrf_token_id' => 'form'

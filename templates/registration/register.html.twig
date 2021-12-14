@@ -13,6 +13,7 @@
         {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.name) }}
         {{ form_row(registrationForm.surname) }}
+        {{ form_row(registrationForm.workload) }}
         {{ form_row(registrationForm.email) }}
         {{ form_row(registrationForm.plainPassword, { label: 'Password' }) }}
         <button type="submit" class="btn btn-success">Register</button>

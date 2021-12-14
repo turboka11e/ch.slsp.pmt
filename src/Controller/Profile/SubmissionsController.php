@@ -33,6 +33,8 @@ class SubmissionsController extends AbstractController
      */
     public function submissions(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+
         if ($request->isXmlHttpRequest()) {
 
             $results = $this->getYearMonthTodaySubMonth($request);
@@ -40,8 +42,6 @@ class SubmissionsController extends AbstractController
                 return new JsonResponse(['output' => $this->renderView('submissions/_error.html.twig')]);
             }
             [$year, $month, $today, $subMonth] = $results;
-
-            $user = $this->getUser();
 
             $submission = $entityManager->getRepository(Submission::class)->findOneBy([
                 'SubmissionMonth' => $subMonth,
@@ -55,6 +55,7 @@ class SubmissionsController extends AbstractController
             return new JsonResponse(['output' => $this->renderView('submission/_ajax.readonly.html.twig', [
                 'today' => $today,
                 'subMonth' => $subMonth,
+                'workload' => $user->getWorkload(),
                 'year' => $year,
                 'month' => $month,
                 'submission' => $submission,
@@ -62,7 +63,7 @@ class SubmissionsController extends AbstractController
         }
 
         $submissions = $entityManager->getRepository(Submission::class)->findBy([
-            'User' => $this->getUser()->getId()
+            'User' => $user->getId()
         ], ["SubmissionMonth" => 'desc']);
 
         $submissionsSubMonth = array_map(function (Submission $s) {
@@ -142,6 +143,7 @@ class SubmissionsController extends AbstractController
             return new JsonResponse(['output' => $this->renderView('submission/modal/_ajax.content.html.twig', [
                 'today' => $today,
                 'subMonth' => $subMonth,
+                'workload' => $submission->getUser()->getWorkload(),
                 'year' => $year,
                 'month' => $month,
                 'submission' => $submission,

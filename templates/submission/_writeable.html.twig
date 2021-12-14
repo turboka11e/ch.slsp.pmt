@@ -46,7 +46,7 @@
 	{{ encore_entry_script_tags('submissionWriteable') }}
 	<script>
 		function calcSubmission() {
-totalworkhours.value = Number(8.4 * ((parseFloat(submission_form_Workdays.value) || 0) - (parseFloat(submission_form_PlannedAbsences.value) || 0) - (parseFloat(submission_form_FurtherAbsences.value) || 0))).toFixed(2);
+totalworkhours.value = Number(8.4 * ((parseFloat(Workload.value) / 100 * parseFloat(submission_form_Workdays.value) || 0) - (parseFloat(submission_form_PlannedAbsences.value) || 0) - (parseFloat(submission_form_FurtherAbsences.value) || 0))).toFixed(2);
 hourstoplan.value = Number((parseFloat(totalworkhours.value) || 0) * 0.8).toFixed(2)
 }
 	</script>
@@ -68,6 +68,16 @@ hourstoplan.value = Number((parseFloat(totalworkhours.value) || 0) * 0.8).toFixe
 					<h1>
 						{{ subMonth|date('F Y') }}
 					</h1>
+				</div>
+				<div class="col-sm-auto">
+					<label for="Workload" class="form-label">Workload</label>
+					<div class="input-group">
+						<input class="form-control" id="Workload" type="text" value="{{ workload * 100}}"
+							style="width: 4rem;" disabled>
+						<div class="input-group-append">
+							<span class="input-group-text bg-light">%</span>
+						</div>
+					</div>
 				</div>
 				<div class="col-sm-auto">
 					<label for="submission_task_form_submission_Workdays" class="form-label">Workdays</label>
