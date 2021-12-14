@@ -3,10 +3,14 @@
 {% block title %}Reset your password{% endblock %}
 
 {% block body %}
+<div class="container-xxl position-absolute top-50 start-50 translate-middle d-flex justify-content-center">
+		<div class="p-3 border rounded-3 bg-white shadow-lg" style="max-width: 30rem;">
     <h1>Reset your password</h1>
 
     {{ form_start(resetForm) }}
         {{ form_row(resetForm.plainPassword) }}
         <button class="btn btn-primary">Reset password</button>
     {{ form_end(resetForm) }}
+    </div>
+</div>
 {% endblock %}

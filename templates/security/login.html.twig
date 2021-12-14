@@ -8,7 +8,16 @@
 				<img src="{{ asset('images/SLSP_Logo.svg') }}" class="img-fluid" style="width: 100px; height: 100px; pointer-events: none" alt="SLSP Logo">
 			</div>
 			<div class="mb-3 col-sm-6 border rounded-3 bg-white shadow-lg">
-
+				{% for message in app.flashes('success') %}
+					<div class="mt-3 container-xl">
+						<div class="alert alert-success text-center">
+							{{ message }}
+						</div>
+					</div>
+				{% endfor %}
+				{% for flashError in app.flashes('verify_email_error') %}
+						<div class="alert alert-danger" role="alert">{{ flashError }}</div>
+				{% endfor %}
 				<form class="p-3 needs-validation" action="{{ path('login') }}" method="post">
 					<div class="row row-cols-1 g-1">
 						<div class="col d-flex justify-content-center">

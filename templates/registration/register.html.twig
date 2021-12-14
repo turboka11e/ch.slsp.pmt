@@ -5,6 +5,9 @@
 
 {% block body %}
 <div class="container-xxl position-absolute top-50 start-50 translate-middle d-flex justify-content-center">
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+    {% endfor %}
     <div class="p-3 border rounded-3 bg-white shadow-lg" style="max-width: 30rem;">
         <h1>Register</h1>
         {{ form_start(registrationForm) }}
@@ -12,7 +15,6 @@
         {{ form_row(registrationForm.surname) }}
         {{ form_row(registrationForm.email) }}
         {{ form_row(registrationForm.plainPassword, { label: 'Password' }) }}
-        {# {{ form_row(registrationForm.agreeTerms) }} #}
         <button type="submit" class="btn btn-success">Register</button>
         <a href="{{ path('login') }}" class="btn btn-secondary">Back</a>
         {{ form_end(registrationForm) }}

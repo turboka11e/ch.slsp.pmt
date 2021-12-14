@@ -14,6 +14,7 @@
 						<th>Name</th>
 						<th>Email</th>
 						<th>Manager</th>
+						<th>Verified</th>
 						<th>actions</th>
 					</tr>
 				</thead>
@@ -28,6 +29,7 @@
 							{% else %}
 								<td><input type="checkbox" disabled></td>
 							{% endif %}
+							<td>{{ user.verified ? 'Yes':'No'}}</td>
 							<td>
 								<a class="btn btn-sm btn-outline-primary" href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
 							</td>
