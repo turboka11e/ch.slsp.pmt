@@ -29,16 +29,12 @@
 					<td>{{ submission.User.Name }}
 						{{ submission.User.Surname }}
 					</td>
-					<td>{{ submission.Workdays }}
-					</td>
+					<td>{{ submission.Workdays }}</td>
 					<td>{{ submission.PlannedAbsences }}</td>
 					<td>{{ submission.FurtherAbsences }}</td>
-					<td>{{ submission.OperationEntries|length }}
-					</td>
-					<td>{{ submission.ProjectEntries|length }}
-					</td>
-					<td>{{ submission.MiscellaneousEntries|length }}
-					</td>
+					<td>{{ submission.OperationEntries|length }}</td>
+					<td>{{ submission.ProjectEntries|length }}</td>
+					<td>{{ submission.MiscellaneousEntries|length }}</td>
 					<td>
 						<button type="button" href="{{ path('extern_submission') }}" userid="{{ submission.User.id }}" year="{{submission.SubmissionMonth|date('Y')}}" month="{{submission.SubmissionMonth|date('m')}}" class="ajax btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#submissionModal">Show</button>
 					</td>

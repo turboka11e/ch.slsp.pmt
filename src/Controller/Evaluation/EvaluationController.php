@@ -64,6 +64,7 @@ class EvaluationController extends AbstractController
 
         $sql = 'SELECT
                     p.name as "Name",
+                    p.status as "Status",
                     p.hours_sold as "hours_sold",
                     count(DISTINCT (u.id)) as "submitter",
                     sum(pe.target_hours) AS "targetHours",
