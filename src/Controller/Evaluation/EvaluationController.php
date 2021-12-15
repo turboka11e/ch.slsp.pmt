@@ -133,7 +133,7 @@ class EvaluationController extends AbstractController
                     CONCAT(SUBSTRING(u.name, 1, 1), SUBSTRING(u.surname, 1, 2)) as "Name short",
                     pe.target_hours as "Target Hours", 
                     pe.actual_hours as "Actual Hours",
-                    p.target_hours - pe.actual_hours as "Diff",
+                    pe.target_hours - pe.actual_hours as "Diff",
                     pe.status as "Individual Status",
                     pe.priority as "Priority",
                     pe.work_results as "Work Results"
